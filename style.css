@@ -1,0 +1,122 @@
+/* admin */
+.prevSsImg{
+    width: 100%;
+    height: auto;
+}
+
+.prevSsImg img{
+    width: 100%;
+    height: 100%;
+}
+
+/*register page*/
+.pw-box{
+    position: relative;
+}
+
+.ic{
+    position: absolute;
+    top: 45%;
+    right: 1%;
+    cursor: pointer;
+    color: gray;
+}
+
+.register-box{
+    width: 80%;
+/*    border: 2px solid black;*/
+    margin: auto;
+    color: black;
+}
+
+.strong{
+    border-color: green;
+}
+
+.weak{
+    border-color: red;
+}
+
+.weak:focus{
+    box-shadow: 0 0 0 0.25rem rgb(255,0,0,0.75);
+}
+
+.strong:focus{
+    box-shadow: 0 0 0 0.25rem rgba(0,128,0,.25);
+}
+
+/*login page*/
+.login-box{
+    width: 80%;
+    margin: auto;
+    color: black;
+}
+
+.navi-panel{
+/*    width: 100%;*/
+    height: 500px;
+    border: 2px solid red;
+    margin: 0;
+}
+
+.main-panel{
+/*    width: 100%;*/
+    height: 500px;
+    border: 2px solid blue;
+    margin: 0;
+}
+
+.icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid red;
+}
+
+.adminIcon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid blue;
+}
+
+/*create content*/
+.tabBtnLink{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.tabPanelBox{
+    margin-top: -1px;
+    width: 100%;
+    overflow: hidden;
+}
+
+/*create series*/
+.preview_cv{
+    width: 300px;
+    height: 300px;
+    border: 2px solid black;
+    overflow: hidden;
+}
+
+.preview_cv img{
+    width: 300px;
+    height: 300px;
+}
+
+/*add chapters*/
+.preview_chap{
+    width: 400px;
+    height: 600px;
+    display: flex;
+    border: 2px solid black;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.preview_chap img{
+    width: 400px;
+    height: auto;
+}
