@@ -126,7 +126,6 @@
 	(
 		vc_id CHAR(8) NOT NULL PRIMARY KEY,
 		chap_id CHAR(8),
-		vc_date DATE,
 		views INT(8) DEFAULT 0,
 		FOREIGN KEY(chap_id) REFERENCES chapter(chap_id)
 	)";
@@ -164,7 +163,7 @@
 		crt_id CHAR(8) NOT NULL PRIMARY KEY,
 		user_id CHAR(8),
 		chap_id CHAR(8),
-		read_date DATE,
+		read_date DATETIME,
 		FOREIGN KEY(user_id) REFERENCES user(user_id),
 		FOREIGN KEY(chap_id) REFERENCES chapter(chap_id)
 	)";
@@ -190,6 +189,7 @@
 		eap_id CHAR(8) NOT NULL PRIMARY KEY,
 		user_id CHAR(8),
 		lock_id CHAR(8),
+		purc_date DATETIME,
 		FOREIGN KEY(user_id) REFERENCES user(user_id),
 		FOREIGN KEY(lock_id) REFERENCES locked_chapter(lock_id)
 	)";

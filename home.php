@@ -16,7 +16,11 @@
 		<?php include 'nav.php'; ?>
 	</header>
 	<section>
-		<h1>This is Home Page.</h1>
+		<div class="container">
+			<div class="row">
+				
+			</div>
+		</div>
 	</section>
 </body>
 </html>

@@ -113,9 +113,21 @@
             $number    = preg_match('@[0-9]@', $pw);
             $specialChars = preg_match('@[^\w]@', $pw);
 
-            if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($pw) < 8) {
+			if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($pw) < 8)
+				$pcheck = "weak";
+			else
+				$pcheck = "strong";
+
+			if (filter_var($email, FILTER_VALIDATE_EMAIL))
+				$mailCheck = "yes";
+			else
+				$mailCheck = "no";
+
+            if($pcheck == "weak") {
                 echo "<script>alert('Your password is weak. A strong password should be at least 8 characters in length and must include at least one upper case letter, one number, and one special character.')</script>";
-            }else{
+            }elseif($mailCheck == "no"){
+				echo "<script>alert('Your input email is not valid. Please check again!');</script>";
+			}else{
                 $password = md5($_REQUEST['pword']);
                 $fet_uname = "SELECT username FROM user WHERE username = '$uname'";//fetching_username
                 $fet_name_rtn = mysqli_query($dbconn, $fet_uname);

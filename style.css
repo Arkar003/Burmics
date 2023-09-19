@@ -96,14 +96,14 @@
 /*create series*/
 .preview_cv{
     width: 300px;
-    height: 300px;
+    height: 424px;
     border: 2px solid black;
     overflow: hidden;
 }
 
 .preview_cv img{
     width: 300px;
-    height: 300px;
+    height: auto;
 }
 
 /*add chapters*/

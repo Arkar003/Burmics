@@ -36,7 +36,7 @@
 		<form method="post" enctype="multipart/form-data">
 			<div class="row justify-content-center">
 				<div class="col-8 p-3">
-					<div class="row mb-3">
+					<div class="row mb-4">
 						<div class="col-4 text-end">
 							<label class="form-label" for="sname">
 								Series Name:
@@ -46,7 +46,7 @@
 							<input class="form-control" type="text" name="sname" id="sname">
 						</div>
 					</div>
-					<div class="row mb-3">
+					<div class="row mb-4">
 						<div class="col-4 text-end">
 							<label class="form-label" for="author">
 								Aurthor Name:
@@ -56,7 +56,7 @@
 							<input class="form-control" type="text" name="author" id="author">
 						</div>
 					</div>
-					<div class="row mb-3">
+					<div class="row mb-4">
 						<div class="col-4 text-end">
 							<label class="form-label" for="artist">
 								Artist Name:
@@ -66,7 +66,7 @@
 							<input class="form-control" type="text" name="artist" id="artist">
 						</div>
 					</div>
-					<div class="row mb-3">
+					<div class="row mb-4">
 						<div class="col-4 text-end">
 							<label class="form-label" for="genre">
 								Select Genre:
@@ -146,7 +146,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row mb-3">
+					<div class="row mb-4">
 						<div class="col-4 text-end">
 							<label class="form-label" for="age_restrict">
 								Age restriction:
@@ -240,7 +240,7 @@
 				$imgName = $s_id . 'CV.' . $imgExt; //setting image name as the series id
 				//end of image name changing
 
-				$create_series = "INSERT INTO series VALUES ('$s_id','$c_id','$sName','$aurthor','$artist','$genre1','$genre2','$genre3','$dspt','$imgName','$age_rest','$c_date')";
+				$create_series = "INSERT INTO series VALUES ('$s_id','$c_id','$sName','$aurthor','$artist','$genre1','$genre2','$genre3','$dspt','$imgName','$age_rest','$c_date','')";
 				$cs_rtn = mysqli_query($dbconn,$create_series);
 
 				if($cs_rtn){
@@ -251,7 +251,6 @@
 				else
 					echo mysqli_error($dbconn);
 			}
-
 		}
 
 	 ?>
