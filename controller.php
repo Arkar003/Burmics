@@ -8,7 +8,6 @@
         $cid = $c_info['creator_id'];
         return $cid;
     }
-
     function getUserId($creator_id){
         require 'dbconfig.php';
         $fet_uid = "SELECT user_id FROM creator WHERE creator_id = '$creator_id'";
@@ -17,7 +16,6 @@
         $uid = $u_info['user_id'];
         return $uid;
     }
-
     function getUserName($user_id){
         require 'dbconfig.php';
         $fet_uname = "SELECT username FROM user WHERE user_id = '$user_id'";
@@ -34,7 +32,6 @@
         $sName = $s_info['full_name'];
         return $sName;
     }
-
     function getCoins($user_id){
         require 'dbconfig.php';
         $fet_wall = "SELECT W.amount FROM wallet W INNER JOIN user U ON W.wallet_id = U.wallet_id WHERE U.user_id = '$user_id'";
@@ -43,7 +40,20 @@
         $coins = $wallInfo['amount'];
         return $coins;
     }
-
+    function getLastChap($sid){
+        require 'dbconfig.php';
+        $fet_lc = "SELECT chap_no FROM chapter WHERE series_id = '$sid' ORDER BY upload_date DESC LIMIT 1";
+        $flc_rtn = mysqli_query($dbconn, $fet_lc);
+        $chapData = mysqli_fetch_assoc($flc_rtn);
+        return $chapData['chap_no'];
+    }
+    function getSeriesId($sname){
+        require 'dbconfig.php';
+        $fet_sid = "SELECT series_id FROM series WHERE series_name = '$sname'";
+        $fsid_rtn = mysqli_query($dbconn, $fet_sid);
+        $sid = mysqli_fetch_assoc($fsid_rtn);
+        return $sid['series_id'];
+    }
     function add_coin($uid, $amt){
         require 'dbconfig.php';
         $get_wallet = "SELECT W.wallet_id, W.amount FROM user U INNER JOIN wallet W ON U.wallet_id = W.wallet_id WHERE user_id = '$uid'";
@@ -56,7 +66,6 @@
         $upC_rtn = mysqli_query($dbconn, $update_coin);
         return;
     }
-
     function reduce_coin($uid, $amt){
         require 'dbconfig.php';
         $get_wallet = "SELECT W.wallet_id, W.amount FROM user U INNER JOIN wallet W ON U.wallet_id = W.wallet_id WHERE user_id = '$uid'";

@@ -101,7 +101,7 @@
 		cover_img VARCHAR(20),
 		age_restrict VARCHAR(8),
 		create_date DATE,
-		last_update DATE,
+		last_update DATETIME,
 		FOREIGN KEY (creator_id) REFERENCES creator(creator_id)
 	)";
 	$series_tb_rtn = mysqli_query($dbconn, $series_tb);
@@ -116,7 +116,7 @@
 		chap_name VARCHAR(50),
 		images TEXT,
 		note TEXT,
-		upload_date DATE,
+		upload_date DATETIME,
 		status VARCHAR(10),
 		FOREIGN KEY (series_id) REFERENCES series(series_id)
 	)";

@@ -255,7 +255,7 @@
 				else
 					echo mysqli_error($dbconn);
 				
-				$sup_date = date('Y-m-d');
+				$sup_date = date('Y-m-d H:i:s');
 				$up_series = "UPDATE series SET last_update = '$sup_date' WHERE series_id = '$s_id'";
 				$ups_rtn = mysqli_query($dbconn, $up_series);
 
