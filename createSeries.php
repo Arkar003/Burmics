@@ -214,7 +214,6 @@
 			$fs_rtn = mysqli_query($dbconn, $f_series);
 
 			if($fs_rtn->num_rows == 0){
-				
 				$u_id = $_SESSION['uid'];
 				$f_cid = "SELECT creator_id FROM creator WHERE user_id = '$u_id'";//getting creator id from user id
 				$fcid_rtn = mysqli_query($dbconn, $f_cid);

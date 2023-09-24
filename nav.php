@@ -1,5 +1,6 @@
 <?php 
 	require 'dbconfig.php';
+	// include 'controller.php';
  ?>
 
 <link rel="stylesheet" type="text/css" href="bs5.3/css/bootstrap.min.css">

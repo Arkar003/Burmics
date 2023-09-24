@@ -56,7 +56,7 @@
                 <div class="col-3">
                     <div class="p-3">
                        <div class="mb-3 fs-4">
-                            Publish By <?php echo $seriesDetail['creator_id']; ?>
+                            Publish By <?php echo getUserName(getUserId($seriesDetail['creator_id'])); ?>
                         </div>
                         <div class="mb-3">
                             <button class="btn btn-danger w-100">Add to Library</button>
@@ -75,7 +75,7 @@
                             if($seriesDetail['description'])
                                 echo $seriesDetail['description'];
                             else
-                                echo "No description for this series."
+                                echo "No description for this series.";
                         ?>
                     </span>
                 </div>
@@ -85,13 +85,13 @@
                         <div class="row">
                             <?php
                                 $seriesID = $seriesDetail['series_id'];
-                                $getChaps = "SELECT chap_no FROM chapter WHERE series_id = '$seriesID'";
+                                $getChaps = "SELECT chap_no FROM chapter WHERE series_id = '$seriesID' ORDER BY chap_no DESC";
                                 $gc_rtn = mysqli_query($dbconn, $getChaps);
                                 while($chapInfo = mysqli_fetch_assoc($gc_rtn)){
                             ?>
                             <div class="col-6">
                                 <div class="rounded bg-dark-subtle py-2 ps-3 mb-3">
-                                    <a class="text-dark text-decoration-none" href="chapter.php?sname=<?php echo $seriesName; ?>&chap=<?php echo $chapInfo['chap_no']; ?>"><h5 class="text-dark mb-0"><?php echo $chapInfo['chap_no'] ?></h5></a>
+                                    <a class="text-dark text-decoration-none" href="chapter.php?sname=<?php echo $seriesName; ?>&chap=<?php echo $chapInfo['chap_no']; ?>"><h5 class="text-dark mb-0"><?php echo $chapInfo['chap_no']; ?></h5></a>
                                 </div>
                             </div>
                             <?php

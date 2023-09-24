@@ -1,8 +1,7 @@
 <?php 
 	require 'dbconfig.php';
-	include 'controller.php';
+	include_once 'controller.php';
 	date_default_timezone_set("Asia/Yangon");
-	// session_start();
  ?>
 <!DOCTYPE html>
 <html>

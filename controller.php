@@ -1,7 +1,6 @@
 <?php
     function getCreatorId($user_id){
         require 'dbconfig.php';
-
         $fetch_cid = "SELECT creator_id FROM creator WHERE user_id = '$user_id'";
         $fet_rtn = mysqli_query($dbconn, $fetch_cid);
         $c_info = mysqli_fetch_assoc($fet_rtn);
@@ -43,6 +42,13 @@
     function getLastChap($sid){
         require 'dbconfig.php';
         $fet_lc = "SELECT chap_no FROM chapter WHERE series_id = '$sid' ORDER BY upload_date DESC LIMIT 1";
+        $flc_rtn = mysqli_query($dbconn, $fet_lc);
+        $chapData = mysqli_fetch_assoc($flc_rtn);
+        return $chapData['chap_no'];
+    }
+    function getFirstChap($sid){
+        require 'dbconfig.php';
+        $fet_lc = "SELECT chap_no FROM chapter WHERE series_id = '$sid' ORDER BY upload_date ASC LIMIT 1";
         $flc_rtn = mysqli_query($dbconn, $fet_lc);
         $chapData = mysqli_fetch_assoc($flc_rtn);
         return $chapData['chap_no'];

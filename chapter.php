@@ -10,12 +10,29 @@
         $chapterNo = $_GET['chap'];
     else
         $chapterNo = "none";
-    
-    $sID = getSeriesId($seriesName);
 
+    $sID = getSeriesId($seriesName);
     $getChapDtl = "SELECT * FROM chapter WHERE chap_no = '$chapterNo' AND series_id = '$sID'";
     $gcd_rtn = mysqli_query($dbconn, $getChapDtl);
     $chapDetail = mysqli_fetch_assoc($gcd_rtn);
+    
+    $curr = $_GET['chap'];
+    
+    if($curr == getFirstChap($sID))
+        $prev = $curr;
+    else{
+        $numb = intval(substr($curr, 5));
+        $numb--;
+        $prev = "Chap " . $numb;
+    }
+    
+    if($curr == getLastChap($sID))
+        $next = $curr;
+    else{
+        $numb = intval(substr($curr, 5));
+        $numb++;
+        $next = "Chap " . $numb;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,12 +44,16 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="bs5.3/bootstrap-icons/font/bootstrap-icons.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="bs5.3/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <section>
+        <div>
+            <button class="btn btn-success rounded-circle goTop" onclick="window.location.href='#top'"><i class="bi bi-arrow-up-short fs-1"></i></button>
+        </div>
         <div class="container py-5">
             <div class="mb-5">
-                <h2><?php echo $seriesName . " - " . $chapterNo; ?></h2>
+                <h2 id="top"><?php echo $seriesName . " - " . $chapterNo; ?></h2>
             </div>
             <nav class="mb-3">
                 <ol class="breadcrumb">
@@ -42,9 +63,24 @@
                 </ol>
             </nav>
             <div class="row justify-content-between mb-3">
-                <div class="col-1"><button class="btn btn-primary w-100">Prev</button></div>
-                <div class="col-1"><button class="btn btn-primary w-100">List</button></div>
-                <div class="col-1"><button class="btn btn-primary w-100">Next</button></div>
+                <div class="col-1"><button class="btn btn-primary w-100" onclick="window.location.href='chapter.php?sname=<?php echo $seriesName; ?>&chap=<?php echo $prev; ?>'">Prev</button></div>
+                <div class="col-1">
+                    <div class="dropdown">
+                        <button class="btn btn-primary w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown"><?php echo $chapterNo; ?></button>
+                        <ul class="dropdown-menu chapListDD p-0">
+                            <?php
+                                $fetChs = "SELECT chap_no FROM chapter WHERE series_id = '$sID' ORDER BY chap_no DESC";
+                                $fc_rtn = mysqli_query($dbconn, $fetChs);
+                                while($chInfo = mysqli_fetch_assoc($fc_rtn)){
+                            ?>
+                            <li><a class="dropdown-item" href="chapter.php?sname=<?php echo $seriesName; ?>&chap=<?php echo $chInfo['chap_no']; ?>"><?php echo $chInfo['chap_no']; ?></a></li>
+                            <?php
+                                }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-1"><button class="btn btn-primary w-100" onclick="window.location.href='chapter.php?sname=<?php echo $seriesName; ?>&chap=<?php echo $next; ?>'">Next</button></div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-8">
@@ -60,7 +96,36 @@
                     </div>
                 </div>
             </div>
+            <div class="row justify-content-between mt-5">
+                <div class="col-1"><button class="btn btn-primary w-100" onclick="window.location.href='chapter.php?sname=<?php echo $seriesName; ?>&chap=<?php echo $prev; ?>'">Prev</button></div>
+                <div class="col-1">
+                    <div class="dropdown">
+                        <button class="btn btn-primary w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown"><?php echo $chapterNo; ?></button>
+                        <ul class="dropdown-menu chapListDD p-0">
+                            <?php
+                                $fetChs = "SELECT chap_no FROM chapter WHERE series_id = '$sID' ORDER BY chap_no DESC";
+                                $fc_rtn = mysqli_query($dbconn, $fetChs);
+                                while($chInfo = mysqli_fetch_assoc($fc_rtn)){
+                            ?>
+                            <li><a class="dropdown-item" href="chapter.php?sname=<?php echo $seriesName; ?>&chap=<?php echo $chInfo['chap_no']; ?>"><?php echo $chInfo['chap_no']; ?></a></li>
+                            <?php
+                                }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-1"><button class="btn btn-primary w-100" onclick="window.location.href='chapter.php?sname=<?php echo $seriesName; ?>&chap=<?php echo $next; ?>'">Next</button></div>
+            </div>
         </div>
     </section>
+    <script>
+        const goTopBtn = document.querySelector('.goTop');
+        window.addEventListener('scroll',function(){
+            if(window.scrollY > 200)
+                goTopBtn.style.display = "flex";
+            else
+                goTopBtn.style.display = "none";
+        })
+    </script>
 </body>
 </html>

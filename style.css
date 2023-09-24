@@ -157,3 +157,16 @@
     width: 100%;
     height: auto;
 }
+.goTop{
+    width: 75px; height: 75px;
+    position: fixed;
+    right: 35px;
+    bottom: 35px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.chapListDD{
+    max-height: 162px;
+    overflow-y: scroll;
+}
