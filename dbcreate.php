@@ -127,12 +127,13 @@
 		vc_id CHAR(8) NOT NULL PRIMARY KEY,
 		chap_id CHAR(8),
 		views INT(8) DEFAULT 0,
+		last_update DATETIME,
 		FOREIGN KEY(chap_id) REFERENCES chapter(chap_id)
 	)";
 	$ch_view_rtn = mysqli_query($dbconn, $chap_view);
 
-	//rating table
-	$rating_tb = "CREATE TABLE IF NOT EXISTS rating
+	//series rating table
+	$rating_tb = "CREATE TABLE IF NOT EXISTS series_rating
 	(
 		rate_id CHAR(8) NOT NULL PRIMARY KEY,
 		user_id CHAR(8),
@@ -143,16 +144,22 @@
 		FOREIGN KEY(series_id) REFERENCES series(series_id)
 	)";
 	$rating_tb_rtn = mysqli_query($dbconn, $rating_tb);
-
+	
+	$rate_tb = "CREATE TABLE IF NOT EXISTS rating(
+		rating_id CHAR(8) NOT NULL PRIMARY KEY,
+		user_id CHAR(8),
+		rating INT(1),
+		review TEXT,
+		FOREIGN KEY(user_id) REFERENCES user(user_id))";
+	$rtb_rtn = mysqli_query($dbconn,$rate_tb);
 
 	// library table
 	$library_tb = "CREATE TABLE IF NOT EXISTS library
 	(
 		lib_id CHAR(8) NOT NULL PRIMARY KEY,
 		user_id CHAR(8),
-		series_id CHAR(8),
-		FOREIGN KEY (user_id) REFERENCES user(user_id),
-		FOREIGN KEY (series_id) REFERENCES series(series_id)
+		series_names TEXT,
+		FOREIGN KEY (user_id) REFERENCES user(user_id)
 	)";
 	$library_tb_rtn = mysqli_query($dbconn, $library_tb);
 

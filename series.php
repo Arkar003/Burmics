@@ -44,8 +44,8 @@
                     <div class="p-3">
                         <div class="mb-3"><h1><?php echo $seriesDetail['series_name']; ?></h1></div>
                         <div class="fs-4 mb-3">
-                            <div class="bg-danger rounded d-inline-block p-2">views : 0</div>
-                            <div class="bg-danger rounded d-inline-block p-2">Rating : 0</div>
+                            <div class="bg-danger rounded d-inline-block px-2">views : 0</div>
+                            <div class="bg-danger rounded d-inline-block px-2">Rating : 0</div>
                         </div>
                         <div class="fs-4 mb-3">Author : <?php echo $seriesDetail['author']; ?></div>
                         <div class="fs-4 mb-3">Artist(s) : <?php echo $seriesDetail['artist']; ?></div>
@@ -56,7 +56,7 @@
                 <div class="col-3">
                     <div class="p-3">
                        <div class="mb-3 fs-4">
-                            Publish By <?php echo getUserName(getUserId($seriesDetail['creator_id'])); ?>
+                            <span class="fs-5">Publish By</span> <br> <?php echo getUserName(getUserId($seriesDetail['creator_id'])); ?>
                         </div>
                         <div class="mb-3">
                             <button class="btn btn-danger w-100">Add to Library</button>

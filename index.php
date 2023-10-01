@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="bs5.3/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body class="min-vh-100">
 	<header>
 		<nav class="navbar navbar-expand-lg bg-body-tertiary">
 		  <div class="container-fluid">
@@ -72,9 +72,22 @@
 		  </div>
 		</nav>
 	</header>
+	<section>
 
-	<footer>
-		
+	</section>
+	<footer class="d-flex flex-wrap justify-content-between align-items-center p-3 border-top fixed-bottom">
+		<div class="col-md-4 d-flex align-items-center">
+			<a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+				<h4>BURMICS</h4>
+			</a>
+			<span class="mb-3 mb-md-0 text-body-secondary">© 2023 Arkar Minn, L5DC CP</span>
+		</div>
+
+		<ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+			<li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+			<li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+			<li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+		</ul>
 	</footer>
 </body>
 </html>
