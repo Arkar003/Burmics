@@ -18,6 +18,27 @@
 		</button>
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+			<li class="nav-item">
+					<div class="container">
+						<div class="row px-2">
+							<button class="btn btn-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#packagePurc">Purchase</button>
+							<div class="modal fade" id="packagePurc" data-bs-backdrop="static" data-bs-keyboard="false">
+                            	<div class="modal-dialog">
+                            		<div class="modal-content">
+                            			<div class="modal-header">
+                            				<h4 class="modal-title">Package Store</h4>
+				        					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            			</div>
+                            			<div class="modal-body">
+	                           				<?php include 'package_Purchase.php'; ?>
+	                           			</div>
+                            		</div>
+                            		
+                            	</div>
+                            </div>
+						</div>
+					</div>
+				</li>
 		        <li class="nav-item input-group">
 		        	<div class="container">
                         <div class="row align-items-center border border-dark rounded-pill py-1 px-0">

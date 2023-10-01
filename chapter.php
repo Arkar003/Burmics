@@ -142,6 +142,7 @@
         if($gcrd_rtn->num_rows == 0){
             $addRow = "INSERT INTO chap_read_track VALUES ('$crtID','$uID','$chID','$curDate')";
             $ar_rtn = mysqli_query($dbconn, $addRow);
+            incCount($chID,$curDate);
         }else{
             $crdInfo = mysqli_fetch_assoc($gcrd_rtn);
             $lastDate = $crdInfo['read_date'];
@@ -150,6 +151,7 @@
             if($ts1 - $ts2 > 45){
                 $addRow = "INSERT INTO chap_read_track VALUES ('$crtID','$uID','$chID','$curDate')";
                 $ar_rtn = mysqli_query($dbconn, $addRow);
+                incCount($chID,$curDate);
             }
         }
     ?>

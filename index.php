@@ -43,7 +43,7 @@
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <h1 class="modal-title fs-5 m-auto">Create your Account for free</h1>
-				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				      </div>
 				      <div class="modal-body">
 				        <?php include 'signup.php'; ?>

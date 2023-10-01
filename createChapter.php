@@ -244,8 +244,6 @@
 				}
 
 				$imgNames = json_encode($imgArr);
-				// print_r($imgNames);
-				//end of getting multiple images
 
 				//putting all the data into database
 				$ch_data = "INSERT INTO chapter VALUES ('$chap_id','$s_id','$c_no','$c_name','$imgNames','$c_note','$c_date','$status')";
@@ -256,9 +254,20 @@
 				else
 					echo mysqli_error($dbconn);
 				
-				$sup_date = date('Y-m-d H:i:s');
-				$up_series = "UPDATE series SET last_update = '$sup_date' WHERE series_id = '$s_id'";
+				$up_series = "UPDATE series SET last_update = '$sup_date' WHERE series_id = '$c_date'";
 				$ups_rtn = mysqli_query($dbconn, $up_series);
+
+				$getViewCount = "SELECT * FROM ch_view_count ORDER BY vc_id DESC LIMIT 1";
+				$gCv_rtn = mysqli_query($dbconn, $getViewCount);
+				if($gCv_rtn->num_rows == 0)
+					$vcID = "VC000001";
+				else{
+					$vcDetails = mysqli_fetch_assoc($gCv_rtn);
+					$getVC = $vcDetails['vc_id'];
+					$vcID = ++$getVC;
+				}
+				$addVCRow = "INSERT INTO ch_view_count VALUES ('$vcID','$chap_id','0','$c_date')";
+				$avcrow_rtn = mysqli_query($dbconn, $addVCRow);
 
 				if($status == "locked"){
 					$lcPrice = $_REQUEST['lockedCoin'];

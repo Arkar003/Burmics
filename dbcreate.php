@@ -237,7 +237,7 @@
 		coin_amount INT(7) NOT NULL,
 		amount INT(8) NOT NULL,
 		cp_date DATETIME,
-		confrim_date DATETIME,
+		confirm_date DATETIME,
 		staff_id CHAR(8),
 		pm_id CHAR(4),
 		payment_ss VARCHAR(30),

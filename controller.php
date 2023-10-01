@@ -84,4 +84,10 @@
         $upc_rtn = mysqli_query($dbconn, $up_coin);
         return;
     }
+    function incCount($cid, $cdate){
+        require 'dbconfig.php';
+        $getCount = "UPDATE ch_view_count SET views = views + 1, last_update = '$cdate' WHERE chap_id = '$cid'";
+        $gC_rtn = mysqli_query($dbconn, $getCount);
+        return;
+    }
 ?>
