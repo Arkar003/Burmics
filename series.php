@@ -2,16 +2,16 @@
     require 'dbconfig.php';
     include 'controller.php';
     session_start();
-    if(isset($_GET['sname']))
-        $seriesName = $_GET['sname'];
+    if(isset($_GET['sid']))
+        $seriesID = $_GET['sid'];
     else
-        $seriesName = "none";
+        $seriesID = "none";
 
-    $getSDetail = "SELECT * FROM series WHERE series_name = '$seriesName'";
+    $getSDetail = "SELECT * FROM series WHERE series_id = '$seriesID'";
     $gsd_rtn = mysqli_query($dbconn, $getSDetail);
     $seriesDetail = mysqli_fetch_assoc($gsd_rtn);
 
-    $getView = "SELECT SUM(V.views) AS totalViews FROM ch_view_count V INNER JOIN chapter C ON V.chap_id = C.chap_id WHERE C.series_id = 'S0000002'";
+    $getView = "SELECT SUM(V.views) AS totalViews FROM ch_view_count V INNER JOIN chapter C ON V.chap_id = C.chap_id WHERE C.series_id = '$seriesID'";
     $gv_rtn = mysqli_query($dbconn, $getView);
     $viewDetail = mysqli_fetch_assoc($gv_rtn);
 ?>
@@ -35,7 +35,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="text-dark text-decoration-none" href="home.php">Home</a></li>
-                    <li class="breadcrumb-item"><?php echo $seriesName; ?></li>
+                    <li class="breadcrumb-item"><?php echo getSeriesName($seriesID); ?></li>
                 </ol>
             </nav>
             <div class="row rounded-5 bg-dark-subtle p-4 mb-5">
@@ -53,7 +53,8 @@
                         </div>
                         <div class="fs-4 mb-3">Author : <?php echo $seriesDetail['author']; ?></div>
                         <div class="fs-4 mb-3">Artist(s) : <?php echo $seriesDetail['artist']; ?></div>
-                        <div class="fs-4 mb-3">Genres : <?php echo $seriesDetail['genre_1']; ?>, <?php echo $seriesDetail['genre_2']; ?>, <?php echo $seriesDetail['genre_3']; ?></div>                            <div class="fs-4 mb-3">Age restriction : <?php echo $seriesDetail['age_restrict']; ?></div>
+                        <div class="fs-4 mb-3">Genres : <?php echo $seriesDetail['genre_1']; ?>, <?php echo $seriesDetail['genre_2']; ?>, <?php echo $seriesDetail['genre_3']; ?></div>                            
+                        <div class="fs-4 mb-3">Age restriction : <?php echo $seriesDetail['age_restrict']; ?></div>
                         <div class="fs-4 mb-3">Release date : <?php echo $seriesDetail['create_date']; ?></div>
                     </div>
                 </div>
@@ -88,14 +89,14 @@
                     <div class="container">
                         <div class="row">
                             <?php
-                                $seriesID = $seriesDetail['series_id'];
+                                // $seriesID = $seriesDetail['series_id'];
                                 $getChaps = "SELECT chap_no FROM chapter WHERE series_id = '$seriesID' ORDER BY chap_no DESC";
                                 $gc_rtn = mysqli_query($dbconn, $getChaps);
                                 while($chapInfo = mysqli_fetch_assoc($gc_rtn)){
                             ?>
                             <div class="col-6">
                                 <div class="rounded bg-dark-subtle py-2 ps-3 mb-3">
-                                    <a class="text-dark text-decoration-none"  href="chapter.php?sname=<?php echo $seriesName; ?>&chap=<?php echo $chapInfo['chap_no']; ?>"><h5 class="text-dark mb-0"><?php echo $chapInfo['chap_no']; ?></h5></a>
+                                    <a class="text-dark text-decoration-none"  href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapInfo['chap_no']; ?>"><h5 class="text-dark mb-0"><?php echo $chapInfo['chap_no']; ?></h5></a>
                                 </div>
                             </div>
                             <?php

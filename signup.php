@@ -93,8 +93,6 @@
 				pass.classList.add("weak");
 		})
 	</script>
-
-
 	<?php 
 		require 'dbconfig.php';
 		date_default_timezone_set("Asia/Yangon");
@@ -161,6 +159,17 @@
                         echo "<script>alert('Create user account success.');</script>";
                     else
                         echo mysqli_error($dbconn);
+					
+					$fet_lib = "SELECT * FROM library ORDER BY lib_id DESC LIMIT 1";
+					$fl_rtn = mysqli_query($dbconn, $fet_lib);
+					if($fl_rtn->num_rows == 0)
+						$libID = "LI000001";
+					else{
+						$libInfo = mysqli_fetch_assoc($fl_rtn);
+						$libID = ++$libInfo['lib_id'];
+					}
+					$add_libRow = "INSERT INTO library VALUES ('$libID','$u_id','')";
+					$alr_rtn = mysqli_query($dbconn, $add_libRow);
 
                     if($type == 'creator'){
                         $fet_cid = "SELECT creator_id FROM creator ORDER BY creator_id DESC LIMIT 1";

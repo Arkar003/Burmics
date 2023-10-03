@@ -20,7 +20,7 @@
 	</header>
 	<section class="bg-dark pt-5">
 		<?php
-			$getAllSeries = "SELECT series_id, creator_id, series_name, author, artist, genre_1, genre_2, genre_3, description, cover_img, age_restrict, create_date, last_update FROM series WHERE last_update != '0000-00-00' ORDER BY last_update DESC";
+			$getAllSeries = "SELECT * FROM series WHERE last_update != '0000-00-00' ORDER BY last_update DESC";
 			$gas_rtn = mysqli_query($dbconn,$getAllSeries);
 		?>
 		<div class="container">
@@ -38,7 +38,7 @@
 				<div class="col-3 mb-4">
 					<div class="mb-5">
 						<div class="series-cv rounded mx-auto mb-2">
-							<a href="series.php?sname=<?php echo $allSeries['series_name']; ?>" title="<?php echo $allSeries['series_name']; ?>">
+							<a href="series.php?sid=<?php echo $allSeries['series_id']; ?>" title="<?php echo $allSeries['series_name']; ?>">
 								<img src="data/cv/<?php echo $allSeries['cover_img']; ?>" alt="<?php echo $allSeries['series_name']; ?>">
 							</a>
 						</div>
@@ -49,7 +49,7 @@
 							views and ratings
 						</div>
 						<div class="mx-4 rounded bg-dark-subtle py-2 ps-3">
-							<a class="text-dark text-decoration-none" href="chapter.php?sname=<?php echo $allSeries['series_name']; ?>&chap=<?php echo getLastChap($allSeries['series_id']); ?>"><h5 class="text-dark mb-0"><?php echo getLastChap($allSeries['series_id']); ?></h5></a>
+							<a class="text-dark text-decoration-none" href="chapter.php?sid=<?php echo $allSeries['series_id']; ?>&chap=<?php echo getLastChap($allSeries['series_id']); ?>"><h5 class="text-dark mb-0"><?php echo getLastChap($allSeries['series_id']); ?></h5></a>
 						</div>
 					</div>
 				</div>

@@ -60,6 +60,13 @@
         $sid = mysqli_fetch_assoc($fsid_rtn);
         return $sid['series_id'];
     }
+    function getSeriesName($sid){
+        require 'dbconfig.php';
+        $fet_sname = "SELECT series_name FROM series WHERE series_id = '$sid'";
+        $fsn_rtn = mysqli_query($dbconn, $fet_sname);
+        $sname = mysqli_fetch_assoc($fsn_rtn);
+        return $sname['series_name'];
+    }
     function add_coin($uid, $amt){
         require 'dbconfig.php';
         $get_wallet = "SELECT W.wallet_id, W.amount FROM user U INNER JOIN wallet W ON U.wallet_id = W.wallet_id WHERE user_id = '$uid'";

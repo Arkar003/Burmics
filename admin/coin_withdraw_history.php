@@ -58,7 +58,15 @@
                                         if($fcwl_rtn->num_rows == 0){
                                     ?>
                                     <tr>
-                                        <td colspan="6" class="text-center">Nothing to show here.</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
                                     </tr>
                                     <?php        
                                         }

@@ -1,9 +1,13 @@
 <?php
-	date_default_timezone_set("Asia/Yangon");
+	require 'dbconfig.php';
+	$get_pData = "SELECT * FROM package ORDER BY package_id DESC LIMIT 1";
+	$gpd_rtn = mysqli_query($dbconn, $get_pData);
 
-	$currDate = date('Y-m-d H:i:s');
-	$dura = 1;
-	$exp_date = date('Y-m-d H:i:s', strtotime('+'.$dura.' day',strtotime($currDate)));
-	echo $currDate . " ";
-	echo $exp_date;
+	$pacInfo = mysqli_fetch_assoc($gpd_rtn);
+	$pacID = ++$pacInfo['package_id'];
+	$pname = "testing";
+	$pDura = 20;
+	$pPrice = 300;
+	$addPac = "INSERT INTO package VALUES ('$pacID','$pname','$pDura','$pPrice')";
+	$apc_rtn = mysqli_query($dbconn, $addPac);
 ?>

@@ -61,18 +61,6 @@
                     <div class="text-center">
                         <button class="btn btn-outline-secondary" type="reset">Cancel</button>
                         <button class="btn btn-primary" type="submit" name="purcPack">Purchase</button>
-                        <!-- <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#confrimPurc">Purchase</button>
-                        <div class="modal fade" id="confrimPurc" data-bs-backdrop="static" data-bs-keyboard="false">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <h5 class="mb-3">Are you sure you want to purchase this package?</h5>
-                                        <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
-										<button class="btn btn-primary" type="submit" name="purcPack">Confirm</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
