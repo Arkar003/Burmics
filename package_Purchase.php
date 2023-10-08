@@ -88,15 +88,26 @@
                     $lastpprID = $purcRecInfo['ppr_id'];
                     $pRecID = ++$lastpprID;
                 }
-                $exp_date = date('Y-m-d H:i:s', strtotime('+'.$dura.' day',strtotime($currDate)));
+
+                $check_active = "SELECT * FROM package_purchase_rec WHERE user_id = '$userID' AND expire_date != '0000-00-00 00:00:00'";
+                $ca_rtn = mysqli_query($dbconn, $check_active);
+                if($ca_rtn->num_rows == 0)
+                    $exp_date = date('Y-m-d H:i:s', strtotime('+'.$dura.' day',strtotime($currDate)));
+                else{
+                    $last_active = mysqli_fetch_assoc($ca_rtn);
+                    $last_exp = $last_active['expire_date'];
+                    $exp_date = date('Y-m-d H:i:s', strtotime('+'.$dura.' day',strtotime($last_exp)));
+                }
                 $add_prRow = "INSERT INTO package_purchase_rec VALUES ('$pRecID','$userID','$packID','$currDate','$exp_date')";
                 $apr_rtn = mysqli_query($dbconn,$add_prRow);
 
                 $user_update = "UPDATE user SET status = 'premium' WHERE user_id = '$userID'";
                 $uup_rtn = mysqli_query($dbconn,$user_update);
 
-                if($apr_rtn && $uup_rtn)
+                if($apr_rtn && $uup_rtn){
                     echo "<script>alert('Packpage purchase successfully.');</script>";
+                    reduce_coin($userID,$price);
+                }
                 else
                     echo mysqli_error($dbconn);
             }else

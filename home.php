@@ -18,7 +18,7 @@
 	<header>
 		<?php include 'nav.php'; ?>
 	</header>
-	<section class="bg-dark pt-5">
+	<section class="bg-success-subtle pt-5">
 		<?php
 			$getAllSeries = "SELECT * FROM series WHERE last_update != '0000-00-00' ORDER BY last_update DESC";
 			$gas_rtn = mysqli_query($dbconn,$getAllSeries);
@@ -34,11 +34,12 @@
 				<?php		
 					}else{
 						while($allSeries = mysqli_fetch_assoc($gas_rtn)){
+							$seriesID = $allSeries['series_id'];
 				?>
 				<div class="col-3 mb-4">
 					<div class="mb-5">
 						<div class="series-cv rounded mx-auto mb-2">
-							<a href="series.php?sid=<?php echo $allSeries['series_id']; ?>" title="<?php echo $allSeries['series_name']; ?>">
+							<a href="series.php?sid=<?php echo $seriesID; ?>" title="<?php echo $allSeries['series_name']; ?>">
 								<img src="data/cv/<?php echo $allSeries['cover_img']; ?>" alt="<?php echo $allSeries['series_name']; ?>">
 							</a>
 						</div>
@@ -48,12 +49,39 @@
 						<div class="mx-4 mb-4 text-light">
 							views and ratings
 						</div>
-						<div class="mx-4 rounded bg-dark-subtle py-2 ps-3">
-							<a class="text-dark text-decoration-none" href="chapter.php?sid=<?php echo $allSeries['series_id']; ?>&chap=<?php echo getLastChap($allSeries['series_id']); ?>"><h5 class="text-dark mb-0"><?php echo getLastChap($allSeries['series_id']); ?></h5></a>
+						<?php
+							$chk_lastCh = "SELECT * FROM chapter WHERE series_id = '$seriesID' AND (status != 'private' AND status != 'draft') ORDER BY upload_date DESC LIMIT 1";
+							$chk_rtn = mysqli_query($dbconn, $chk_lastCh);
+							$chapDetail = mysqli_fetch_assoc($chk_rtn);
+							$chID = $chapDetail['chap_id'];
+							$uID = $_SESSION['uid'];
+							if($chapDetail['status'] == "locked"){
+								if(!hasBoughtEA($chID,$uID)){
+						?>
+						<div class="mx-4 rounded bg-dark-subtle py-2 ps-3 ch-box">
+							<a class="text-dark text-decoration-none" href="series.php?sid=<?php echo $seriesID; ?>"><h5 class="text-dark mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
+							<i class="bi bi-lock-fill lock_ic fs-5"></i>
 						</div>
+						<?php
+								}else{
+						?>
+						<div class="mx-4 rounded bg-dark-subtle py-2 ps-3 ch-box">
+							<a class="text-dark text-decoration-none" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapDetail['chap_no']; ?>"><h5 class="text-dark mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
+							<i class="bi bi-unlock-fill lock_ic fs-5"></i>
+						</div>
+						<?php
+								}
+							}else{
+						?>
+						<div class="mx-4 rounded bg-dark-subtle py-2 ps-3">
+							<a class="text-dark text-decoration-none" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapDetail['chap_no']; ?>"><h5 class="text-dark mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
+						</div>
+						<?php
+							}
+						?>
 					</div>
 				</div>
-				<?php		
+				<?php
 						}
 					}
 				?>

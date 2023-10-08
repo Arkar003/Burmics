@@ -17,18 +17,18 @@
     $getChapDtl = "SELECT * FROM chapter WHERE chap_no = '$chapterNo' AND series_id = '$seriesID'";
     $gcd_rtn = mysqli_query($dbconn, $getChapDtl);
     $chapDetail = mysqli_fetch_assoc($gcd_rtn);
+    $chapID = $chapDetail['chap_id'];
+    $uID = $_SESSION['uid'];
 
-    if($chapterNo == getFirstChap($seriesID)){
+    $prevbtn = "visible";
+    $nxtbtn = "visible";
+    if($chapterNo == getFirstChap($seriesID))
         $prevbtn = "invisible";
-        $nxtbtn = "visible";
-    }elseif($chapterNo == getLastChap($seriesID)){
-        $prevbtn = "visible";
+    if($chapterNo == getLastChap($seriesID))
         $nxtbtn = "invisible";
-    }else{
-        $prevbtn = "visible";
-        $nxtbtn = "visible";
-    }
-    
+    if(isNxtLocked($chapID,$seriesID,$uID) || !isNxtPub($chapterNo,$seriesID))
+        $nxtbtn = "invisible";
+
     $curr = $_GET['chap'];
     if($curr == getFirstChap($seriesID))
         $prev = $curr;
@@ -82,12 +82,14 @@
                         <button class="btn btn-primary w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown"><?php echo $chapterNo; ?></button>
                         <ul class="dropdown-menu chapListDD p-0">
                             <?php
-                                $fetChs = "SELECT chap_no FROM chapter WHERE series_id = '$seriesID' ORDER BY chap_no DESC";
+                                $fetChs = "SELECT * FROM chapter WHERE series_id = '$seriesID' ORDER BY chap_no DESC";
                                 $fc_rtn = mysqli_query($dbconn, $fetChs);
                                 while($chInfo = mysqli_fetch_assoc($fc_rtn)){
+                                    if($chInfo['status'] == 'published' || hasBoughtEA($chInfo['chap_id'],$uID)){
                             ?>
                             <li><a class="dropdown-item" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chInfo['chap_no']; ?>"><?php echo $chInfo['chap_no']; ?></a></li>
                             <?php
+                                    }
                                 }
                             ?>
                         </ul>
@@ -116,12 +118,14 @@
                         <button class="btn btn-primary w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown"><?php echo $chapterNo; ?></button>
                         <ul class="dropdown-menu chapListDD p-0">
                             <?php
-                                $fetChs = "SELECT chap_no FROM chapter WHERE series_id = '$seriesID' ORDER BY chap_no DESC";
+                                $fetChs = "SELECT * FROM chapter WHERE series_id = '$seriesID' ORDER BY chap_no DESC";
                                 $fc_rtn = mysqli_query($dbconn, $fetChs);
                                 while($chInfo = mysqli_fetch_assoc($fc_rtn)){
+                                    if($chInfo['status'] == 'published' || hasBoughtEA($chInfo['chap_id'],$uID)){
                             ?>
                             <li><a class="dropdown-item" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chInfo['chap_no']; ?>"><?php echo $chInfo['chap_no']; ?></a></li>
                             <?php
+                                    }
                                 }
                             ?>
                         </ul>

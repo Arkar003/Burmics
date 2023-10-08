@@ -219,7 +219,6 @@
 				$path = "data/series/$s_name/$c_no";
 				mkdir($path, 0777, true);//end of creating folder
 				
-
 				//getting multiple images from form input and put them altogether in an array, then json encode that array.
 				$imgArr = array();
 				$i = 1;
@@ -254,7 +253,7 @@
 				else
 					echo mysqli_error($dbconn);
 				
-				$up_series = "UPDATE series SET last_update = '$sup_date' WHERE series_id = '$c_date'";
+				$up_series = "UPDATE series SET last_update = '$c_date' WHERE series_id = '$s_id'";
 				$ups_rtn = mysqli_query($dbconn, $up_series);
 
 				$getViewCount = "SELECT * FROM ch_view_count ORDER BY vc_id DESC LIMIT 1";

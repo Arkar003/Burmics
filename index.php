@@ -12,8 +12,8 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="bs5.3/js/bootstrap.min.js"></script>
 </head>
-<body class="min-vh-100">
-	<header>
+<body class="min-vh-100 bg-success-subtle">
+	<header class="mb-5">
 		<nav class="navbar navbar-expand-lg bg-body-tertiary">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="#">Burmics</a>
@@ -73,9 +73,157 @@
 		</nav>
 	</header>
 	<section>
+		<div class="container">
+			<div class="row mb-5 p-3">
+				<div class="col-7">
+					<h1 class="text-success">
+						<span class="heading_title">Myanmar Comics Creator? <br>Or Reader?</span>
+					</h1>
+					<p class="text-dark mb-3">
+						<span class="fs-3">Visit the best online comics library <br> for Myanmar local comics in Myanmar Language</span>
+					</p>
+					<ul class="heading_list mb-5 fs-5">
+						<li>Create free account</li>
+						<li>Creators can upload for free</li>
+						<li>Creators can earn income by uploading comics</li>
+						<li>Read a variety of local comics</li>
+					</ul>
+					<div>
+						<button type="button" class="btn btn-success fs-4 px-4" data-bs-toggle="modal" data-bs-target="#createAcc">
+							Get Started
+						</button>
+					</div>
+				</div>
+				<div class="col-5">
 
+				</div>
+				
+			</div>
+			<div class="row mb-5 py-5">
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success">100+</h1>
+						<p class="fs-4 mb-0">Series</p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success">100+</h1>
+						<p class="fs-4 mb-0">Active users</p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success">OVER 15</h1>
+						<p class="fs-4 mb-0">Different Genres</p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success">DAILY</h1>
+						<p class="fs-4 mb-0">Read 10 Chaps free</p>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-5 py-5 border-bottom border-3 border-success rounded-3 bg-success">
+				<div class="col-7"></div>
+				<div class="col-5 mb-5 text-end pe-5">
+					<h2 class=""><span class="text-light">What's good about us?</span></h2>
+					<ul class="fs-5 list-group list-group-flush">
+						<li class="list-group-item bg-transparent text-light border-0">Read comics conveniently</li>
+						<li class="list-group-item bg-transparent text-light border-0">Can read 10 free chapters daily</li>
+						<li class="list-group-item bg-transparent text-light border-0">Can support local creators and artist</li>
+						<li class="list-group-item bg-transparent text-light border-0">User-friendly interfaces</li>
+					</ul>
+				</div>
+			</div>
+			<div class="row mb-5 py-5 border-bottom border-3 border-success rounded-3 bg-light-subtle">
+				<div class="col-12 mb-5"><h2 class="text-center"><span class="text-success">Creators' benefits</span></h2></div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success mb-4">FREE</h1>
+						<p class="fs-4 mb-0">Creators can upload comics for free</p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success mb-4">EARN</h1>
+						<p class="fs-4  mb-0">can earn through readers' purchasement</p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success mb-4">HIGH</h1>
+						<p class="fs-4 mb-0">High profit share percentage</p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success mb-4">GROW</h1>
+						<p class="fs-4 mb-0">can grow in skillset and experience</p>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-5 py-5">
+				<div class="col-12 mb-5"><h2 class="text-center"><span class="text-success">What are popular series right now?</span></h2></div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success mb-4">FREE</h1>
+						<p class="fs-4 mb-0">Creators can upload comics for free</p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success mb-4">EARN</h1>
+						<p class="fs-4  mb-0">can earn through readers' purchasement</p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success mb-4">HIGH</h1>
+						<p class="fs-4 mb-0">High profit share percentage</p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success mb-4">GROW</h1>
+						<p class="fs-4 mb-0">can grow in skillset and experience</p>
+					</div>
+				</div>
+				<div class="col-12 text-center mt-5">
+					<button type="button" class="btn btn-success fs-4 px-4" data-bs-toggle="modal" data-bs-target="#createAcc">
+						Start reading
+					</button>
+				</div>
+			</div>
+			<div class="row mb-5 py-5">
+				<div class="col-12 mb-5"><h2 class="text-center"><span class="text-success">What our users says about us?</span></h2></div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success mb-4">Reviews</h1>
+						<p class="fs-4 mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima aut ratione aliquid magni ipsum nemo vero sapiente, inventore libero? Quidem, praesentium eaque architecto assumenda distinctio animi a doloremque harum repudiandae.</p>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success mb-4">Reviews</h1>
+						<p class="fs-4 mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima aut ratione aliquid magni ipsum nemo vero sapiente, inventore libero? Quidem, praesentium eaque architecto assumenda distinctio animi a doloremque harum repudiandae.</p>
+					</div>
+				</div><div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success mb-4">Reviews</h1>
+						<p class="fs-4 mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima aut ratione aliquid magni ipsum nemo vero sapiente, inventore libero? Quidem, praesentium eaque architecto assumenda distinctio animi a doloremque harum repudiandae.</p>
+					</div>
+				</div><div class="col-3">
+					<div class="bg-light rounded text-center p-3">
+						<h1 class="text-success mb-4">Reviews</h1>
+						<p class="fs-4 mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima aut ratione aliquid magni ipsum nemo vero sapiente, inventore libero? Quidem, praesentium eaque architecto assumenda distinctio animi a doloremque harum repudiandae.</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
-	<footer class="d-flex flex-wrap justify-content-between align-items-center p-3 border-top fixed-bottom">
+	<footer class="d-flex flex-wrap bg-light justify-content-between align-items-center p-3 border-top">
 		<div class="col-md-4 d-flex align-items-center">
 			<a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
 				<h4>BURMICS</h4>

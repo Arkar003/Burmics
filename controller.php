@@ -53,6 +53,20 @@
         $chapData = mysqli_fetch_assoc($flc_rtn);
         return $chapData['chap_no'];
     }
+    function getChapID($cno, $sid){
+        require 'dbconfig.php';
+        $fet_cid = "SELECT chap_id FROM chapter WHERE series_id = '$sid' AND chap_no = '$cno'";
+        $fcid_rtn = mysqli_query($dbconn, $fet_cid);
+        $chapData = mysqli_fetch_assoc($fcid_rtn);
+        return $chapData['chap_id'];
+    }
+    function getChapNo($cid, $sid){
+        require 'dbconfig.php';
+        $fet_cno = "SELECT chap_no FROM chapter WHERE series_id = '$sid' AND chap_id = '$cid'";
+        $fcno_rtn = mysqli_query($dbconn, $fet_cno);
+        $chapData = mysqli_fetch_assoc($fcno_rtn);
+        return $chapData['chap_no'];
+    }
     function getSeriesId($sname){
         require 'dbconfig.php';
         $fet_sid = "SELECT series_id FROM series WHERE series_name = '$sname'";
@@ -96,5 +110,50 @@
         $getCount = "UPDATE ch_view_count SET views = views + 1, last_update = '$cdate' WHERE chap_id = '$cid'";
         $gC_rtn = mysqli_query($dbconn, $getCount);
         return;
+    }
+    function hasBoughtEA($cid, $uid){
+        require 'dbconfig.php';
+        $check = "SELECT * FROM ea_purchase_rec E INNER JOIN locked_chapter L ON E.lock_id = L.lock_id WHERE L.chap_id = '$cid' AND E.user_id='$uid'";
+        $rtn = mysqli_query($dbconn, $check);
+        if($rtn->num_rows == 1)
+            return true;
+        else
+            return false;
+    }
+    function isNxtLocked($cid, $sid, $uid){
+        require 'dbconfig.php';
+        $curChap = getChapNo($cid,$sid);
+        if($curChap != getLastChap($sid)){
+            $numb = intval(substr($curChap, 5));
+            $numb++;
+            $nextCh = "Chap " . $numb;
+            $ncid = getChapID($nextCh,$sid);
+            $c_lock = "SELECT * FROM chapter WHERE chap_id = '$ncid' AND status='locked'";
+            $rtn = mysqli_query($dbconn, $c_lock);
+            if($rtn->num_rows == 1){
+                if(hasBoughtEA($ncid, $uid))
+                    return false;
+                else
+                    return true;
+            }else
+                return false;
+        }else
+            return false;
+    }
+    function isNxtPub($cno, $sid){
+        require 'dbconfig.php';
+        if($cno != getLastChap($sid)){
+            $numb = intval(substr($cno, 5));
+            $numb++;
+            $nextCh = "Chap " . $numb;
+            $ncid = getChapID($nextCh,$sid);
+            $c_pub = "SELECT * FROM chapter WHERE chap_id = '$ncid' AND status='published'";
+            $rtn = mysqli_query($dbconn, $c_pub);
+            if($rtn->num_rows == 1)
+                return true;
+            else
+                return false;
+        }else
+            return false;
     }
 ?>

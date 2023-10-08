@@ -1,3 +1,11 @@
+/* index page */
+.heading_title{
+    font-size: 1.5em;
+}
+.heading_list{
+    list-style-type: square;
+}
+
 /* admin */
 .prevSsImg{
     width: 100%;
@@ -169,4 +177,49 @@
 .chapListDD{
     max-height: 162px;
     overflow-y: scroll;
+}
+/* chapter_lock */
+.ch-box{
+    position: relative;
+}
+.lock_ic{
+    position: absolute;
+    top: 15%;
+    right: 2%;
+    cursor: pointer;
+}
+
+/* series_rating */
+.rate-container{
+    width: auto;
+    background-color: #505050;
+    border: 1px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.rate-container .star-widget input{
+    display: none;
+}
+.star-widget label{
+    font-size: 25px;
+    color: #444;
+    padding: 10px;
+    float: right;
+    transition: all 0.2s ease;
+}
+.star-widget input:not(:checked) ~ label:hover,
+.star-widget input:not(:checked) ~ label:hover ~ label{
+    color: #fd4;
+}
+.star-widget input:checked ~ label{
+    color: #fd4;
+}
+input#star5:checked ~ label{
+    color: #fe7;
+    text-shadow: 0 0 20px rgb(230, 128, 50);
+}
+.textarea textarea{
+    resize: none;
 }

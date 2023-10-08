@@ -20,7 +20,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BURMICS - <?php echo $seriesName; ?></title>
+    <title>BURMICS - <?php echo getSeriesName($seriesID); ?></title>
     <link rel="stylesheet" type="text/css" href="bs5.3/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="bs5.3/bootstrap-icons/font/bootstrap-icons.css">
@@ -59,16 +59,43 @@
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="p-3">
+                    <div class="p-3 pe-0">
                        <div class="mb-3 fs-4">
                             <span class="fs-5">Publish By</span> <br> <?php echo getUserName(getUserId($seriesDetail['creator_id'])); ?>
                         </div>
                         <div class="mb-3">
                             <button class="btn btn-danger w-100">Add to Library</button>
                         </div>
+                        <?php
+                            $uID = $_SESSION['uid'];
+                            if($uID == getUserId($seriesDetail['creator_id'])){
+                        ?>
                         <div class="mb-3">
-                            <h4>Rate the series</h4>
+                            <div class="py-4 bg-success rounded">
+                                <h5 class="text-center">You cannot rate your own series.</h5>
+                            </div>
                         </div>
+                        <?php
+                            }else{
+                                $get_sRating = "SELECT * FROM series_rating WHERE series_id = '$seriesID' AND user_id = '$uID'";
+                                $gsr_rtn = mysqli_query($dbconn, $get_sRating);
+                                if($gsr_rtn->num_rows == 0){
+                        ?>
+                        <div class="mb-3">
+                            <?php include 'series_rating.php'; ?>
+                        </div>
+                        <?php
+                                }else{
+                        ?>
+                        <div class="mb-3">
+                            <div class="py-4 bg-success rounded">
+                                <h5 class="text-center">Already rated this series.</h5>
+                            </div>
+                        </div>
+                        <?php
+                                }
+                            }  
+                        ?>
                     </div>
                 </div>
             </div>
@@ -89,10 +116,43 @@
                     <div class="container">
                         <div class="row">
                             <?php
-                                // $seriesID = $seriesDetail['series_id'];
-                                $getChaps = "SELECT chap_no FROM chapter WHERE series_id = '$seriesID' ORDER BY chap_no DESC";
+                                $getChaps = "SELECT * FROM chapter WHERE series_id = '$seriesID' AND (status != 'private' AND status != 'draft') ORDER BY chap_no DESC";
                                 $gc_rtn = mysqli_query($dbconn, $getChaps);
                                 while($chapInfo = mysqli_fetch_assoc($gc_rtn)){
+                                    if($chapInfo['status'] == "locked"){
+                                        $chID = $chapInfo['chap_id'];
+                                        if(!hasBoughtEA($chID,$uID)){
+                            ?>
+                            <div class="col-6">
+                                <div class="rounded bg-dark-subtle py-2 ps-3 mb-3 ch-box">
+                                    <a class="text-dark text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#<?php echo $chID; ?>"><h5 class="text-dark mb-0"><?php echo $chapInfo['chap_no']; ?></h5></a>
+                                    <i class="bi bi-lock-fill lock_ic fs-5"></i>
+                                </div>
+                                <div class="modal fade" id="<?php echo $chID; ?>">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title">The chaper is locked!</h3>
+                                            </div>
+                                            <div class="modal-body">
+                                                <?php include 'ea_purchase.php'; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                                        }else{
+                            ?>
+                            <div class="col-6">
+                                <div class="rounded bg-dark-subtle py-2 ps-3 mb-3 ch-box">
+                                    <a class="text-dark text-decoration-none"  href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapInfo['chap_no']; ?>"><h5 class="text-dark mb-0"><?php echo $chapInfo['chap_no']; ?></h5></a>
+                                    <i class="bi bi-unlock-fill lock_ic fs-5"></i>
+                                </div>
+                            </div>
+                            <?php
+                                        }
+                                    }else{        
                             ?>
                             <div class="col-6">
                                 <div class="rounded bg-dark-subtle py-2 ps-3 mb-3">
@@ -100,6 +160,7 @@
                                 </div>
                             </div>
                             <?php
+                                    }
                                 }
                             ?>
                         </div>
