@@ -169,5 +169,10 @@
             </div>
         </div>
     </section>
+    <footer>
+		<div class="container-fluid bg-body-tertiary pt-4">
+			<?php include 'footer.php'; ?>
+		</div>
+	</footer>
 </body>
 </html>

@@ -175,8 +175,6 @@
 		FOREIGN KEY(chap_id) REFERENCES chapter(chap_id)
 	)";
 	$crt_tb_rtn = mysqli_query($dbconn, $crt_tb);
-
-
 	//locked_chap table
 	$lc_tb = "CREATE TABLE IF NOT EXISTS locked_chapter
 	(
@@ -188,8 +186,6 @@
 		FOREIGN KEY(chap_id) REFERENCES chapter(chap_id)
 	)";
 	$lc_tb_rtn = mysqli_query($dbconn, $lc_tb);
-
-
 	//early access purchase table
 	$ea_tb = "CREATE TABLE IF NOT EXISTS ea_purchase_rec
 	(
@@ -201,8 +197,6 @@
 		FOREIGN KEY(lock_id) REFERENCES locked_chapter(lock_id)
 	)";
 	$ea_tb_rtn = mysqli_query($dbconn, $ea_tb);
-
-
 	//package purchase table
 	$pp_tb = "CREATE TABLE IF NOT EXISTS package_purchase_rec
 	(
@@ -215,8 +209,6 @@
 		FOREIGN KEY(package_id) REFERENCES package(package_id)
 	)";
 	$pp_tb_rtn = mysqli_query($dbconn, $pp_tb);
-
-
 	//donation table
 	$donate_tb = "CREATE TABLE IF NOT EXISTS donation
 	(
@@ -227,8 +219,6 @@
 		FOREIGN KEY(user_id) REFERENCES user(user_id)
 	)";
 	$donate_tb_rtn = mysqli_query($dbconn, $donate_tb);
-
-
 	//coin_purchase_rec table
 	$cp_tb = "CREATE TABLE IF NOT EXISTS coin_purchase_rec
 	(
@@ -247,8 +237,6 @@
 		FOREIGN KEY(pm_id) REFERENCES payment_method(pm_id)
 	)";
 	$cp_tb_rtn = mysqli_query($dbconn, $cp_tb);
-
-
 	//withdrawal_rec
 	$withdraw_tb = "CREATE TABLE IF NOT EXISTS coin_withdraw_rec
 	(

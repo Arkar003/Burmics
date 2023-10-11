@@ -45,7 +45,6 @@
                     $rating = $_REQUEST['series_rating'];
                     $fb = $_REQUEST['sfeedback'];
                     $sID = $seriesID;
-                    $uID = $userID;
                     $check_rate = "SELECT * FROM series_rating WHERE series_id = '$sID' AND user_id = '$uID'";
                     $cr_rtn = mysqli_query($dbconn,$check_rate);
                     if($cr_rtn->num_rows == 0){
