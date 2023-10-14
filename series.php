@@ -6,7 +6,8 @@
         $seriesID = $_GET['sid'];
     else
         $seriesID = "none";
-
+    
+    $uID = $_SESSION['uid'];
     $getSDetail = "SELECT * FROM series WHERE series_id = '$seriesID'";
     $gsd_rtn = mysqli_query($dbconn, $getSDetail);
     $seriesDetail = mysqli_fetch_assoc($gsd_rtn);
@@ -64,11 +65,23 @@
                             <span class="fs-5">Publish By</span> <br> <?php echo getUserName(getUserId($seriesDetail['creator_id'])); ?>
                         </div>
                         <div class="mb-3">
-                            <button class="btn btn-danger w-100">Add to Library</button>
+                            <form method="post">
+                                <?php
+                                    if(alrdySaved($uID,$seriesDetail['series_name'])){
+                                ?>
+                                <button class="btn btn-danger w-100 fs-5" type="submit" name="rmvBookmark"><i class="bi bi-bookmark-dash"></i> Remove From Library</button>
+                                <?php
+                                    }else{
+                                ?>
+                                <button class="btn btn-danger w-100 fs-5" type="submit" name="bookmark"><i class="bi bi-bookmark-check"></i> Add to Library</button>
+                                <?php
+                                    }
+                                ?>
+                            </form>
                         </div>
                         <?php
-                            $uID = $_SESSION['uid'];
-                            if($uID == getUserId($seriesDetail['creator_id'])){
+                            $creatorUID = getUserId($seriesDetail['creator_id']);
+                            if($uID == $creatorUID){
                         ?>
                         <div class="mb-3">
                             <div class="py-4 bg-success rounded">
@@ -174,5 +187,45 @@
 			<?php include 'footer.php'; ?>
 		</div>
 	</footer>
+    <?php 
+        if(isset($_REQUEST['bookmark'])){
+            $sname = $seriesDetail['series_name'];
+            $fet_saved = "SELECT * FROM library WHERE user_id = '$uID'";
+            $fs_rtn = mysqli_query($dbconn, $fet_saved);
+            $libData = mysqli_fetch_assoc($fs_rtn);
+            if($libData['series_names'] == "")
+                $savedSeries = array();
+            else
+                $savedSeries = json_decode($libData['series_names'],true);
+            $savedSeries[] = $sname;
+            $serNames = json_encode($savedSeries);
+            $upd_lib = "UPDATE library SET series_names = '$serNames' WHERE user_id = '$uID'";
+            $upd_rtn = mysqli_query($dbconn, $upd_lib);
+            if($upd_rtn)
+                echo "<script>location.assign('series.php?sid=$seriesID');</script>";
+            else
+                echo mysqli_error($dbconn);
+        }
+
+        if(isset($_REQUEST['rmvBookmark'])){
+            $sname = $seriesDetail['series_name'];
+            $fet_saved = "SELECT * FROM library WHERE user_id = '$uID'";
+            $fs_rtn = mysqli_query($dbconn, $fet_saved);
+            $libData = mysqli_fetch_assoc($fs_rtn);
+            $savedSeries = json_decode($libData['series_names'],true);
+            $rmvedSeries = array();
+            foreach($savedSeries as $ss){
+                if($ss !== $sname)
+                    $rmvedSeries[] = $ss;
+            }
+            $serNames = json_encode($rmvedSeries);
+            $upd_lib = "UPDATE library SET series_names = '$serNames' WHERE user_id = '$uID'";
+            $upd_rtn = mysqli_query($dbconn, $upd_lib);
+            if($upd_rtn)
+                echo "<script>location.assign('series.php?sid=$seriesID');</script>";
+            else
+                echo mysqli_error($dbconn);
+        }
+    ?>
 </body>
 </html>

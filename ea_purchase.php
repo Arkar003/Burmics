@@ -47,6 +47,7 @@
                     $ae_rtn = mysqli_query($dbconn, $add_ea);
                     if($ae_rtn){
                         reduce_coin($uID,$cost);
+                        add_coin($creatorUID,$cost);
                         echo "<script>alert('Early Access Purchase success.');
                                     location.assign('series.php?sid=$seriesID');</script>";
                     }else

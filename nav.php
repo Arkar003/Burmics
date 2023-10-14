@@ -78,7 +78,7 @@
 					</div>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#"><span><i class="bi bi-journal-bookmark-fill fa-lg"></i></span></a>
+					<a class="nav-link" href="viewLibrary.php"><span><i class="bi bi-journal-bookmark-fill fa-lg"></i></span></a>
 				</li>
 				<?php 
 					if($_SESSION['acctype'] == 'creator'){

@@ -156,4 +156,19 @@
         }else
             return false;
     }
+    function alrdySaved($uid, $sname){
+        require 'dbconfig.php';
+        $fet_lib = "SELECT * FROM library WHERE user_id = '$uid'";
+        $flib_rtn = mysqli_query($dbconn, $fet_lib);
+        $libInfo = mysqli_fetch_assoc($flib_rtn);
+        if($libInfo['series_names'] == "")
+            return false;
+        else{
+            $seriesNames = json_decode($libInfo['series_names'], true);
+            if(in_array($sname, $seriesNames))
+                return true;
+            else
+                return false;
+        }
+    }
 ?>
