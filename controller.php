@@ -171,4 +171,15 @@
                 return false;
         }
     }
+    function checkOverLimit($uid){
+        require 'dbconfig.php';
+        date_default_timezone_set("Asia/Yangon");
+        $curDate = date('Y-m-d');
+        $get_rec = "SELECT * FROM chap_read_track WHERE user_id = '$uid' AND DATE(read_date) = '$curDate'";
+        $gr_rtn = mysqli_query($dbconn, $get_rec);
+        if($gr_rtn->num_rows < 10)
+            return false;
+        else
+            return true;
+    }
 ?>

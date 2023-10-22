@@ -101,8 +101,9 @@
                                 }else{
                         ?>
                         <div class="mb-3">
-                            <div class="py-4 bg-success rounded">
-                                <h5 class="text-center">Already rated this series.</h5>
+                            <div class="py-4 bg-success rounded text-center">
+                                <h5 class="">Already rated this series.</h5>
+                                <a class="text-dark" href="#">See reviews</a>
                             </div>
                         </div>
                         <?php

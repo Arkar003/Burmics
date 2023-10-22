@@ -85,6 +85,16 @@
 	)";
 	$creator_tb_rtn = mysqli_query($dbconn, $creator_tb);
 
+	$banList_tb = "CREATE TABLE IF NOT EXISTS bannedList(
+		ban_id CHAR(8) NOT NULL PRIMARY KEY,
+		user_id CHAR(8),
+		period INT(4),
+		reason TEXT,
+		ban_date DATE,
+		status VARCHAR(10),
+		FOREIGN KEY(user_id) REFERENCES user(user_id)
+	)";
+	$banTb_rtn = mysqli_query($dbconn, $banList_tb);
 
 	//series table
 	$series_tb = "CREATE TABLE IF NOT EXISTS series
