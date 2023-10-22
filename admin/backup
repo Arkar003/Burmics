@@ -236,3 +236,39 @@
 </body>
 </html>
 =======================packageNrates======================
+
+<div class="modal fade" id="<?php echo $users['user_id']; ?>w">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">User Account Warning</h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post">
+                                                                <div class="container">
+                                                                    <div class="row">
+                                                                        <div class="col-6 mb-3">
+                                                                            <label class="form-label" for="user_id">User ID :</label>
+                                                                            <input class="form-control" placeholder="<?php echo $users['user_id']; ?>" type="text" id="user_id" disabled readonly>
+                                                                        </div>
+                                                                        <div class="col-6 mb-3">
+                                                                            <label class="form-label" for="user_name">Username :</label>
+                                                                            <input class="form-control" placeholder="<?php echo $users['username']; ?>" type="text" id="user_name" disabled readonly>
+                                                                        </div>
+                                                                        <div class="col-12 mb-3">
+                                                                            <label for="reason" class="form-label">Give a reason</label>
+                                                                            <textarea class="form-control" id="reason" rows="3" required></textarea>
+                                                                        </div>
+                                                                        <div class="col-12 mb-3">
+                                                                            <div class="text-center">
+                                                                                <button class="btn btn-outline-secondary" type="reset" data-bs-dismiss="modal">Cancel</button>
+                                                                                <button class="btn btn-warning" type="submit" name="warn">Warn</button>
+                                                                            </div>    
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>

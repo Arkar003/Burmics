@@ -2,7 +2,7 @@
     require '../dbconfig.php';
     include '../controller.php';
     date_default_timezone_set("Asia/Yangon");
-    // session_start();
+    session_start();
 ?>
 
 <!DOCTYPE html>
@@ -29,9 +29,6 @@
     ?>
     <div class="container-fluid vh-100">
         <div class="row min-vh-100">
-            <div class="col-2 bg-light pe-0">
-                <?php include 'sidebar.php'; ?>
-            </div>
             <div class="col-10 bg-secondary-subtle px-1">
                 <div class="p-3">
                     <div class="row">
@@ -91,22 +88,21 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                
+                                                </div>  
                                             </div>
                                         </td>
                                         <td>
                                             <form method="post">
                                                 <button class="btn btn-danger" type="submit" name="reject">Cancel</button>
-                                                <button class="btn btn-primary" type="submit" name="accept">Confirm</button>
+                                                <button class="btn btn-primary" type="submit" name="<?php echo $cpl['cpr_id']; ?>">Confirm</button>
                                             </form>
                                             <?php
-                                                if(isset($_REQUEST['reject']) || isset($_REQUEST['accept'])){
+                                                if(isset($_REQUEST[$cpl['cpr_id']]) || isset($_REQUEST['reject'])){
                                                     $staff_id = $_SESSION['stid'];
                                                     $update_Date = date('Y-m-d H:i:s');
                                                     $cpl_id = $cpl['cpr_id'];
 
-                                                    if(isset($_REQUEST['accept'])){
+                                                    if(isset($_REQUEST[$cpl['cpr_id']])){
                                                         $sts = "Success";
                                                         $userID = $cpl['user_id'];
                                                         $c_amt = $cpl['coin_amount'];
@@ -120,10 +116,13 @@
                                                     if($update_rtn)
                                                         echo "<script>
                                                             alert('update success.');
-                                                            location.assign('coin_purchase_list.php');
+                                                            location.assign('while.php');
                                                         </script>";
                                                     else
                                                         echo mysqli_error($dbconn);
+
+                                                    unset($_REQUEST['reject']);
+                                                    unset($_REQUEST['accept']);
                                                 }
                                             ?>
                                         </td>

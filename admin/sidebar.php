@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <div class="border-bottom p-3">
 	<a class="fs-3 text-decoration-none font-monospace text-dark" href="#">
 		ADMIN
@@ -20,9 +23,8 @@
 		<a class="fs-5 text-decoration-none text-dark" role="button" href="#user_mng" data-bs-toggle="collapse">User Management</a>
 	</div>
 	<div class="sbItem collapse" id="user_mng">
-		<div class="p-3 ps-4 sbItem"><a href="#" class="fs-6 text-decoration-none text-dark">All Users</a></div>
-		<div class="p-3 ps-4 sbItem"><a href="#" class="fs-6 text-decoration-none text-dark">Creators</a></div>
-		<div class="p-3 ps-4 sbItem"><a href="#" class="fs-6 text-decoration-none text-dark">Banned Users</a></div>
+		<div class="p-3 ps-4 sbItem"><a href="user_list.php" class="fs-6 text-decoration-none text-dark">All Users</a></div>
+		<div class="p-3 ps-4 sbItem"><a href="bannedList.php" class="fs-6 text-decoration-none text-dark">Banned Users</a></div>
 	</div>
 	<div class="p-3 sbItem">
 		<a class="fs-5 text-decoration-none text-dark" href="packageNrates.php">Packages and rates</a>
@@ -30,16 +32,20 @@
 	<div class="p-3 sbItem">
 		<a class="fs-5 text-decoration-none text-dark" href="#">Reports</a>
 	</div>
+	<?php
+		if($_SESSION['stid'] == 'SID00001'){
+	?>
 	<div class="p-3 sbItem">
 		<a class="fs-5 text-decoration-none text-dark" href="adminSignUp.php">Admin Signup</a>
 	</div>
+	<?php
+		}
+	?>
 	<div class="p-3 sbItem">
 		<a class="fs-5 text-decoration-none text-dark" href="#">Account Setting</a>
 	</div>
-</div>
-<div class="p-4">
-	<div class="ms-4">
-		<a class="fs-5 px-5 text-decoration-none btn btn-danger" role="button" href="#">
+	<div class="pe-3 sbItem">
+		<a class="w-100 fs-5 px-5 text-decoration-none btn btn-danger" role="button" href="adminLogout.php">
 			Logout
 		</a>
 	</div>

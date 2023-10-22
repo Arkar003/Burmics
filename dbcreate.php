@@ -91,6 +91,7 @@
 		period INT(4),
 		reason TEXT,
 		ban_date DATE,
+		release_date DATE,
 		status VARCHAR(10),
 		FOREIGN KEY(user_id) REFERENCES user(user_id)
 	)";

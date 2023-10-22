@@ -18,10 +18,6 @@
 				<form method="post">
 					<div class="login-box rounded p-2 mt-4">
 						<div class="mb-2">
-							<label class="form-label" for="staffId">Staff ID</label>
-							<input class="form-control" type="text" name="staffId" id="staffId">
-						</div>
-						<div class="mb-2">
 							<label class="form-label" for="semail">Email</label>
 							<input class="form-control" type="email" name="semail" id="semail">
 						</div>
@@ -50,12 +46,11 @@
 		session_start();
 
 		if(isset($_REQUEST['login'])){
-			$sid = $_REQUEST['staffId'];
 			$semail = $_REQUEST['semail'];
 			$pwd = md5($_REQUEST['pword']);
 
 			//fetching staff id from database
-			$fetch_sid = "SELECT staff_id, full_name FROM staff WHERE staff_id = '$sid' AND email = '$semail' AND password = '$pwd'";
+			$fetch_sid = "SELECT staff_id, full_name FROM staff WHERE email = '$semail' AND password = '$pwd'";
 			$fsid_return = mysqli_query($dbconn, $fetch_sid);
 
 			$user_info = mysqli_fetch_assoc($fsid_return);

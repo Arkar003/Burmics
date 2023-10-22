@@ -182,4 +182,24 @@
         else
             return true;
     }
+    function getWarningCount($uid){
+        require 'dbconfig.php';
+        $get_counts = "SELECT COUNT(ban_id) AS count FROM bannedList WHERE user_id = '$uid' AND status='Warning'";
+        $rtn = mysqli_query($dbconn,$get_counts);
+        if($rtn->num_rows == 0)
+            return 0;
+        else{
+            $data = mysqli_fetch_assoc($rtn);
+            return $data['count'];
+        }
+    }
+    function isBanned($uid){
+        require 'dbconfig.php';
+        $check_banned = "SELECT * FROM bannedList WHERE user_id = '$uid' AND status = 'Banned' AND release_date != '0000-00-00'";
+        $rtn = mysqli_query($dbconn, $check_banned);
+        if($rtn->num_rows == 0)
+            return false;
+        else
+            return true;
+    }
 ?>
