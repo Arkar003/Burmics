@@ -41,8 +41,8 @@
 	<?php
 		}
 	?>
-	<div class="p-3 sbItem">
-		<a class="fs-5 text-decoration-none text-dark" href="#">Account Setting</a>
+	<div class="p-3 sbItem mb-5">
+		<a class="fs-5 text-decoration-none text-dark" href="accountSetting.php">Account Setting</a>
 	</div>
 	<div class="pe-3 sbItem">
 		<a class="w-100 fs-5 px-5 text-decoration-none btn btn-danger" role="button" href="adminLogout.php">

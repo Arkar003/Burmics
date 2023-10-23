@@ -7,7 +7,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Admin Sign up</title>
+	<title>Account setting</title>
 	<link rel="stylesheet" type="text/css" href="../bs5.3/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../bs5.3/bootstrap-icons/font/bootstrap-icons.min.css">
 	<link rel="stylesheet" type="text/css" href="../style.css">
@@ -158,21 +158,45 @@
 			nPass.classList.remove("strong", "weak");
 			nPass.classList.add(strength);
 		})
-        cPass.addEventListener("input", function(event){
-			var tar = event.target;
-			var pword = tar.value;
-			var strength = getPassStrength(pword);
-			cPass.classList.remove("strong", "weak");
-			cPass.classList.add(strength);
-		})
 	</script>
 	<?php
         if(isset($_REQUEST['update'])){
+            //email and ph number needs to check
+            $newEmail = $_REQUEST['nEmail'];
+            $newNumb = $_REQUEST['nPhone'];
+            $newAdd = $_REQUEST['sAddress'];
+
+            $check_valid = "SELECT staff_id FROM staff WHERE email = '$newEmail' OR phone_no = '$newNumb'";
+            $cv_rtn = mysqli_query($dbconn,$check_valid);
+            if($cv_rtn->num_rows == 0){
+                $upd_staff = "UPDATE staff SET email = '$newEmail', phone_no = '$newNumb', address= '$newAdd' WHERE staff_id = '$sid'";
+                $upst_rtn = mysqli_query($dbconn, $upd_staff);
+                if($upst_rtn)
+                    echo "<script>alert('Account updated success');
+                    location.assign('accountSetting.php');</script>";
+            }else
+                echo "<script>alert('Something went wrong! email, nrc or phone number already existed!');</script>";
 
         }
 
         if(isset($_REQUEST['changePass'])){
+            $get_staffPass = "SELECT password FROM staff WHERE staff_id = '$sid'";
+            $gsp_rtn = mysqli_query($dbconn, $get_staffPass);
+            $staffData = mysqli_fetch_assoc($gsp_rtn);
 
+            $oldpass = md5($_REQUEST['oldPass']);
+            if($oldpass == $staffData['password']){
+                $newPass = md5($_REQUEST['newPass']);
+                $conPass = md5($_REQUEST['passCon']);
+                if($newPass == $conPass){
+                    $upd_pass = "UPDATE staff SET password = '$newPass' WHERE staff_id = '$sid'";
+                    $up_rtn = mysqli_query($dbconn, $upd_pass);
+                    if($up_rtn)
+                        echo "<script>alert('Password changing success and new password has been set.');</script>";
+                }else
+                    echo "<script>alert('New password and confirm password do not match.  Please try again.');</script>";
+            }else
+                echo "<script>alert('The current password is incorrect! Please try again.');</script>";
         }
     ?>
 </body>
