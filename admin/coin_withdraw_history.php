@@ -1,7 +1,6 @@
 <?php
     require '../dbconfig.php';
     include '../controller.php';
-    // session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,8 +79,8 @@
                                         <td><div><?php echo $cwl['amount']; ?></div></td>
                                         <td>
                                             <div>
-                                                <button class="btn" data-bs-toggle="modal" data-bs-target="#moreDetails"><?php echo $cwl['payment_method']; ?></button>
-                                                <div class="modal fade" id="moreDetails">
+                                                <button class="btn" data-bs-toggle="modal" data-bs-target="#<?php echo $cwl['w_id']; ?>"><?php echo $cwl['payment_method']; ?></button>
+                                                <div class="modal fade" id="<?php echo $cwl['w_id']; ?>">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -89,19 +88,19 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="container-fluid">
-                                                                    <div class="row">
+                                                                    <div class="row mb-3">
                                                                         <div class="col-6 text-end">Creator ID :</div>
                                                                         <div class="col-6 text-start"><?php echo $cwl['creator_id']; ?></div>
                                                                     </div>
-                                                                    <div class="row">
+                                                                    <div class="row mb-3">
                                                                         <div class="col-6 text-end">Payment Type :</div>
                                                                         <div class="col-6 text-start"><?php echo $cwl['payment_method']; ?></div>
                                                                     </div>
-                                                                    <div class="row">
+                                                                    <div class="row mb-3">
                                                                         <div class="col-6 text-end">Acc holder name :</div>
                                                                         <div class="col-6 text-start"><?php echo $cwl['acc_holder']; ?></div>
                                                                     </div>
-                                                                    <div class="row">
+                                                                    <div class="row mb-3">
                                                                         <div class="col-6 text-end">Acc Number :</div>
                                                                         <div class="col-6 text-start"><?php echo $cwl['acc_number']; ?></div>
                                                                     </div>

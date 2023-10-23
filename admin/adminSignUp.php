@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Admin Sign up</title>
 	<link rel="stylesheet" type="text/css" href="../bs5.3/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../bs5.3/bootstrap-icons/font/bootstrap-icons.min.css">
 	<link rel="stylesheet" type="text/css" href="../style.css">
 </head>
 <body>
@@ -20,10 +21,10 @@
                             <h3>Register new admin account</h3>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="bg-light rounded p-3">
+                    <div class="row justify-content-center">
+                        <div class="col-8 bg-light rounded p-3">
 							<form method="post">
-								<div class="register-box rounded p-2 mt-5">
+								<div class="register-box rounded p-2">
 									<div class="mb-2">
 										<label class="form-label" for="fname">Full name</label>
 										<input class="form-control" type="text" name="fname" id="fname">
@@ -32,9 +33,10 @@
 										<label class="form-label" for="sEmail">Email</label>
 										<input class="form-control" type="email" name="sEmail" id="sEmail">
 									</div>
-									<div class="mb-2">
+									<div class="mb-2 pw-box">
 										<label class="form-label" for="pword">Password</label>
 										<input class="form-control" type="password" name="pword" id="pword">
+										<i class="bi bi-eye-fill ic fs-4" id="show-pw"></i>
 									</div>
 									<div class="mb-2">
 										<label class="form-label" for="phone">Phone Number</label>
@@ -45,11 +47,10 @@
 										<label class="form-label" for="nrc">NRC Number:</label>
 										<input class="form-control" type="text" name="nrc" id="nrc">
 									</div>
-									<div class="mb-2">
+									<div class="mb-3">
 										<label class="form-label" for="address">Enter Address :</label>
 										<textarea class="form-control" name="address" id="address" rows="3"></textarea>
 									</div>
-									
 									<div class="mb-2 row">
 										<div class="col">
 											<button class="btn btn-outline-primary w-100" type="reset" values="reset" name="cancel">Cancel</button>
@@ -68,19 +69,31 @@
 	</div>	
 	<script type="text/javascript">
 		var pass = document.getElementById("pword");
-		pass.addEventListener("input", function(event){
-			var tar = event.target;
-			var pword = tar.value;
-			var strenght = 0;
+		var showPass = document.getElementById("show-pw");
+
+        showPass.addEventListener("click",function(){
+            this.classList.toggle("bi-eye-slash-fill");
+            var type = pass.getAttribute("type") === "password" ?  "text" : "password";
+            pass.setAttribute("type",type);
+        })
+
+		function getPassStrength(pw){
 			var lenCheck = /.{8,}/;
 			var lowUpCheck = /(?=.*[a-z])(?=.*[A-Z])/;
 			var ltrNumCheck = /(?=.*[a-zA-Z])(?=.*\d)/;
 			var symbolCheck = /[\[\]\(\)\{\}\*\!\+\?\^\$\.\\\-#:;,_`~%'"@/]/;
-			pass.classList.remove("strong", "weak");
-			if(pword.match(lenCheck) && pword.match(lowUpCheck) && pword.match(ltrNumCheck) && pword.match(symbolCheck))
-				pass.classList.add("strong");
+			if(pw.match(lenCheck) && pw.match(lowUpCheck) && pw.match(ltrNumCheck) && pw.match(symbolCheck))
+				return "strong";
 			else
-				pass.classList.add("weak");
+				return "weak";
+		}
+
+		pass.addEventListener("input", function(event){
+			var tar = event.target;
+			var pword = tar.value;
+			var strength = getPassStrength(pword);
+			pass.classList.remove("strong", "weak");
+			pass.classList.add(strength);
 		})
 	</script>
 	<?php 

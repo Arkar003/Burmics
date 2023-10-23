@@ -1,7 +1,6 @@
 <?php
     require '../dbconfig.php';
     include '../controller.php';
-    // session_start();
 ?>
 
 <!DOCTYPE html>
@@ -75,8 +74,8 @@
                                         <td><div><?php echo $cpl['payment_method']; ?></div></td>
                                         <td>
                                             <div>
-                                                <button class="btn" data-bs-toggle="modal" data-bs-target="#prevSSImg"><?php echo $cpl['payment_ss']; ?></button>
-                                                <div class="modal fade" id="prevSSImg">
+                                                <button class="btn" data-bs-toggle="modal" data-bs-target="#<?php echo $cpl['cpr_id']; ?>"><?php echo $cpl['payment_ss']; ?></button>
+                                                <div class="modal fade" id="<?php echo $cpl['cpr_id']; ?>">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-body">

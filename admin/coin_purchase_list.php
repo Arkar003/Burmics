@@ -2,7 +2,6 @@
     require '../dbconfig.php';
     include '../controller.php';
     date_default_timezone_set("Asia/Yangon");
-    // session_start();
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +57,6 @@
                                         if($fcpl_rtn->num_rows == 0){
                                     ?>
                                     <tr>
-                                        <!-- <td colspan="7" class="text-center">No new pending requests!</td> -->
                                         <td>--</td>
                                         <td>--</td>
                                         <td>--</td>
@@ -97,16 +95,16 @@
                                         </td>
                                         <td>
                                             <form method="post">
-                                                <button class="btn btn-danger" type="submit" name="reject">Cancel</button>
-                                                <button class="btn btn-primary" type="submit" name="accept">Confirm</button>
+                                                <button class="btn btn-danger" type="submit" name="<?php echo $cpl['cpr_id']; ?>reject">Cancel</button>
+                                                <button class="btn btn-primary" type="submit" name="<?php echo $cpl['cpr_id']; ?>accept">Confirm</button>
                                             </form>
                                             <?php
-                                                if(isset($_REQUEST['reject']) || isset($_REQUEST['accept'])){
+                                                if(isset($_REQUEST[$cpl['cpr_id'].'reject']) || isset($_REQUEST[$cpl['cpr_id'].'accept'])){
                                                     $staff_id = $_SESSION['stid'];
                                                     $update_Date = date('Y-m-d H:i:s');
                                                     $cpl_id = $cpl['cpr_id'];
 
-                                                    if(isset($_REQUEST['accept'])){
+                                                    if(isset($_REQUEST[$cpl['cpr_id'].'accept'])){
                                                         $sts = "Success";
                                                         $userID = $cpl['user_id'];
                                                         $c_amt = $cpl['coin_amount'];

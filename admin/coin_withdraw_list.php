@@ -2,7 +2,6 @@
     require '../dbconfig.php';
     include '../controller.php';
     date_default_timezone_set("Asia/Yangon");
-    // session_start();
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +57,6 @@
                                         if($fcwl_rtn->num_rows == 0){
                                     ?>
                                     <tr>
-                                        <!-- <td colspan="7" class="text-center">No new pending requests!</td> -->
                                         <td>--</td>
                                         <td>--</td>
                                         <td>--</td>
@@ -87,8 +85,8 @@
                                         <td><div class="mt-2"><?php echo $cwl['amount']; ?></div></td>
                                         <td>
                                             <div>
-                                                <button class="btn" data-bs-toggle="modal" data-bs-target="#moreDetails"><?php echo $cwl['payment_method']; ?></button>
-                                                <div class="modal fade" id="moreDetails">
+                                                <button class="btn" data-bs-toggle="modal" data-bs-target="#<?php echo $cwl['w_id']; ?>"><?php echo $cwl['payment_method']; ?></button>
+                                                <div class="modal fade" id="<?php echo $cwl['w_id']; ?>">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -96,19 +94,19 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="container-fluid">
-                                                                    <div class="row">
+                                                                    <div class="row mb-3">
                                                                         <div class="col-6 text-end">Creator ID :</div>
                                                                         <div class="col-6 text-start"><?php echo $cwl['creator_id']; ?></div>
                                                                     </div>
-                                                                    <div class="row">
+                                                                    <div class="row mb-3">
                                                                         <div class="col-6 text-end">Payment Type :</div>
                                                                         <div class="col-6 text-start"><?php echo $cwl['payment_method']; ?></div>
                                                                     </div>
-                                                                    <div class="row">
+                                                                    <div class="row" mb-3>
                                                                         <div class="col-6 text-end">Acc holder name :</div>
                                                                         <div class="col-6 text-start"><?php echo $cwl['acc_holder']; ?></div>
                                                                     </div>
-                                                                    <div class="row">
+                                                                    <div class="row mb-3">
                                                                         <div class="col-6 text-end">Acc Number :</div>
                                                                         <div class="col-6 text-start"><?php echo $cwl['acc_number']; ?></div>
                                                                     </div>
@@ -121,16 +119,16 @@
                                         </td>
                                         <td>
                                             <form method="post">
-                                                <button class="btn btn-danger" type="submit" name="wReject">Cancel</button>
-                                                <button class="btn btn-primary" type="submit" name="wAccept">Confirm</button>
+                                                <button class="btn btn-danger" type="submit" name="<?php echo $cwl['w_id']; ?>wReject">Cancel</button>
+                                                <button class="btn btn-primary" type="submit" name="<?php echo $cwl['w_id']; ?>wAccept">Confirm</button>
                                             </form>
                                             <?php
-                                                if(isset($_REQUEST['wReject']) || isset($_REQUEST['wAccept'])){
+                                                if(isset($_REQUEST[$cwl['w_id'].'wReject']) || isset($_REQUEST[$cwl['w_id'].'wAccept'])){
                                                     $staff_id = $_SESSION['stid'];
                                                     $update_Date = date('Y-m-d H:i:s');
                                                     $cwl_id = $cwl['w_id'];
 
-                                                    if(isset($_REQUEST['wAccept'])){
+                                                    if(isset($_REQUEST[$cwl['w_id'].'wAccept'])){
                                                         $sts = "Success";
                                                         reduce_coin(getUserId($cwl['creator_id']), $cwl['coin_amount']);
                                                     }else
