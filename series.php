@@ -11,10 +11,6 @@
     $getSDetail = "SELECT * FROM series WHERE series_id = '$seriesID'";
     $gsd_rtn = mysqli_query($dbconn, $getSDetail);
     $seriesDetail = mysqli_fetch_assoc($gsd_rtn);
-
-    $getView = "SELECT SUM(V.views) AS totalViews FROM ch_view_count V INNER JOIN chapter C ON V.chap_id = C.chap_id WHERE C.series_id = '$seriesID'";
-    $gv_rtn = mysqli_query($dbconn, $getView);
-    $viewDetail = mysqli_fetch_assoc($gv_rtn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,8 +45,8 @@
                     <div class="p-3">
                         <div class="mb-3"><h1><?php echo $seriesDetail['series_name']; ?></h1></div>
                         <div class="fs-4 mb-3">
-                            <div class="bg-danger rounded d-inline-block px-2">views : <?php echo $viewDetail['totalViews']; ?></div>
-                            <div class="bg-danger rounded d-inline-block px-2">Rating : 0</div>
+                            <div class="bg-danger rounded d-inline-block px-2">views : <?php echo getTotalViews($seriesDetail['series_id']); ?></div>
+                            <div class="bg-danger rounded d-inline-block px-2">Rating : <?php echo getSeriesRating($seriesDetail['series_id']); ?></div>
                         </div>
                         <div class="fs-4 mb-3">Author : <?php echo $seriesDetail['author']; ?></div>
                         <div class="fs-4 mb-3">Artist(s) : <?php echo $seriesDetail['artist']; ?></div>

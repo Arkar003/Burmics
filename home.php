@@ -1,6 +1,6 @@
 <?php 
 	session_start();
-	include 'controller.php';
+	include_once 'controller.php';
  ?>
 
 <!DOCTYPE html>
@@ -26,34 +26,99 @@
 	<header>
 		<?php include 'nav.php'; ?>
 	</header>
-	<?php
-		if(checkOverLimit($_SESSION['uid']))
-			echo "<script>showModal();</script>";
-	?>
-	<div class="modal" id="limitModal" data-bs-backdrop="static" data-bs-keyboard="false">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Your FREE access is all used.</h4>
-					<button type="button" class="btn-close"></button>
-				</div>
-				<div class="modal-body">
-					<p>Your free access for 10 chapters daily is all used for today.<br>Come back again tomorrow to get another free 10 chaps. <br> But <b>if you can't wait and can't get enough with just 10 chaps daily </b>, you can buy our premium packages with affordable price.</p>
-					<div>
-						<a class="btn btn-outline-secondary" href="home.php">Nah, I'm good.</a>
-						<a class="btn btn-primary" href="#">Purchase Premium</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<section class="bg-success-subtle pt-5">
 		<?php
-			$getAllSeries = "SELECT * FROM series WHERE last_update != '0000-00-00' ORDER BY last_update DESC";
+			$fetRows = "SELECT * FROM series WHERE last_update != '0000-00-00'";
+			$fr_rtn = mysqli_query($dbconn,$fetRows);
+			$total_rows = $fr_rtn->num_rows;
+			$limit = 8;
+			$page = isset($_GET['page']) ? $_GET['page'] : 1;
+			$start = ($page - 1) * $limit;
+			$total_pages = ceil($total_rows / $limit);
+			if($page < $total_pages)
+				$next = $page + 1;
+			else
+				$next = $total_pages;
+
+			if($page > 1)
+				$prev = $page - 1;
+			else
+				$prev = 1;
+			$getAllSeries = "SELECT * FROM series WHERE last_update != '0000-00-00' ORDER BY last_update DESC LIMIT $start, $limit";
 			$gas_rtn = mysqli_query($dbconn,$getAllSeries);
+
+			$getNewRelease = "SELECT * FROM series WHERE last_update != '0000-00-00' ORDER BY create_date DESC LIMIT 4";
+			$gnr_rtn = mysqli_query($dbconn, $getNewRelease);
+
+			$getHighRated = "SELECT * FROM series S INNER JOIN series_rating R ON S.series_id = R.series_id GROUP BY R.series_id ORDER BY AVG(R.rating) DESC";
+			$ghr_rtn = mysqli_query($dbconn, $getHighRated);
 		?>
 		<div class="container">
-			<div class="row mt-3">
+			<div class="row mb-5">
+				<div class="col-12 mb-3"><div class="border-bottom border-3 border-danger mb-3"><h4>New Release</h4></div></div>
+				<?php
+					if($gnr_rtn->num_rows == 0){
+				?>
+				<div class="col-12">
+					<div><h2>There is nothing on this page.</h2></div>
+				</div>
+				<?php		
+					}else{
+						while($newReleaseS = mysqli_fetch_assoc($gnr_rtn)){
+							$nrSID = $newReleaseS['series_id'];
+				?>
+				<div class="col-3">
+					<div class="mb-3">
+						<div class="series-cv rounded mx-auto mb-2">
+							<a href="series.php?sid=<?php echo $nrSID; ?>" title="<?php echo $newReleaseS['series_name']; ?>">
+								<img src="data/cv/<?php echo $newReleaseS['cover_img']; ?>" alt="<?php echo $newReleaseS['series_name']; ?>">
+							</a>
+						</div>
+						<div class="mx-4 px-2 mb-2 series-title">
+							<h4 class="text-dark mb-0"><?php echo $newReleaseS['series_name']; ?></h4>
+						</div>
+					</div>
+				</div>
+				<?php
+						}
+					}
+				?>
+			</div>
+			<div class="row mb-5">
+				<div class="col-12 mb-3"><div class="border-bottom border-3 border-danger mb-3"><h4>High Rating Series</h4></div></div>
+				<?php
+					if($ghr_rtn->num_rows == 0){
+				?>
+				<div class="col-12">
+					<div><h2>There is nothing on this page.</h2></div>
+				</div>
+				<?php		
+					}else{
+						while($highRated = mysqli_fetch_assoc($ghr_rtn)){
+							$hrSID = $highRated['series_id'];
+				?>
+				<div class="col-3">
+					<div class="mb-3">
+						<div class="series-cv rounded mx-auto mb-2">
+							<a href="series.php?sid=<?php echo $hrSID; ?>" title="<?php echo $highRated['series_name']; ?>">
+								<img src="data/cv/<?php echo $highRated['cover_img']; ?>" alt="<?php echo $highRated['series_name']; ?>">
+							</a>
+						</div>
+						<div class="mx-4 px-2 mb-2 series-title">
+							<h4 class="text-dark mb-0"><?php echo $highRated['series_name']; ?></h4>
+						</div>
+						<div class="mx-4 px-2 mb-2 text-dark">
+							<i class="bi bi-eye-fill"></i> <?php echo getTotalViews($highRated['series_id']); ?>&nbsp;&nbsp; <i class="fa-solid fa-star"></i> <?php echo getSeriesRating($highRated['series_id']); ?>
+						</div>
+					</div>
+				</div>
+				<?php
+						}
+					}
+				?>
+			</div>
+			<div class="row">
+				<div class="col-12 mb-3"><div class="border-bottom border-3 border-danger mb-3"><h4>All Series</h4></div></div>
 				<?php
 					if($gas_rtn->num_rows == 0){
 				?>
@@ -72,11 +137,11 @@
 								<img src="data/cv/<?php echo $allSeries['cover_img']; ?>" alt="<?php echo $allSeries['series_name']; ?>">
 							</a>
 						</div>
-						<div class="mx-4 mb-2 series-title">
-							<h4 class="text-light mb-0"><?php echo $allSeries['series_name']; ?></h4>
+						<div class="mx-4 px-2 mb-2 series-title">
+							<h4 class="text-dark mb-0"><?php echo $allSeries['series_name']; ?></h4>
 						</div>
-						<div class="mx-4 mb-4 text-light">
-							views and ratings
+						<div class="mx-4 px-2 mb-4 text-dark">
+							<i class="bi bi-eye-fill"></i> <?php echo getTotalViews($allSeries['series_id']); ?>&nbsp;&nbsp; <i class="fa-solid fa-star"></i> <?php echo getSeriesRating($allSeries['series_id']); ?>
 						</div>
 						<?php
 							$chk_lastCh = "SELECT * FROM chapter WHERE series_id = '$seriesID' AND (status != 'private' AND status != 'draft') ORDER BY upload_date DESC LIMIT 1";
@@ -87,23 +152,23 @@
 							if($chapDetail['status'] == "locked"){
 								if(!hasBoughtEA($chID,$uID)){
 						?>
-						<div class="mx-4 rounded bg-dark-subtle py-2 ps-3 ch-box">
-							<a class="text-dark text-decoration-none" href="series.php?sid=<?php echo $seriesID; ?>"><h5 class="text-dark mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
-							<i class="bi bi-lock-fill lock_ic fs-5"></i>
+						<div class="mx-4 rounded bg-success py-2 ps-3 ch-box">
+							<a class="text-light text-decoration-none" href="series.php?sid=<?php echo $seriesID; ?>"><h5 class="mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
+							<i class="bi bi-lock-fill lock_ic fs-5 text-light"></i>
 						</div>
 						<?php
 								}else{
 						?>
-						<div class="mx-4 rounded bg-dark-subtle py-2 ps-3 ch-box">
-							<a class="text-dark text-decoration-none" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapDetail['chap_no']; ?>"><h5 class="text-dark mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
-							<i class="bi bi-unlock-fill lock_ic fs-5"></i>
+						<div class="mx-4 rounded bg-success py-2 ps-3 ch-box">
+							<a class="text-light text-decoration-none" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapDetail['chap_no']; ?>"><h5 class="mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
+							<i class="bi bi-unlock-fill lock_ic fs-5 text-light"></i>
 						</div>
 						<?php
 								}
 							}else{
 						?>
-						<div class="mx-4 rounded bg-dark-subtle py-2 ps-3">
-							<a class="text-dark text-decoration-none" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapDetail['chap_no']; ?>"><h5 class="text-dark mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
+						<div class="mx-4 rounded bg-success py-2 ps-3">
+							<a class="text-light text-decoration-none" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapDetail['chap_no']; ?>"><h5 class="mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
 						</div>
 						<?php
 							}
@@ -114,7 +179,21 @@
 						}
 					}
 				?>
-				
+				<div class="col-12 text-center mb-3">
+					<nav class="d-inline-block">
+						<ul class="pagination">
+							<li class="page-item"><a class="page-link text-success" href="home.php?page=<?php echo $prev; ?>"><span>&laquo;</span></a></li>
+							<?php
+                                for($i = 1; $i <= $total_pages; $i++){
+                            ?>
+                            <li class="page-item"><a class="page-link text-success" href="home.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                            <?php
+                                }
+                            ?>
+							<li class="page-item"><a class="page-link text-success" href="home.php?page=<?php echo $next; ?>"><span>&raquo;</span></a></li>
+						</ul>
+					</nav>
+				</div>
 			</div>
 		</div>
 	</section>

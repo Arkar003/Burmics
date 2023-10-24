@@ -202,4 +202,25 @@
         else
             return true;
     }
+    function getTotalViews($sid){
+        require 'dbconfig.php';
+        $getView = "SELECT SUM(V.views) AS totalViews FROM ch_view_count V INNER JOIN chapter C ON V.chap_id = C.chap_id WHERE C.series_id = '$sid'";
+        $gv_rtn = mysqli_query($dbconn, $getView);
+        $viewDetail = mysqli_fetch_assoc($gv_rtn);
+        return $viewDetail['totalViews'];
+    }
+    function getSeriesRating($sid){
+        require 'dbconfig.php';
+        $get_detail = "SELECT SUM(S.rating) AS total, COUNT(S.rate_id) AS num FROM series_rating S WHERE S.series_id = '$sid' GROUP BY S.series_id";
+        $rtn = mysqli_query($dbconn, $get_detail);
+        if($rtn->num_rows == 0)
+            return 0;
+        else{
+            $rating = mysqli_fetch_assoc($rtn);
+            $total = $rating['total'];
+            $numb = $rating['num'];
+            $avg = number_format($total / $numb, 1);
+            return $avg;
+        }
+    }
 ?>
