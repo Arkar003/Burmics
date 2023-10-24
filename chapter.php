@@ -26,7 +26,7 @@
         $prevbtn = "invisible";
     if($chapterNo == getLastChap($seriesID))
         $nxtbtn = "invisible";
-    if(isNxtLocked($chapID,$seriesID,$uID) || !isNxtPub($chapterNo,$seriesID))
+    if(isNxtLocked($chapID,$seriesID,$uID) && !isNxtPub($chapterNo,$seriesID))
         $nxtbtn = "invisible";
 
     $curr = $_GET['chap'];
@@ -60,6 +60,25 @@
     <script type="text/javascript" src="bs5.3/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+    <?php
+		if(isFreeAcc($_SESSION['uid']) && checkOverLimit($_SESSION['uid'])){
+	?>
+	<section class="bg-success-subtle p-5 min-vh-100">
+		<div class="container align-items-center justify-content-center">
+			<div class="text-center">
+				<h4>Your free access [free 10 chaps a day] for today is used up.</h4>
+				<h4>Wait till tomorrow.</h4>
+				<h4>If you are losing patience, you can buy our premium packages.</h4>
+				<h4>Buy our premium packages and read unlimited chapters.</h4>
+				<div class="m-5">
+					<button class="btn btn-success fs-5 px-3" type="button" onclick="window.location.href='home.php'">Back to Home</button>
+				</div>
+			</div>
+		</div>
+	</section>
+	<?php
+		}else{
+	?>
     <section>
         <div>
             <button class="btn btn-success rounded-circle goTop" id="goToTop" ><i class="bi bi-arrow-up-short fs-1"></i></button>
@@ -135,6 +154,9 @@
             </div>
         </div>
     </section>
+    <?php
+		}
+	?>
     <?php
         $getChView = "SELECT * FROM chap_read_track ORDER BY crt_id DESC LIMIT 1";
         $gcv_rtn = mysqli_query($dbconn, $getChView);

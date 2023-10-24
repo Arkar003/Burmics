@@ -27,6 +27,25 @@
     <header>
 		<?php include 'nav.php'; ?>
 	</header>
+    <?php
+		if(isFreeAcc($_SESSION['uid']) && checkOverLimit($_SESSION['uid'])){
+	?>
+	<section class="bg-success-subtle p-5 min-vh-100">
+		<div class="container align-items-center justify-content-center">
+			<div class="text-center">
+				<h4>Your free access [free 10 chaps a day] for today is used up.</h4>
+				<h4>Wait till tomorrow.</h4>
+				<h4>If you are losing patience, you can buy our premium packages.</h4>
+				<h4>Buy our premium packages and read unlimited chapters.</h4>
+				<div class="m-5">
+					<button class="btn btn-success fs-5 px-3" type="button" data-bs-toggle="modal" data-bs-target="#packagePurc">Purchase Premium</button>
+				</div>
+			</div>
+		</div>
+	</section>
+	<?php
+		}else{
+	?>
     <section>
         <div class="container pt-2 pb-5">
             <nav>
@@ -179,6 +198,9 @@
             </div>
         </div>
     </section>
+    <?php
+		}
+	?>
     <footer>
 		<div class="container-fluid bg-body-tertiary pt-4">
 			<?php include 'footer.php'; ?>

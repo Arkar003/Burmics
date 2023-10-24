@@ -15,11 +15,11 @@
 	<link rel="stylesheet" type="text/css" href="bs5.3/bootstrap-icons/font/bootstrap-icons.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body class="bg-secondary">
+<body>
     <header>
 		<?php include 'nav.php'; ?>
 	</header>
-    <section>
+    <section class="bg-success-subtle p-5 min-vh-100">
         <div class="container">
             <div class="row mt-3">
                 <h5>Showing the results for : 
@@ -51,7 +51,7 @@
                 ?>
                 <div class="col-12">
                     <div>
-                        <h2>Couldn't find anything with <?php echo $srcVal; ?>. Try with another words or phrases.</h2>
+                        <h2>Couldn't find anything. Try with another words or phrases.</h2>
                     </div>
                 </div>
                 <?php
@@ -66,11 +66,11 @@
                                 <img src="data/cv/<?php echo $srcSeries['cover_img']; ?>" alt="<?php echo $srcSeries['series_name']; ?>">
                             </a>
                         </div>
-                        <div class="mx-4 mb-2 series-title">
-							<h4 class="text-light mb-0"><?php echo $srcSeries['series_name']; ?></h4>
+                        <div class="mx-4 px-2 mb-2 series-title">
+							<h4 class="text-dark mb-0"><?php echo $srcSeries['series_name']; ?></h4>
 						</div>
-						<div class="mx-4 mb-4 text-light">
-							views and ratings
+						<div class="mx-4 px-2 mb-2 text-dark">
+							<i class="bi bi-eye-fill"></i> <?php echo getTotalViews($srcSeries['series_id']); ?>&nbsp;&nbsp; <i class="fa-solid fa-star"></i> <?php echo getSeriesRating($srcSeries['series_id']); ?>
 						</div>
                         <?php
                                 $chk_lastCh = "SELECT * FROM chapter WHERE series_id = '$seriesID' AND (status != 'private' AND status != 'draft') ORDER BY upload_date DESC LIMIT 1";
@@ -81,23 +81,23 @@
                                 if($chapDetail['status'] == "locked"){
                                     if(!hasBoughtEA($chID,$uID)){
 						?>
-						<div class="mx-4 rounded bg-dark-subtle py-2 ps-3 ch-box">
-							<a class="text-dark text-decoration-none" href="series.php?sid=<?php echo $seriesID; ?>"><h5 class="text-dark mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
+						<div class="mx-4 rounded bg-success py-2 ps-3 ch-box">
+							<a class="text-light text-decoration-none" href="series.php?sid=<?php echo $seriesID; ?>"><h5 class="mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
 							<i class="bi bi-lock-fill lock_ic fs-5"></i>
 						</div>
 						<?php
 								    }else{
 						?>
-						<div class="mx-4 rounded bg-dark-subtle py-2 ps-3 ch-box">
-							<a class="text-dark text-decoration-none" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapDetail['chap_no']; ?>"><h5 class="text-dark mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
+						<div class="mx-4 rounded bg-success py-2 ps-3 ch-box>
+							<a class="text-light text-decoration-none" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapDetail['chap_no']; ?>"><h5 class="mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
 							<i class="bi bi-unlock-fill lock_ic fs-5"></i>
 						</div>
 						<?php
                                     }
                                 }else{
 						?>
-						<div class="mx-4 rounded bg-dark-subtle py-2 ps-3">
-							<a class="text-dark text-decoration-none" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapDetail['chap_no']; ?>"><h5 class="text-dark mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
+						<div class="mx-4 rounded bg-success py-2 ps-3 ch-box">
+							<a class="text-light text-decoration-none" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapDetail['chap_no']; ?>"><h5 class="mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
 						</div>
 						<?php
 							    }

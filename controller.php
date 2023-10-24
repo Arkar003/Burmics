@@ -171,6 +171,16 @@
                 return false;
         }
     }
+    function isFreeAcc($uid){
+        require 'dbconfig.php';
+        $get_data = "SELECT status FROM user WHERE user_id = '$uid'";
+        $gd_rtn = mysqli_query($dbconn, $get_data);
+        $uData = mysqli_fetch_assoc($gd_rtn);
+        if($uData['status'] == "free")
+            return true;
+        else
+            return false;
+    }
     function checkOverLimit($uid){
         require 'dbconfig.php';
         date_default_timezone_set("Asia/Yangon");
