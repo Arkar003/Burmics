@@ -1,3 +1,8 @@
+<?php
+    date_default_timezone_set("Asia/Yangon");
+    include_once 'controller.php';
+    require 'dbconfig.php';
+?>
 <link rel="stylesheet" type="text/css" href="bs5.3/bootstrap-icons/font/bootstrap-icons.css">
 <footer class="py-3">
     <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-3 px-3">
@@ -24,7 +29,7 @@
                                 </div>
                             </form>
                             <?php
-                                date_default_timezone_set("Asia/Yangon");
+                                
                                 if(isset($_REQUEST['donate'])){
                                     $uid = $_SESSION['uid'];
                                     $damt = $_REQUEST['damt'];
@@ -67,7 +72,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5">What do you thing about us?</h1>
+                            <h1 class="modal-title fs-5">What do you think about us?</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body text-center">

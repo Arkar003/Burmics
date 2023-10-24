@@ -53,7 +53,7 @@
                             $rID = "R0000001";
                         else{
                             $rDetail = mysqli_fetch_assoc($glid_rtn);
-                            $rID = ++$rDetail['rate_id'];
+                            $rID = ++$rDetail['rating_id'];
                         }
                         $add_rating = "INSERT INTO rating VALUES ('$rID','$uID','$rating','$rv')";
                         $ar_rtn = mysqli_query($dbconn, $add_rating);

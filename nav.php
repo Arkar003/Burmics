@@ -1,6 +1,6 @@
 <?php 
 	require 'dbconfig.php';
-	// include 'controller.php';
+	include_once 'controller.php';
  ?>
 
 <link rel="stylesheet" type="text/css" href="bs5.3/css/bootstrap.min.css">
@@ -12,7 +12,7 @@
 <header class="p-3 border-bottom">
 	<div class="container-fluid">
 		<div class="d-flex flex-wrap align-items-center justify-content-start">
-			<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" href="home.php"><span class="fs-2 ">Burmics</span></a>
+			<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" href="home.php"><span class="fs-2 ">BURMICS</span></a>
 			<ul class="nav col-12 col-lg-auto ms-lg-auto mb-2 justify-content-center mb-md-0">
 				<li>
 					<a class="nav-link link-body-emphasis px-2" data-bs-toggle="collapse" href="#searchBox" role="button"><span><i class="bi bi-search fa-lg"></i></span></a>
@@ -109,10 +109,14 @@
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="#">Setting</a></li>
 					<li><a class="dropdown-item" href="#">purchasement History</a></li>
-					<?php if($_SESSION['acctype'] == 'creator'){ ?>
+					<?php 
+						if($_SESSION['acctype'] == 'creator'){
+					?>
 					<li><a class="dropdown-item" href="#coinWithdraw" data-bs-toggle="modal">Withdraw</a></li>
 					<li><a class="dropdown-item" href="#">Withdraw history</a></li>
-					<?php } ?>
+					<?php 
+						}
+					?>
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="logout.php">logout</a></li>
 				</ul>
@@ -140,7 +144,7 @@
 				<div class="col-7">
 					<form action="search.php" method="get" class="d-flex" role="search">
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search..." name="srchInput" id="searchBtn">
+							<input type="text" class="form-control" placeholder="Search..." name="srchInput" id="searchInput">
 							<button class="btn btn-outline-primary" type="submit" name="search" id="searchBtn"><i class="bi bi-search fa-lg"></i></button>
 						</div>
 					</form>
@@ -229,7 +233,7 @@
 					<div class="col-2">
 						<div class="form-check">
 							<input class="form-check-input" name="genre[]" type="checkbox" value="thriller" id="thriller">
-							<label class="form-check-label" for="">Thriller</thrillerlabel>
+							<label class="form-check-label" for="thriller">Thriller</thrillerlabel>
 						</div>
 					</div>
 					<div class="col-2">

@@ -1,6 +1,7 @@
 <?php 
 	session_start();
 	include_once 'controller.php';
+	require 'dbconfig.php';
  ?>
 
 <!DOCTYPE html>
@@ -219,7 +220,6 @@
 	<?php
 		}
 	?>
-	
 	
 	<footer>
 		<div class="container-fluid bg-body-tertiary">

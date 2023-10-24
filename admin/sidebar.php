@@ -35,9 +35,9 @@
 		<a class="fs-5 text-decoration-none text-dark" role="button" href="#reports" data-bs-toggle="collapse">Reports</a>
 	</div>
 	<div class="sbItem collapse" id="reports">
-		<div class="p-3 ps-4 sbItem"><a href="#" class="fs-6 text-decoration-none text-dark">Coin Exchange</a></div>
-		<div class="p-3 ps-4 sbItem"><a href="#" class="fs-6 text-decoration-none text-dark">Package Sale</a></div>
-		<div class="p-3 ps-4 sbItem"><a href="#" class="fs-6 text-decoration-none text-dark">Account created</a></div>
+		<div class="p-3 ps-4 sbItem"><a href="coinExchangeRP.php" class="fs-6 text-decoration-none text-dark">Coin Exchange</a></div>
+		<!-- <div class="p-3 ps-4 sbItem"><a href="#" class="fs-6 text-decoration-none text-dark">Package Sale</a></div> -->
+		<div class="p-3 ps-4 sbItem"><a href="newUserAccRP.php" class="fs-6 text-decoration-none text-dark">Account created</a></div>
 	</div>
 	<?php
 		if($_SESSION['stid'] == 'SID00001'){

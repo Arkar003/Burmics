@@ -9,11 +9,11 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>View Draft chapters</title>
-	<link rel="stylesheet" type="text/css" href="bs5.3/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="bs5.3/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="bs5.3/bootstrap-icons/font/bootstrap-icons.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> -->
 </head>
 <body>
 	<header>

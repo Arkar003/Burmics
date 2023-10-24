@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,6 +10,33 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="../bs5.3/bootstrap-icons/font/bootstrap-icons.css">
 	<link rel="stylesheet" type="text/css" href="../style.css">
+	<script>
+		window.onload = function() {
+		
+		
+		var pieChart = new CanvasJS.Chart("pieChartContainer", {
+			theme: "light2",
+			animationEnabled: true,
+			title: {
+				text: "World Energy Consumption by Sector - 2012"
+			},
+			data: [{
+				type: "pie",
+				indexLabel: "{y}",
+				yValueFormatString: "#,##0.00\"%\"",
+				indexLabelPlacement: "inside",
+				indexLabelFontColor: "#36454F",
+				indexLabelFontSize: 18,
+				indexLabelFontWeight: "bolder",
+				showInLegend: true,
+				legendText: "{label}",
+				dataPoints: <?php echo json_encode($piePoints, JSON_NUMERIC_CHECK); ?>
+			}]
+		});
+		pieChart.render();
+		
+		}
+	</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -17,8 +45,8 @@
 				<?php include 'sidebar.php'; ?>
 			</div>
 			<div class="col-10 bg-secondary-subtle ps-0">
-				<div class="container">
-					<div class="row p-3">
+				<div class="container p-5">
+					<div class="row p-3 mb-3">
 						<div class="col-3">
 							<div class="container bg-light rounded pb-2">
 								<div class="row p-3 pb-1 align-items-center">
@@ -81,8 +109,8 @@
 						</div>
 					</div>
 					<div class="row px-4">
-						<div class="col-12 bg-light rounded">
-							<h1>Income chart</h1>
+						<div class="col-12 bg-light rounded p-5">
+							<?php include 'incomeChart.php'; ?>
 						</div>
 					</div>
 				</div>
