@@ -10,7 +10,7 @@
     <script src="bs5.3/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="rate-container py-3 rounded">
+    <div class="rate-container bg-secondary-subtle py-3 rounded">
         <h4 class="text-center">Rate the series</h4>
         <form action="#" method="post">
             <div class="star-widget">

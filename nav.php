@@ -7,12 +7,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="bs5.3/bootstrap-icons/font/bootstrap-icons.css">
 <link rel="stylesheet" type="text/css" href="style.css">
-<script type="text/javascript" src="bs5.3/js/bootstrap.bundle.min.js"></script>
 
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
 	<div class="container-fluid algin-items-center">
-	    <a class="navbar-brand" href="home.php">Burmics</a>
+	    <a class="navbar-brand" href="home.php"><span class="fs-2 ">Burmics</span></a>
 	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarCollapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    	<span class="navbar-toggler-icon"></span>
 		</button>

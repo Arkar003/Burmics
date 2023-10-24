@@ -196,8 +196,6 @@
 /* series_rating */
 .rate-container{
     width: auto;
-    background-color: #505050;
-    border: 1px solid #444;
     display: flex;
     align-items: center;
     justify-content: center;

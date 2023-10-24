@@ -223,4 +223,13 @@
             return $avg;
         }
     }
+    function isAlreadyRated($uid){
+        require 'dbconfig.php';
+        $check_rate = "SELECT * FROM rating WHERE user_id = '$uid'";
+        $cr_rtn = mysqli_query($dbconn,$check_rate);
+        if($cr_rtn->num_rows == 0)
+            return false;
+        else
+            return true;
+    }
 ?>
