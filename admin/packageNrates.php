@@ -204,7 +204,59 @@
 									<td><?php echo $pacInfo['duration_day']; ?> day(s)</td>
 									<td><?php echo $pacInfo['price']; ?> coins</td>
 									<td>
-										<button class="btn btn-primary w-100">Edit</button>
+										<button class="btn btn-primary w-100" type="button" data-bs-toggle="modal" data-bs-target="#<?php echo $pacInfo['package_id']; ?>">Edit</button>
+										<div class="modal fade" id="<?php echo $pacInfo['package_id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title mx-auto">
+															Edit Package
+														</h4>
+													</div>
+													<div class="modal-body">
+														<form method="post">
+															<div class="mb-3">
+																<label class="form-label" for="pNameEd">Package name</label>
+																<input class="form-control" type="text" name="pNameEd" id="pNameEd" value="<?php echo $pacInfo['package_name']; ?>">
+															</div>
+															<div class="d-flex mb-3">
+																<div class="d-inline-block w-50 pe-2">
+																	<label class="form-label" for="pDEd">Duration in days</label>
+																	<input class="form-control" type="number" name="pDEd" id="pDEd" value="<?php echo $pacInfo['duration_day']; ?>">
+																</div>
+																<div class="d-inline-block w-50 ps-2">
+																	<label class="form-label" for="pPrEd">Price</label>
+																	<input class="form-control" type="number" name="pPrEd" id="pPrEd" value="<?php echo $pacInfo['price']; ?>">
+																</div>
+															</div>
+															<div class="mb-3">
+																<button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+																<button class="btn btn-primary" type="submit" name="<?php echo $pacInfo['package_id']; ?>edit">Edit</button>
+															</div>
+														</form>
+														<?php
+															if(isset($_REQUEST[$pacInfo['package_id'].'edit'])){
+																$pid = $pacInfo['package_id'];
+																$nPname = $_REQUEST['pNameEd'];
+																$nDura = $_REQUEST['pDEd'];
+																$nPrice = $_REQUEST['pPrEd'];
+
+																$check_valid = "SELECT package_id FROM package WHERE package_name = '$nPname' AND package_id != '$pid'";
+																$cv_rtn = mysqli_query($dbconn, $check_valid);
+																if($cv_rtn->num_rows == 0){
+																	$upd_pac = "UPDATE package SET package_name = '$nPname', duration_day = '$nDura', price = '$nPrice' WHERE package_id = '$pid'";
+																	$upd_rtn = mysqli_query($dbconn, $upd_pac);
+																	if($upd_rtn)
+																		echo "<script>alert('Package updated successfully');
+																		location.assign('packageNrates.php');</script>";
+																}else
+																	echo "<script>alert('This package name is already existed. Try another one.');</script>";
+															}
+														?>
+													</div>
+												</div>
+											</div>
+										</div>
 									</td>
 								</tr>
 								<?php
@@ -276,7 +328,50 @@
 									<td><?php echo $pm_data['holder_name']; ?></td>
 									<td><?php echo $pm_data['acc_number']; ?></td>
 									<td>
-										<button class="btn btn-primary w-100">Edit</button>
+										<button class="btn btn-primary w-100" type="button" data-bs-toggle="modal" data-bs-target="#<?php echo $pm_data['pm_id']; ?>">Edit</button>
+										<div class="modal fade" id="<?php echo $pm_data['pm_id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title mx-auto">
+															Edit payment information
+														</h4>
+													</div>
+													<div class="modal-body">
+														<form method="post">
+															<div class="mb-3">
+																<label class="form-label" for="npm">Payment method</label>
+																<input class="form-control" type="text" name="npm" id="npm" value="<?php echo $pm_data['payment_method']; ?>" disabled>
+															</div>
+															<div class="mb-3">
+																<label class="form-label" for="nHolder">Account holder name</label>
+																<input class="form-control" type="text" name="nHolder" id="nHolder" value="<?php echo $pm_data['holder_name']; ?>">
+															</div>
+															<div class="mb-3">
+																<label class="form-label" for="nAccNumb">Account number</label>
+																<input class="form-control" type="text" name="nAccNumb" id="nAccNumb" value="<?php echo $pm_data['acc_number']; ?>">
+															</div>
+															<div class="mb-3">
+																<button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+																<button class="btn btn-primary" type="submit" name="<?php echo $pm_data['pm_id']; ?>edit">Edit</button>
+															</div>
+														</form>
+														<?php
+															if(isset($_REQUEST[$pm_data['pm_id'].'edit'])){
+																$payid = $pm_data['pm_id'];
+																$newHolder = $_REQUEST['nHolder'];
+																$newNumber = $_REQUEST['nAccNumb'];
+																$upd_pay = "UPDATE payment_method SET holder_name = '$newHolder', acc_number = '$newNumber' WHERE pm_id = '$payid'";
+																$upd_rtn = mysqli_query($dbconn, $upd_pay);
+																if($upd_rtn)
+																	echo "<script>alert('Payment updated successfully');
+																	location.assign('packageNrates.php');</script>";
+															}
+														?>
+													</div>
+												</div>
+											</div>
+										</div>
 									</td>
 								</tr>
 								<?php

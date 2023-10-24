@@ -1,9 +1,11 @@
 <?php
 	session_start();
+	include_once '../controller.php';
 ?>
 <div class="border-bottom p-3">
-	<a class="fs-3 text-decoration-none font-monospace text-dark" href="#">
-		ADMIN
+	<a class="fs-4 text-decoration-none text-dark" href="dashboard.php">
+		<span class="fs-6 text-secondary">Logged in as - </span><br>
+		<?php echo getStaffName($_SESSION['stid']); ?>
 	</a>
 </div>
 <div id="sideItemBox">
@@ -30,7 +32,12 @@
 		<a class="fs-5 text-decoration-none text-dark" href="packageNrates.php">Packages and rates</a>
 	</div>
 	<div class="p-3 sbItem">
-		<a class="fs-5 text-decoration-none text-dark" href="#">Reports</a>
+		<a class="fs-5 text-decoration-none text-dark" role="button" href="#reports" data-bs-toggle="collapse">Reports</a>
+	</div>
+	<div class="sbItem collapse" id="reports">
+		<div class="p-3 ps-4 sbItem"><a href="#" class="fs-6 text-decoration-none text-dark">Coin Exchange</a></div>
+		<div class="p-3 ps-4 sbItem"><a href="#" class="fs-6 text-decoration-none text-dark">Package Sale</a></div>
+		<div class="p-3 ps-4 sbItem"><a href="#" class="fs-6 text-decoration-none text-dark">Account created</a></div>
 	</div>
 	<?php
 		if($_SESSION['stid'] == 'SID00001'){

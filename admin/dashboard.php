@@ -17,8 +17,74 @@
 				<?php include 'sidebar.php'; ?>
 			</div>
 			<div class="col-10 bg-secondary-subtle ps-0">
-				<div class="p-5">
-					<h1>This is the dashboard of admin page.</h1>
+				<div class="container">
+					<div class="row p-3">
+						<div class="col-3">
+							<div class="container bg-light rounded pb-2">
+								<div class="row p-3 pb-1 align-items-center">
+									<div class="col-3"><i class="fa-solid fa-coins fs-1"></i></div>
+									<div class="col-9 pe-0 text-end">
+										<h5>Total Coin sold</h5>
+										<h4>1000</h4>
+									</div>
+									<div class="col-12 border-bottom border-2"></div>
+								</div>
+								<div class="row px-3">
+									<div class="col-12 ps-0 text-secondary">Yesterday - 1200 coins</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="container bg-light rounded pb-2">
+								<div class="row p-3 pb-1 align-items-center">
+									<div class="col-3"><i class="fa-solid fa-coins fs-1"></i></div>
+									<div class="col-9 px-0 text-end">
+										<h5>Coin Withdraw</h5>
+										<h4>1000</h4>
+									</div>
+									<div class="col-12 border-bottom border-2"></div>
+								</div>
+								<div class="row px-3">
+									<div class="col-12 ps-0 text-secondary">Yesterday - 1200 coins</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="container bg-light rounded pb-2">
+								<div class="row p-3 pb-1 align-items-center">
+									<div class="col-3"><i class="fa-solid fa-cart-shopping fs-1"></i></div>
+									<div class="col-9 pe-0 text-end">
+										<h5>Package Purc</h5>
+										<h4>1000</h4>
+									</div>
+									<div class="col-12 border-bottom border-2"></div>
+								</div>
+								<div class="row px-3">
+									<div class="col-12 ps-0 text-secondary">Yesterday - 1200 coins</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="container bg-light rounded pb-2">
+								<div class="row p-3 pb-1 align-items-center">
+									<div class="col-3"><i class="fa-solid fa-user-plus fs-1"></i></div>
+									<div class="col-9 pe-0 text-end">
+										<h5>New users</h5>
+										<h4>1000</h4>
+									</div>
+									<div class="col-12 border-bottom border-2"></div>
+								</div>
+								<div class="row px-3">
+									<div class="col-12 ps-0 text-secondary">Yesterday - 1200 coins</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row px-4">
+						<div class="col-12 bg-light rounded">
+							<h1>Income chart</h1>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
