@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" type="text/css" href="bs5.3/bootstrap-icons/font/bootstrap-icons.css">
 <footer class="py-3">
     <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-3 px-3">
         <div class="d-flex col-2">
@@ -15,7 +15,7 @@
                             Buy us a coffee. Thanks in advance! <br></p>
                             <form method="post">
                                 <div class="input-group w-50 mx-auto mb-3">
-                                    <span class="input-group-text">Donate - </span>
+                                    <span class="input-group-text">Donate </span>
                                     <input class="form-control" type="number" name="damt" min="1">
                                     <span class="input-group-text">coins</span>
                                 </div>

@@ -7,26 +7,23 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="bs5.3/bootstrap-icons/font/bootstrap-icons.css">
 <link rel="stylesheet" type="text/css" href="style.css">
+<script type="text/javascript" src="bs5.3/js/bootstrap.bundle.min.js"></script>
 
-
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-	<div class="container-fluid algin-items-center">
-	    <a class="navbar-brand" href="home.php"><span class="fs-2 ">Burmics</span></a>
-	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarCollapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    	<span class="navbar-toggler-icon"></span>
-		</button>
-	    <div class="collapse navbar-collapse" id="navBarCollapse">
-			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-				<li class="nav-item">
-					<a class="nav-link" data-bs-toggle="collapse" href="#searchBox" role="button"><span><i class="bi bi-search fa-lg"></i></span></a>
+<header class="p-3 border-bottom">
+	<div class="container-fluid">
+		<div class="d-flex flex-wrap align-items-center justify-content-start">
+			<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" href="home.php"><span class="fs-2 ">Burmics</span></a>
+			<ul class="nav col-12 col-lg-auto ms-lg-auto mb-2 justify-content-center mb-md-0">
+				<li>
+					<a class="nav-link link-body-emphasis px-2" data-bs-toggle="collapse" href="#searchBox" role="button"><span><i class="bi bi-search fa-lg"></i></span></a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-bs-toggle="collapse" href="#filterBox" role="button"><span><i class="bi bi-funnel fa-lg"></i></span></a>
+				<li>
+					<a class="nav-link link-body-emphasis px-2" data-bs-toggle="collapse" href="#filterBox" role="button"><span><i class="bi bi-funnel fa-lg"></i></span></a>
 				</li>
-				<li class="nav-item">
-					<div class="container">
-						<div class="row px-2">
-							<button class="btn btn-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#packagePurc">Purchase</button>
+				<li>
+					<div class="container px-2">
+						<div class="row">
+							<button class="btn link-body-emphasis" data-bs-toggle="modal" data-bs-target="#packagePurc"><i class="bi bi-cart-fill fa-lg"></i></button>
 							<div class="modal fade" id="packagePurc" data-bs-backdrop="static" data-bs-keyboard="false">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -43,9 +40,12 @@
 						</div>
 					</div>
 				</li>
-				<li class="nav-item input-group">
+				<li>
+					<a class="nav-link link-body-emphasis px-2" href="viewLibrary.php"><span><i class="bi bi-journal-bookmark-fill fa-lg"></i></span></a>
+				</li>
+				<li class="mx-3">
 					<div class="container">
-						<div class="row align-items-center border border-dark rounded-pill py-1 px-0">
+						<div class="row align-items-center border border-dark rounded py-1 px-0">
 							<div class="col pe-0"><i class="bi bi-wallet2 fa-lg"></i></div>
 							<div class="col">
 							<?php
@@ -76,70 +76,63 @@
 						</div>
 					</div>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="viewLibrary.php"><span><i class="bi bi-journal-bookmark-fill fa-lg"></i></span></a>
-				</li>
+				
 				<?php 
 					if($_SESSION['acctype'] == 'creator'){
 				?>
-				<li class="nav-item">
+				<li class="me-3">
 					<div class="container">
 						<div class="row">
 							<button class="btn btn-primary rounded-pill" onclick="window.location.href='createSeries.php'">Create</button>
 						</div>
 					</div>
 				</li>
-				<li class="nav-item">
-					<div class="container">
-						<div class="row px-2">
-							<button class="btn btn-outline-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#coinWithdraw">Withdraw</button>
-							<div class="modal fade" id="coinWithdraw" data-bs-backdrop="static" data-bs-keyboard="false">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title">Coin Withdrawl form</h4>
-											<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-										</div>
-										<div class="modal-body">
-											<?php include 'coin_withdraw.php'; ?>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</li>
 				<?php
 					}
 				?>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-						<?php
-							if($_SESSION['acctype'] == 'creator')
-								echo "<img class='adminIcon' src='./imgs/icons/defIcon.png'>";
-							else
-								echo "<img class='icon' src='./imgs/icons/defIcon.png'>";
-						?>
-					</a>
-					<ul class="dropdown-menu dropdown-menu-end">
-						<li>
-							<a class="dropdown-item">
-								<p class="mb-0"><?php echo $_SESSION['uname']; ?></p>				
-							</a>
-						</li>
-						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="#">Setting</a></li>
-						<li><a class="dropdown-item" href="#">purchasement History</a></li>
-						<li><a class="dropdown-item" href="#">Withdraw history</a></li>
-						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="logout.php">logout</a></li>
-					</ul>
-				</li>
 			</ul>
-	    </div>
+			<div class="dropdown text-end">
+				<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+					<?php
+						if($_SESSION['acctype'] == 'creator')
+							echo "<img class='adminIcon' src='./imgs/icons/defIcon.png'>";
+						else
+							echo "<img class='icon' src='./imgs/icons/defIcon.png'>";
+					?>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-end">
+					<li>
+						<a class="dropdown-item">
+							<p class="mb-0"><?php echo $_SESSION['uname']; ?></p>				
+						</a>
+					</li>
+					<li><hr class="dropdown-divider"></li>
+					<li><a class="dropdown-item" href="#">Setting</a></li>
+					<li><a class="dropdown-item" href="#">purchasement History</a></li>
+					<?php if($_SESSION['acctype'] == 'creator'){ ?>
+					<li><a class="dropdown-item" href="#coinWithdraw" data-bs-toggle="modal">Withdraw</a></li>
+					<li><a class="dropdown-item" href="#">Withdraw history</a></li>
+					<?php } ?>
+					<li><hr class="dropdown-divider"></li>
+					<li><a class="dropdown-item" href="logout.php">logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>	
+</header>
+<div class="modal fade" id="coinWithdraw" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Coin Withdrawl form</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body">
+				<?php include 'coin_withdraw.php'; ?>
+			</div>
+		</div>
 	</div>
-	
-</nav>
+</div>
 <div class="collapse" id="searchBox">
 	<div class="card card-body border-0 rounded-0">
 		<div class="container-fluid">

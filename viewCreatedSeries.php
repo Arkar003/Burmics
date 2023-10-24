@@ -30,7 +30,7 @@
 		$cid = $c_data['creator_id'];
 
 		//getting the series id
-		$series = "SELECT series_id, series_name, author, artist, cover_img, age_restrict, create_date  FROM series WHERE creator_id = '$cid'";
+		$series = "SELECT * FROM series WHERE creator_id = '$cid'";
 		$series_rtn = mysqli_query($dbconn, $series);
 	?>
 
@@ -69,7 +69,7 @@
 							<div class="container-fluid">
 								<div class="row">
 									<div class="col-2">
-										<img src="data/cv/<?php echo $s_data['cover_img']; ?>" width="100%" height="100%">
+										<img src="data/cv/<?php echo $s_data['cover_img']; ?>" width="100%" height="auto">
 									</div>
 									<div class="col-10">
 										<h2 class="mb-3"><?php echo $s_data['series_name']; ?></h2>
@@ -77,7 +77,7 @@
 										<p class="mb-2 fs-5">Artist: <?php echo $s_data['artist']; ?></p>
 										<p class="mb-2 fs-5">Author: <?php echo $s_data['author']; ?></p>
 										<p class="mb-2 fs-5">Create date: <?php echo $s_data['create_date']; ?></p>
-										<p class="mb-2 fs-5">Total views: 0</p>
+										<p class="mb-2 fs-5">Total views: <?php echo getTotalViews($s_data['series_id']); ?></p>
 									</div>
 								</div>
 							</div>
@@ -85,9 +85,12 @@
 					</div>
 					<div class="accordion-collapse collapse" id="<?php echo $s_data['series_id']; ?>" data-bs-parent="#seriesAccordion">
 						<div class="accordion-body">
+							<div class="text-end">
+								<a class="btn btn-primary" href="editSeries.php?sid=<?php echo $s_data['series_id']; ?>">Edit Series</a>
+							</div>
 							<?php 
 								$series_id = $s_data['series_id'];
-								$fet_chaps = "SELECT chap_no, chap_name, upload_date, status FROM chapter WHERE series_id = '$series_id'";
+								$fet_chaps = "SELECT * FROM chapter WHERE series_id = '$series_id'";
 								$fchap_rtn = mysqli_query($dbconn, $fet_chaps);
 							?>
 							<table class="table">
@@ -119,11 +122,11 @@
 											<?php echo $ch_data['status']; ?>
 										</td>
 										<td>
-											0
+											<?php echo getChapterViews($ch_data['chap_id']); ?>
 										</td>
 										<td>
-											<button class="btn btn-danger">Delete</button>
-											<button class="btn btn-primary">Edit</button>
+											<!-- <button class="btn btn-danger">Delete</button> -->
+											<a class="btn btn-primary" href="editChapter.php?sid=<?php echo $ch_data['series_id']; ?>&cid=<?php echo $ch_data['chap_id']; ?>">Edit Chapter</a>
 										</td>
 									</tr>
 									<?php

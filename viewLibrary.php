@@ -18,7 +18,7 @@
     <header>
 		<?php include 'nav.php'; ?>
 	</header>
-    <section class="bg-success-subtle pt-5">
+    <section class="bg-success-subtle pt-5 min-vh-100">
         <div class="container">
             <div class="row">
                 <?php

@@ -209,6 +209,13 @@
         $viewDetail = mysqli_fetch_assoc($gv_rtn);
         return $viewDetail['totalViews'];
     }
+    function getChapterViews($cid){
+        require 'dbconfig.php';
+        $getChView = "SELECT views FROM ch_view_count WHERE chap_id = '$cid'";
+        $rtn = mysqli_query($dbconn, $getChView);
+        $views = mysqli_fetch_assoc($rtn);
+        return $views['views'];
+    }
     function getSeriesRating($sid){
         require 'dbconfig.php';
         $get_detail = "SELECT SUM(S.rating) AS total, COUNT(S.rate_id) AS num FROM series_rating S WHERE S.series_id = '$sid' GROUP BY S.series_id";
