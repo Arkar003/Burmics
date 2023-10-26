@@ -150,7 +150,7 @@
                                 while($chapInfo = mysqli_fetch_assoc($gc_rtn)){
                                     if($chapInfo['status'] == "locked"){
                                         $chID = $chapInfo['chap_id'];
-                                        if(!hasBoughtEA($chID,$uID)){
+                                        if(!hasBoughtEA($chID,$uID) && !isChapOwner($chID,$uID)){
                             ?>
                             <div class="col-6">
                                 <div class="rounded bg-dark-subtle py-2 ps-3 mb-3 ch-box">

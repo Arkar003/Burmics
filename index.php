@@ -1,5 +1,9 @@
 <?php 
 	session_start();
+	require 'dbconfig.php';
+	include_once 'controller.php';
+	$getHighRated = "SELECT * FROM series S INNER JOIN series_rating R ON S.series_id = R.series_id GROUP BY R.series_id ORDER BY AVG(R.rating) DESC";
+	$ghr_rtn = mysqli_query($dbconn, $getHighRated);
  ?>
 
 <!DOCTYPE html>
@@ -35,7 +39,7 @@
 		          <a class="nav-link" href="#">FAQs</a>
 		        </li>
 		      </ul>
-		      	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAcc">
+		      	<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createAcc">
 					Create Account
 				</button>
 				<div class="modal fade" id="createAcc" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -52,7 +56,7 @@
 				  </div>
 				</div>
 
-		      	<button type="button" class="btn btn-outline-primary ms-2" data-bs-toggle="modal" data-bs-target="#login">
+		      	<button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal" data-bs-target="#login">
 					Login
 				</button>
 				<div class="modal fade" id="login" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -76,26 +80,27 @@
 		<div class="container">
 			<div class="row mb-5 p-3">
 				<div class="col-7">
-					<h1 class="text-success">
+					<h1 class="text-success mb-5">
 						<span class="heading_title">Myanmar Comics Creator? <br>Or Reader?</span>
 					</h1>
-					<p class="text-dark mb-3">
+					<p class="text-dark mb-5">
 						<span class="fs-3">Visit the best online comics library <br> for Myanmar local comics in Myanmar Language</span>
 					</p>
-					<ul class="heading_list mb-5 fs-5">
+					<!-- <ul class="heading_list mb-5 fs-5">
 						<li>Create free account</li>
 						<li>Creators can upload for free</li>
 						<li>Creators can earn income by uploading comics</li>
 						<li>Read a variety of local comics</li>
-					</ul>
-					<div>
+					</ul> -->
+					<div class="p-3"></div>
+					<div class="mt-5">
 						<button type="button" class="btn btn-success fs-4 px-4" data-bs-toggle="modal" data-bs-target="#createAcc">
 							Get Started
 						</button>
 					</div>
 				</div>
-				<div class="col-5">
-
+				<div class="col-5 pe-0">
+					<img src="imgs/4738059.png" alt="icon" width="500px" height="auto">
 				</div>
 				
 			</div>
@@ -126,7 +131,9 @@
 				</div>
 			</div>
 			<div class="row mb-5 py-5 border-bottom border-3 border-success rounded-3 bg-success">
-				<div class="col-7"></div>
+				<div class="col-7 ps-5">
+					<img class="ms-5" src="imgs/8731673.png" alt="alert" width="250px" height="auto">
+				</div>
 				<div class="col-5 mb-5 text-end pe-5">
 					<h2 class=""><span class="text-light">What's good about us?</span></h2>
 					<ul class="fs-5 list-group list-group-flush">
@@ -164,39 +171,45 @@
 					</div>
 				</div>
 			</div>
-			<div class="row mb-5 py-5">
-				<div class="col-12 mb-5"><h2 class="text-center"><span class="text-success">What are popular series right now?</span></h2></div>
+			<div class="row mb-5">
+			<div class="col-12 mb-5"><h2 class="text-center"><span class="text-success">What are our highest rated series right now?</span></h2></div>
+				<?php
+					if($ghr_rtn->num_rows == 0){
+				?>
+				<div class="col-12">
+					<div><h2>There is nothing on this page.</h2></div>
+				</div>
+				<?php		
+					}else{
+						while($highRated = mysqli_fetch_assoc($ghr_rtn)){
+							$hrSID = $highRated['series_id'];
+				?>
 				<div class="col-3">
-					<div class="bg-light rounded text-center p-3">
-						<h1 class="text-success mb-4">FREE</h1>
-						<p class="fs-4 mb-0">Creators can upload comics for free</p>
+					<div class="mb-3">
+						<div class="series-cv rounded mx-auto mb-2">
+							<a href="series.php?sid=<?php echo $hrSID; ?>" title="<?php echo $highRated['series_name']; ?>">
+								<img src="data/cv/<?php echo $highRated['cover_img']; ?>" alt="<?php echo $highRated['series_name']; ?>">
+							</a>
+						</div>
+						<div class="mx-4 px-2 mb-2 series-title">
+							<h4 class="text-dark mb-0"><?php echo $highRated['series_name']; ?></h4>
+						</div>
+						<div class="mx-4 px-2 mb-2 text-dark">
+							<i class="bi bi-eye-fill"></i> <?php echo getTotalViews($highRated['series_id']); ?>&nbsp;&nbsp; <i class="fa-solid fa-star"></i> <?php echo getSeriesRating($highRated['series_id']); ?>
+						</div>
 					</div>
 				</div>
-				<div class="col-3">
-					<div class="bg-light rounded text-center p-3">
-						<h1 class="text-success mb-4">EARN</h1>
-						<p class="fs-4  mb-0">can earn through readers' purchasement</p>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="bg-light rounded text-center p-3">
-						<h1 class="text-success mb-4">HIGH</h1>
-						<p class="fs-4 mb-0">High profit share percentage</p>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="bg-light rounded text-center p-3">
-						<h1 class="text-success mb-4">GROW</h1>
-						<p class="fs-4 mb-0">can grow in skillset and experience</p>
-					</div>
-				</div>
+				<?php
+						}
+					}
+				?>
 				<div class="col-12 text-center mt-5">
 					<button type="button" class="btn btn-success fs-4 px-4" data-bs-toggle="modal" data-bs-target="#createAcc">
 						Start reading
 					</button>
 				</div>
 			</div>
-			<div class="row mb-5 py-5">
+			<!-- <div class="row mb-5 py-5">
 				<div class="col-12 mb-5"><h2 class="text-center"><span class="text-success">What our users says about us?</span></h2></div>
 				<div class="col-3">
 					<div class="bg-light rounded text-center p-3">
@@ -220,7 +233,7 @@
 						<p class="fs-4 mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima aut ratione aliquid magni ipsum nemo vero sapiente, inventore libero? Quidem, praesentium eaque architecto assumenda distinctio animi a doloremque harum repudiandae.</p>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</section>
 	<footer class="d-flex flex-wrap bg-light justify-content-between align-items-center p-3 border-top">

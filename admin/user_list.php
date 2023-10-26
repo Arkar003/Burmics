@@ -186,7 +186,7 @@
                                                     $sts = "Banned";
                                                 }
 
-                                                $check_banned = "SELECT * FROM bannedList WHERE user_id = '$user_id' AND ban_date != '0000-00-00' AND status = 'Banned'";
+                                                $check_banned = "SELECT * FROM bannedList WHERE user_id = '$user_id' AND release_date != '0000-00-00' AND status = 'Banned'";
                                                 $cb_rtn = mysqli_query($dbconn,$check_banned);
                                                 if($cb_rtn->num_rows == 0){
                                                     $get_last = "SELECT ban_id FROM bannedList ORDER BY ban_id DESC LIMIT 1";

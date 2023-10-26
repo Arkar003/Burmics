@@ -11,6 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="../bs5.3/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../bs5.3/bootstrap-icons/font/bootstrap-icons.min.css">
 	<link rel="stylesheet" type="text/css" href="../style.css">
+	<script type="text/javascript" src="../bs5.3/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 	<div class="container-fluid">

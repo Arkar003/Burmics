@@ -77,12 +77,7 @@
                         </div>
                         <div class="modal-body text-center">
                             <?php
-                                if (isAlreadyRated($_SESSION['uid'])){
-                            ?>
-                            <h5>You have already rated our website! <br> Thank you.</h5>
-                            <?php
-                                }else 
-                                    include 'rating.php';
+                                include 'rating.php';     
                             ?>
                         </div>
                     </div>

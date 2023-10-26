@@ -249,4 +249,37 @@
         else
             return true;
     }
+    function isChapOwner($chid, $uid){
+        require 'dbconfig.php';
+        $get_cid = "SELECT S.creator_id FROM chapter C INNER JOIN series S ON C.series_id = S.series_id WHERE C.chap_id = '$chid'";
+        $rtn = mysqli_query($dbconn, $get_cid);
+        $chapID = mysqli_fetch_assoc($rtn);
+        if(getCreatorId($uid) == $chapID['creator_id'])
+            return true;
+        else
+            return false;
+    }
+    function getUserCount($year,$month,$type){
+        require 'dbconfig.php';
+        if($month == 0){
+            if($type == 'all')
+                $get_userCount = "SELECT COUNT(user_id) AS uCount FROM user WHERE YEAR(create_date) = '$year' GROUP BY YEAR(create_date)";
+            else
+                $get_userCount = "SELECT COUNT(user_id) AS uCount FROM user WHERE YEAR(create_date) = '$year' AND acc_type = '$type' GROUP BY YEAR(create_date)";
+        }    
+        else{
+            if($type == 'all')
+                $get_userCount = "SELECT COUNT(user_id) AS uCount FROM user WHERE MONTH(create_date) = '$month' AND YEAR(create_date) = '$year' GROUP BY MONTH(create_date)";
+            else
+                $get_userCount = "SELECT COUNT(user_id) AS uCount FROM user WHERE MONTH(create_date) = '$month' AND YEAR(create_date) = '$year' AND acc_type = '$type' GROUP BY MONTH(create_date)";
+        }
+            
+        $rtn = mysqli_query($dbconn, $get_userCount);
+        if($rtn->num_rows == 0)
+            return 0;
+        else{
+            $count = mysqli_fetch_assoc($rtn);
+            return $count['uCount'];
+        }
+    }
 ?>

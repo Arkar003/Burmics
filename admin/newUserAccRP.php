@@ -1,8 +1,41 @@
 <?php
-    $dataPoints = array( 
-        array("label"=>"Reader", "y"=>65),
-        array("label"=>"Creator", "y"=>35)
-    )
+    require '../dbconfig.php';
+    include_once '../controller.php';
+    date_default_timezone_set("Asia/Yangon");
+
+    $year = date('Y');
+    $month = date('m');
+
+    if(isset($_REQUEST['showReport'])){
+        $year = $_REQUEST['year'];
+        $month = $_REQUEST['month'];
+    }
+
+    $readersM = getUserCount($year, $month, 'reader');
+    $creatorsM = getUserCount($year, $month, 'creator');
+    $totalUserM = getUserCount($year, $month, 'all');
+    if($totalUserM != 0){
+        $mReaderPer = ($readersM / $totalUserM) * 100;
+        $mCreatePer = ($creatorsM / $totalUserM) * 100;
+        $noUser = 0;
+    }else{
+        $mReaderPer = 0;
+        $mCreatePer = 0;
+        $noUser = 100;
+    }
+    $piePoints = array( 
+        array("label"=>"Reader", "y"=>$mReaderPer),
+        array("label"=>"Creator", "y"=>$mCreatePer),
+        array("label"=>"no user", "y"=>$noUser)
+    );
+    $test = array();
+    for($m = 0; $m < 12; $m++){
+        $mon = $m + 1;
+        $dumb = strtotime("$year-$mon-01");
+        $monName = date('F', $dumb);
+        $test["$m"]["y"] = getUserCount($year, $mon, 'all');
+        $test["$m"]["label"] = $monName;
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,25 +50,37 @@
 	<link rel="stylesheet" type="text/css" href="../style.css">
 	<script>
 		window.onload = function() {
- 
-        
-        var chart = new CanvasJS.Chart("chartContainer", {
+        var pieChart = new CanvasJS.Chart("pieChartBox", {
             animationEnabled: true,
             title: {
-                text: "Monthly new account created report"
+                text: "Creator/Reader Ratio"
             },
-            subtitles: [{
-                text: "October 2023"
-            }],
             data: [{
                 type: "pie",
                 yValueFormatString: "#,##0.00\"%\"",
                 indexLabel: "{label} ({y})",
-                dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+                dataPoints: <?php echo json_encode($piePoints, JSON_NUMERIC_CHECK); ?>
             }]
         });
-        chart.render();
-        
+        pieChart.render();
+
+        var lineChart = new CanvasJS.Chart("chartContainer", {
+            title: {
+                text: "User population over the year"
+            },
+            axisX: {
+              labelAngle: -90,
+              interval: 1
+            },
+            axisY: {
+                title: "Number account created"
+            },
+            data: [{
+                type: "line",
+                dataPoints: <?php echo json_encode($test, JSON_NUMERIC_CHECK); ?>
+            }]
+        });
+        lineChart.render();
         }
 	</script>
 </head>
@@ -48,40 +93,72 @@
 			<div class="col-10 bg-secondary-subtle ps-0">
 				<div class="container p-5">
 					<div class="row px-4 mb-3">
-						<div class="col-12 bg-light rounded p-5">
-                            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-                            <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+                        <div class="col-12 p-1">
+                            <form method="post">
+                                <div class="d-flex justify-content-end align-items-center bg-light rounded-3 p-3">
+                                    <div class="d-inline-block me-auto">
+                                        <h4>User Population Report (<?php echo $year;?>, <?php echo ($month == 0) ? "All months" : date('F',strtotime("$year-$month-01"));?>)</h4>
+                                    </div>
+                                    <div class="d-inline-block w-10 mx-1">
+                                        <select class="form-select" name="year" id="year">
+                                            <?php
+                                                $curYear = date('Y');
+                                                $curMonth = date('m');
+                                            ?>
+                                            <option value="<?php echo $curYear; ?>">current year</option>
+                                            <?php
+                                                for($y = $curYear - 1; $y >= 2020; $y--){
+                                            ?>
+                                            <option value="<?php echo $y; ?>"><?php echo $y; ?></option>
+                                            <?php
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="d-inline-block w-10 mx-1">
+                                        <select class="form-select" name="month" id="month">
+                                            <option value="<?php echo $curMonth; ?>">current month</option>
+                                            <option value="0">all month</option>
+                                            <?php
+                                                for($x = 1; $x <= 12; $x++){
+                                                    $demo = strtotime("$curYear-$x-01");
+                                                    $monthName = date('F', $demo);
+                                            ?>
+                                            <option value="<?php echo $x; ?>"><?php echo $monthName; ?></option>
+                                            <?php
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-success mx-1" type="submit" name="showReport" id="showReport">Show</button>
+                                </div>
+                            </form>
+                        </div>
+						<div class="col-8 p-1">
+                            <div class="bg-light rounded-3 overflow-hidden p-3">
+                                <div class="mb-3" id="chartContainer" style="height: 450px; width: 100%;"></div>
+                                <div class="d-flex justify-content-center p-3">
+                                    <div class="d-inline-block"><h3>Total - <?php echo getUserCount($year,0,'all'); ?></h3></div>
+                                    <div class="d-inline-block mx-5"><h3>Readers - <?php echo getUserCount($year,0,'reader'); ?></h3></div>
+                                    <div class="d-inline-block"><h3>Creators - <?php echo getUserCount($year,0,'creator'); ?></h3></div>
+                                </div>
+                            </div>
 						</div>
+                        <div class="col-4 p-1">
+                            <div class="bg-light rounded-3 overflow-hidden p-3">
+                                <div id="pieChartBox" style="height: 375px; width: 100%;"></div>
+                                <div class="bg-white p-3 text-center"><h4><?php echo ($month == 0) ? "All months" : date('F',strtotime("$year-$month-01")); ?></h4></div>
+                                <div class="d-flex justify-content-between align-items-center p-3">
+                                    <div class="d-inline-block"><h3>Total - <?php echo getUserCount($year,$month,'all'); ?></h3></div>
+                                    <div class="d-inline-block"><h5>Readers - <?php echo getUserCount($year,$month,'reader'); ?></h5><h5>Creators - <?php echo getUserCount($year,$month,'creator'); ?></h5></div>
+                                </div>
+                            </div>
+                        </div>
 					</div>
-                    <div class="row px-4">
-                        <div class="col-4 ps-0">
-                            <div class="bg-light rounded p-3">
-                                <h4 class="text-center">This year</h4>
-                                <p>Total user - 15400</p>
-                                <p>reader - 11200</p>
-                                <p>creator - 4200</p>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                        <div class="bg-light rounded p-3">
-                                <h4 class="text-center">This month</h4>
-                                <p>Total user - 9800</p>
-                                <p>reader - 6750</p>
-                                <p>creator - 2050</p>
-                            </div>
-                        </div>
-                        <div class="col-4 pe-0">
-                        <div class="bg-light rounded p-3">
-                                <h4 class="text-center">Today</h4>
-                                <p>Total user - 30</p>
-                                <p>reader - 27</p>
-                                <p>creator - 3</p>
-                            </div>
-                        </div>
-                    </div>
 				</div>
 			</div>
 		</div>
 	</div>
+    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 </body>
 </html>

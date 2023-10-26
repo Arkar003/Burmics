@@ -19,7 +19,7 @@
     <header>
 		<?php include 'nav.php'; ?>
 	</header>
-    <section class="bg-success-subtle p-5 min-vh-100">
+    <section class="bg-success-subtle p-5 pt-3 min-vh-100">
         <div class="container">
             <div class="row mt-3">
                 <h5>Showing the results for : 
@@ -72,36 +72,6 @@
 						<div class="mx-4 px-2 mb-2 text-dark">
 							<i class="bi bi-eye-fill"></i> <?php echo getTotalViews($srcSeries['series_id']); ?>&nbsp;&nbsp; <i class="fa-solid fa-star"></i> <?php echo getSeriesRating($srcSeries['series_id']); ?>
 						</div>
-                        <?php
-                                $chk_lastCh = "SELECT * FROM chapter WHERE series_id = '$seriesID' AND (status != 'private' AND status != 'draft') ORDER BY upload_date DESC LIMIT 1";
-                                $chk_rtn = mysqli_query($dbconn, $chk_lastCh);
-                                $chapDetail = mysqli_fetch_assoc($chk_rtn);
-                                $chID = $chapDetail['chap_id'];
-                                $uID = $_SESSION['uid'];
-                                if($chapDetail['status'] == "locked"){
-                                    if(!hasBoughtEA($chID,$uID)){
-						?>
-						<div class="mx-4 rounded bg-success py-2 ps-3 ch-box">
-							<a class="text-light text-decoration-none" href="series.php?sid=<?php echo $seriesID; ?>"><h5 class="mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
-							<i class="bi bi-lock-fill lock_ic fs-5"></i>
-						</div>
-						<?php
-								    }else{
-						?>
-						<div class="mx-4 rounded bg-success py-2 ps-3 ch-box>
-							<a class="text-light text-decoration-none" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapDetail['chap_no']; ?>"><h5 class="mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
-							<i class="bi bi-unlock-fill lock_ic fs-5"></i>
-						</div>
-						<?php
-                                    }
-                                }else{
-						?>
-						<div class="mx-4 rounded bg-success py-2 ps-3 ch-box">
-							<a class="text-light text-decoration-none" href="chapter.php?sid=<?php echo $seriesID; ?>&chap=<?php echo $chapDetail['chap_no']; ?>"><h5 class="mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>
-						</div>
-						<?php
-							    }
-						?>
                     </div>
                 </div>
                 <?php
