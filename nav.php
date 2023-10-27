@@ -107,16 +107,16 @@
 						</a>
 					</li>
 					<li><hr class="dropdown-divider"></li>
-					<li><a class="dropdown-item" href="#">Setting</a></li>
-					<li><a class="dropdown-item" href="#">purchasement History</a></li>
+					<!-- <li><a class="dropdown-item" href="#">Setting</a></li> -->
 					<?php 
 						if($_SESSION['acctype'] == 'creator'){
 					?>
 					<li><a class="dropdown-item" href="#coinWithdraw" data-bs-toggle="modal">Withdraw</a></li>
-					<li><a class="dropdown-item" href="#">Withdraw history</a></li>
+					<li><a class="dropdown-item" href="withdrawHistory.php">Withdraw history</a></li>
 					<?php 
 						}
 					?>
+					<li><a class="dropdown-item" href="purchaseHistory.php">Purchasement History</a></li>
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="logout.php">logout</a></li>
 				</ul>

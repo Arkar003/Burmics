@@ -403,4 +403,11 @@
         $donation = getDonationIncome($year,$month);
         return $coinEx + $pacInc + $donation;
     }
+    function getUserIDFromChapID($chapID){
+        require 'dbconfig.php';
+        $get_uid = "SELECT R.user_id FROM series S JOIN chapter C JOIN creator R ON S.series_id = C.series_id AND S.creator_id = R.creator_id WHERE C.chap_id = '$chapID'";
+        $rtn = mysqli_query($dbconn, $get_uid);
+        $uid = mysqli_fetch_assoc($rtn);
+        return $uid['user_id'];
+    }
 ?>

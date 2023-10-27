@@ -2,8 +2,8 @@
 	session_start();
 	require 'dbconfig.php';
 	include_once 'controller.php';
-	$getHighRated = "SELECT * FROM series S INNER JOIN series_rating R ON S.series_id = R.series_id GROUP BY R.series_id ORDER BY AVG(R.rating) DESC";
-	$ghr_rtn = mysqli_query($dbconn, $getHighRated);
+	$getMostViews = "SELECT S.series_id, S.series_name, S.cover_img FROM ch_view_count V INNER JOIN chapter C INNER JOIN series S ON V.chap_id = C.chap_id AND S.series_id = C.series_id GROUP BY S.series_id ORDER BY SUM(V.views) DESC LIMIT 4";
+	$gmv_rtn = mysqli_query($dbconn, $getMostViews);
  ?>
 
 <!DOCTYPE html>
@@ -172,22 +172,22 @@
 				</div>
 			</div>
 			<div class="row mb-5">
-			<div class="col-12 mb-5"><h2 class="text-center"><span class="text-success">What are our highest rated series right now?</span></h2></div>
+			<div class="col-12 mb-5"><h2 class="text-center"><span class="text-success">Here's the most viewed series on BURMICS</span></h2></div>
 				<?php
-					if($ghr_rtn->num_rows == 0){
+					if($gmv_rtn->num_rows == 0){
 				?>
 				<div class="col-12">
 					<div><h2>There is nothing on this page.</h2></div>
 				</div>
 				<?php		
 					}else{
-						while($highRated = mysqli_fetch_assoc($ghr_rtn)){
+						while($highRated = mysqli_fetch_assoc($gmv_rtn)){
 							$hrSID = $highRated['series_id'];
 				?>
 				<div class="col-3">
 					<div class="mb-3">
 						<div class="series-cv rounded mx-auto mb-2">
-							<a href="series.php?sid=<?php echo $hrSID; ?>" title="<?php echo $highRated['series_name']; ?>">
+							<a href="#" data-bs-toggle="modal" data-bs-target="#createAcc">
 								<img src="data/cv/<?php echo $highRated['cover_img']; ?>" alt="<?php echo $highRated['series_name']; ?>">
 							</a>
 						</div>

@@ -14,14 +14,6 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="bs5.3/bootstrap-icons/font/bootstrap-icons.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script>
-		function showModal(){
-			window.onclick = function(event){
-				var modal = document.getElementById("limitModal");
-				modal.style.display = "block";
-			}
-		}
-	</script>
 </head>
 <body>
 	<header>
@@ -72,8 +64,49 @@
 
 			$getHighRated = "SELECT * FROM series S INNER JOIN series_rating R ON S.series_id = R.series_id GROUP BY R.series_id ORDER BY AVG(R.rating) DESC";
 			$ghr_rtn = mysqli_query($dbconn, $getHighRated);
+
+			$getHighestEarnChap = "SELECT L.chap_id FROM locked_chapter L JOIN ea_purchase_rec E ON l.lock_id = e.lock_id GROUP BY l.lock_id ORDER BY COUNT(E.eap_id) DESC LIMIT 3";
+			$ghec_rtn = mysqli_query($dbconn, $getHighestEarnChap);
+
 		?>
 		<div class="container">
+			<?php if($_SESSION['acctype'] == "creator"){
+			?>
+			<div class="row mb-5">
+				<div class="col-12"><div class="border-bottom border-3 border-danger mb-3"><h4>Creators with Highest earning of the month</h4></div></div>
+				<?php if($ghec_rtn->num_rows == 0){
+				?>
+				<div class="col-12"><div><h5>There is nothing to show at the moment.</h5></div></div>
+				<?php
+					}else{
+						$place = 1;
+						while($highEarnChap = mysqli_fetch_assoc($ghec_rtn)){
+							$userID = getUserIDFromChapID($highEarnChap['chap_id']);
+							$getDetail = "SELECT username, user_icon FROM user WHERE user_id = '$userID'";
+							$gD_rtn = mysqli_query($dbconn, $getDetail);
+							$details = mysqli_fetch_assoc($gD_rtn);
+				?>
+				<div class="col-4 p-3">
+					<button class="bg-light rounded border-0 p-3 w-100" type="button">
+						<div class="d-flex align-items-center">
+							<div class="d-inline-block rounded overflow-hidden me-3" style="width: 75px; height: 75px;">
+								<img src="imgs/icons/<?php echo $details['user_icon']; ?>" alt="creator-profile" class="w-100 h-100">
+							</div>
+							<div class="d-inline-block"><h5><?php echo  $details['username']; ?></h5></div>
+							<div class="d-inline-block ms-auto"><h1 class="text-success"><?php echo $place; ?></h1></div>
+						</div>
+					</button>
+				</div>
+				<?php
+							$place++;
+						}
+					}
+				?>
+			</div>
+			<?php
+				}
+			?>
+			
 			<div class="row mb-5">
 				<div class="col-12 mb-3"><div class="border-bottom border-3 border-danger mb-3"><h4>New Release</h4></div></div>
 				<?php

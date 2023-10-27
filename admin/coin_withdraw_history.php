@@ -55,22 +55,7 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                        if($fcwl_rtn->num_rows == 0){
-                                    ?>
-                                    <tr>
-                                        <td>--</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                    </tr>
-                                    <?php        
-                                        }
-                                        else{
+                                        if($fcwl_rtn->num_rows != 0){
                                             while($cwl = mysqli_fetch_assoc($fcwl_rtn)){
                                     ?>
                                     <tr>

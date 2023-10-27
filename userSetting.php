@@ -15,12 +15,29 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col-6">
-				
+	<header>
+		<?php include 'nav.php'; ?>
+	</header>
+	<section class="bg-success-subtle p-5 min-vh-100">
+		<div class="container">
+			<div class="row">
+				<div class="col-7 p-3">
+					<div class="bg-light rounded-3 p-5 py-3">
+						<h4>Profile setting</h4>
+					</div>
+				</div>
+				<div class="col-5">
+					<div class="bg-light rounded-3">
+
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
+	</section>
+	<footer>
+		<div class="container-fluid bg-body-tertiary">
+			<?php include 'footer.php'; ?>
+		</div>
+	</footer>
 </body>
 </html>
