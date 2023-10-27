@@ -1,6 +1,7 @@
 <?php
     require '../dbconfig.php';
     include_once '../controller.php';
+    session_start();
 ?>
 <!DOCTYPE html>
 <html>

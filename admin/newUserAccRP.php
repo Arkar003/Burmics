@@ -2,6 +2,7 @@
     require '../dbconfig.php';
     include_once '../controller.php';
     date_default_timezone_set("Asia/Yangon");
+    session_start();
 
     $year = date('Y');
     $month = date('m');
@@ -28,13 +29,13 @@
         array("label"=>"Creator", "y"=>$mCreatePer),
         array("label"=>"no user", "y"=>$noUser)
     );
-    $test = array();
+    $linePoints = array();
     for($m = 0; $m < 12; $m++){
         $mon = $m + 1;
         $dumb = strtotime("$year-$mon-01");
         $monName = date('F', $dumb);
-        $test["$m"]["y"] = getUserCount($year, $mon, 'all');
-        $test["$m"]["label"] = $monName;
+        $linePoints["$m"]["y"] = getUserCount($year, $mon, 'all');
+        $linePoints["$m"]["label"] = $monName;
     }
 ?>
 <!DOCTYPE html>
@@ -42,7 +43,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Admin Dashboard</title>
+	<title>REPORTS - User Population</title>
 	<link rel="stylesheet" type="text/css" href="../bs5.3/css/bootstrap.min.css">
 	<script type="text/javascript" src="../bs5.3/js/bootstrap.bundle.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -77,7 +78,7 @@
             },
             data: [{
                 type: "line",
-                dataPoints: <?php echo json_encode($test, JSON_NUMERIC_CHECK); ?>
+                dataPoints: <?php echo json_encode($linePoints, JSON_NUMERIC_CHECK); ?>
             }]
         });
         lineChart.render();

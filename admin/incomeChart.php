@@ -1,19 +1,14 @@
 <?php
-     $dataPoints = array(
-        array("x" => 1451586600000, "y" => 3289000),
-        array("x" => 1454265000000, "y" => 3830000),
-        array("x" => 1456770600000, "y" => 2009000),
-        array("x" => 1459449000000, "y" => 2840000),
-        array("x" => 1462041000000, "y" => 2396000),
-        array("x" => 1464719400000, "y" => 1613000),
-        array("x" => 1467311400000, "y" => 1821000),
-        array("x" => 1469989800000, "y" => 2000000),
-        array("x" => 1472668200000, "y" => 1397000),
-        array("x" => 1475260200000, "y" => 2506000),
-        array("x" => 1477938600000, "y" => 6704000),
-        array("x" => 1480530600000, "y" => 5704000)
-     );
-    
+	$year = date('Y');
+	$month = date('m');
+
+	$incomePoints = array();
+	for($m = 0; $m < 12; $m++){
+		$mon = $m + 1;
+		$monName = date('F', strtotime("$year-$mon-01"));
+		$incomePoints["$m"]["label"] = $monName;
+		$incomePoints["$m"]["y"] = getTotalIncome($year,$mon);
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,18 +30,14 @@
 				interval: 1
 			},
 			axisY: {
-				title: "Revenue in USD",
-				valueFormatString: "#0,,.",
-				suffix: "mn",
-				prefix: "$"
+				title: "Income in MMK",
+				valueFormatString: "#,###,###"
 			},
 			data: [{
 				type: "spline",
-				// markerSize: 5,
-				xValueFormatString: "MMMM",
-				yValueFormatString: "$#,##0.##",
-				xValueType: "dateTime",
-				dataPoints: <?php echo json_encode($dataPoints); ?>
+				markerSize: 0,
+				yValueFormatString: "#,##0.##",
+				dataPoints: <?php echo json_encode($incomePoints); ?>
 			}]
 		});
 		

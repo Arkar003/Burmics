@@ -282,4 +282,125 @@
             return $count['uCount'];
         }
     }
+    function getTotalCoins($year,$month,$type){
+        require 'dbconfig.php';
+        if($month == 0){
+            if($type == 'sold')
+                $get_Coins = "SELECT SUM(coin_amount) AS coins FROM coin_purchase_rec WHERE YEAR(confirm_date) = '$year' AND status = 'Success' GROUP BY YEAR(confirm_date)";
+            else
+                $get_Coins = "SELECT SUM(coin_amount) AS coins FROM coin_withdraw_rec WHERE YEAR(confirm_date) = '$year' AND status = 'Success' GROUP BY YEAR(confirm_date)";
+        }else{
+            if($type == 'sold')
+                $get_Coins = "SELECT SUM(coin_amount) AS coins FROM coin_purchase_rec WHERE YEAR(confirm_date) = '$year' AND MONTH(confirm_date) = '$month' AND status = 'Success' GROUP BY MONTH(confirm_date)";
+            else
+                $get_Coins = "SELECT SUM(coin_amount) AS coins FROM coin_withdraw_rec WHERE YEAR(confirm_date) = '$year' AND MONTH(confirm_date) = '$month' AND status = 'Success' GROUP BY MONTH(confirm_date)";
+        }
+        $rtn = mysqli_query($dbconn, $get_Coins);
+        if($rtn->num_rows == 0)
+            return 0;
+        else{
+            $total = mysqli_fetch_assoc($rtn);
+            return $total['coins'];
+        }
+            
+    }
+    function getPackPurcCounts($year,$month,$id){
+        require 'dbconfig.php';
+        if($month == 0){
+            if($id == "all")
+                $get_packCount = "SELECT COUNT(ppr_id) AS packs FROM package_purchase_rec WHERE YEAR(purchase_date) = '$year' GROUP BY YEAR(purchase_date)";
+            else
+                $get_packCount = "SELECT COUNT(ppr_id) AS packs FROM package_purchase_rec WHERE YEAR(purchase_date) = '$year' AND package_id = '$id' GROUP BY YEAR(purchase_date)";
+        }else{
+            if($id == "all")
+                $get_packCount = "SELECT COUNT(ppr_id) AS packs FROM package_purchase_rec WHERE YEAR(purchase_date) = '$year' AND MONTH(purchase_date) = '$month' GROUP BY YEAR(purchase_date)";
+            else
+                $get_packCount = "SELECT COUNT(ppr_id) AS packs FROM package_purchase_rec WHERE YEAR(purchase_date) = '$year' AND MONTH(purchase_date) = '$month' AND package_id = '$id' GROUP BY YEAR(purchase_date)";
+        }
+        $rtn = mysqli_query($dbconn, $get_packCount);
+        if($rtn->num_rows == 0)
+            return 0;
+        else{
+            $counts = mysqli_fetch_assoc($rtn);
+            return $counts['packs'];
+        }
+    }
+    function getCEIncome($year,$month){
+        require 'dbconfig.php';
+        if($month == 0){
+            $get_pCoins = "SELECT SUM(amount) AS cost FROM coin_purchase_rec WHERE YEAR(confirm_date) = '$year' AND status = 'Success' GROUP BY YEAR(confirm_date)";
+            $get_wCoins = "SELECT SUM(amount) AS cost FROM coin_withdraw_rec WHERE YEAR(confirm_date) = '$year' AND status = 'Success' GROUP BY YEAR(confirm_date)";
+        }else{
+            $get_pCoins = "SELECT SUM(amount) AS cost FROM coin_purchase_rec WHERE YEAR(confirm_date) = '$year' AND MONTH(confirm_date) = '$month' AND status = 'Success' GROUP BY MONTH(confirm_date)";
+            $get_wCoins = "SELECT SUM(amount) AS cost FROM coin_withdraw_rec WHERE YEAR(confirm_date) = '$year' AND MONTH(confirm_date) = '$month' AND status = 'Success' GROUP BY MONTH(confirm_date)";
+        }
+        $p_rtn = mysqli_query($dbconn, $get_pCoins);
+        $w_rtn = mysqli_query($dbconn, $get_wCoins);
+        if($p_rtn->num_rows == 0)
+            $pTotal = 0;
+        else{
+            $pPrice = mysqli_fetch_assoc($p_rtn);
+            $pTotal = $pPrice['cost'];
+        }
+
+        if($w_rtn->num_rows == 0)
+            $wTotal = 0;
+        else{
+            $wPrice = mysqli_fetch_assoc($w_rtn);
+            $wTotal = $wPrice['cost'];
+        }
+        return $pTotal - $wTotal;
+
+    }
+    function getPackIncome($year,$month,$type){
+        require 'dbconfig.php';
+        if($month == 0){
+            if($type == "all")
+                $get_packPrice = "SELECT SUM(P.price) AS price FROM package_purchase_rec R INNER JOIN package P ON R.package_id = P.package_id WHERE YEAR(purchase_date) = '$year' GROUP BY YEAR(purchase_date)";
+            else
+                $get_packPrice = "SELECT SUM(P.price) AS price FROM package_purchase_rec R INNER JOIN package P ON R.package_id = P.package_id WHERE YEAR(R.purchase_date) = '$year' AND R.package_id = '$type' GROUP BY YEAR(R.purchase_date)";
+        }else{
+            if($type == "all")
+                $get_packPrice = "SELECT SUM(P.price) AS price FROM package_purchase_rec R INNER JOIN package P ON R.package_id = P.package_id WHERE YEAR(R.purchase_date) = '$year' AND MONTH(R.purchase_date) = '$month' GROUP BY MONTH(R.purchase_date)";
+            else
+                $get_packPrice = "SELECT SUM(P.price) AS price FROM package_purchase_rec R INNER JOIN package P ON R.package_id = P.package_id WHERE YEAR(R.purchase_date) = '$year' AND MONTH(R.purchase_date) = '$month' AND R.package_id = '$type' GROUP BY MONTH(R.purchase_date)";
+        }
+        $rtn = mysqli_query($dbconn, $get_packPrice);
+
+        $get_rate = "SELECT rate_per_coin AS rate FROM exchange_rate WHERE er_type = 'PURC'";
+        $rate_rtn = mysqli_query($dbconn, $get_rate);
+        if($rtn->num_rows == 0 || $rate_rtn->num_rows == 0)
+            return 0;
+        else{
+            $total = mysqli_fetch_assoc($rtn);
+            $getRate = mysqli_fetch_assoc($rate_rtn);
+            return $total['price'] * $getRate['rate'];
+        }
+    }
+    function getDonationIncome($year, $month){
+        require 'dbconfig.php';
+        if($month == 0)
+            $get_donation = "SELECT SUM(amount) AS dc FROM donation WHERE YEAR(donate_date) = '$year' GROUP BY YEAR(donate_date)";
+        else
+            $get_donation = "SELECT SUM(amount) AS dc FROM donation WHERE YEAR(donate_date) = '$year' AND MONTH(donate_date) = '$month' GROUP BY MONTH(donate_date)";
+        $drtn = mysqli_query($dbconn, $get_donation);
+
+        $get_rate = "SELECT rate_per_coin AS rate FROM exchange_rate WHERE er_type = 'PURC'";
+        $rate_rtn = mysqli_query($dbconn, $get_rate);
+
+        if($drtn->num_rows == 0 || $rate_rtn->num_rows == 0)
+            return 0;
+        else{
+            $donCoin = mysqli_fetch_assoc($drtn);
+            $getRate = mysqli_fetch_assoc($rate_rtn);
+            return $donCoin['dc'] * $getRate['rate'];
+        }
+    }
+    function getTotalIncome($year,$month){
+        require 'dbconfig.php';
+        $coinEx = getCEIncome($year,$month);
+        $pacInc = getPackIncome($year,$month,"all");
+        $donation = getDonationIncome($year,$month);
+        return $coinEx + $pacInc + $donation;
+    }
 ?>

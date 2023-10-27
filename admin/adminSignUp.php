@@ -1,3 +1,8 @@
+<?php
+	require '../dbconfig.php';
+	date_default_timezone_set("Asia/Yangon");
+	session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,10 +102,7 @@
 			pass.classList.add(strength);
 		})
 	</script>
-	<?php 
-		require '../dbconfig.php';
-		date_default_timezone_set("Asia/Yangon");
-
+	<?php
 		if(isset($_REQUEST['register'])){
 			$name = $_REQUEST['fname'];
 			$email = $_REQUEST['sEmail'];
