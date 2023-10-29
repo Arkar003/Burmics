@@ -65,7 +65,7 @@
 			$getHighRated = "SELECT * FROM series S INNER JOIN series_rating R ON S.series_id = R.series_id GROUP BY R.series_id ORDER BY AVG(R.rating) DESC";
 			$ghr_rtn = mysqli_query($dbconn, $getHighRated);
 
-			$getHighestEarnChap = "SELECT L.chap_id FROM locked_chapter L JOIN ea_purchase_rec E ON l.lock_id = e.lock_id GROUP BY l.lock_id ORDER BY COUNT(E.eap_id) DESC LIMIT 3";
+			$getHighestEarnChap = "SELECT L.lock_id, COUNT(E.eap_id) AS times, SUM(L.price) AS total, L.chap_id, S.series_id, S.creator_id FROM ea_purchase_rec E JOIN locked_chapter L JOIN chapter C JOIN series S ON E.lock_id = L.lock_id AND L.chap_id = C.chap_id AND C.series_id = S.series_id GROUP BY S.creator_id ORDER BY SUM(L.price) DESC LIMIT 3";
 			$ghec_rtn = mysqli_query($dbconn, $getHighestEarnChap);
 
 		?>
@@ -203,7 +203,7 @@
 							$chID = $chapDetail['chap_id'];
 							$uID = $_SESSION['uid'];
 							if($chapDetail['status'] == "locked"){
-								if(!hasBoughtEA($chID,$uID)){
+								if(!hasBoughtEA($chID,$uID) && !isChapOwner($chID,$uID)){
 						?>
 						<div class="mx-4 rounded bg-success py-2 ps-3 ch-box">
 							<a class="text-light text-decoration-none" href="series.php?sid=<?php echo $seriesID; ?>"><h5 class="mb-0"><?php echo $chapDetail['chap_no']; ?></h5></a>

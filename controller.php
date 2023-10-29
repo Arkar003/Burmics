@@ -254,10 +254,17 @@
         $get_cid = "SELECT S.creator_id FROM chapter C INNER JOIN series S ON C.series_id = S.series_id WHERE C.chap_id = '$chid'";
         $rtn = mysqli_query($dbconn, $get_cid);
         $chapID = mysqli_fetch_assoc($rtn);
-        if(getCreatorId($uid) == $chapID['creator_id'])
-            return true;
-        else
+        $check_creator = "SELECT acc_type FROM user WHERE user_id = '$uid'";
+        $check_rtn = mysqli_query($dbconn, $check_creator);
+        $checker = mysqli_fetch_assoc($check_rtn);
+        if($checker['acc_type'] == "creator"){
+            if(getCreatorId($uid) == $chapID['creator_id'])
+                return true;
+            else
+                return false;
+        }else
             return false;
+        
     }
     function getUserCount($year,$month,$type){
         require 'dbconfig.php';

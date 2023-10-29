@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Admin Login page</title>
 	<link rel="stylesheet" type="text/css" href="../bs5.3/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../bs5.3/bootstrap-icons/font/bootstrap-icons.min.css">
 	<link rel="stylesheet" type="text/css" href="../style.css">
 
 </head>
@@ -21,9 +22,10 @@
 							<label class="form-label" for="semail">Email</label>
 							<input class="form-control" type="email" name="semail" id="semail">
 						</div>
-						<div class="mb-2">
+						<div class="mb-2 pw-box">
 							<label class="form-label" for="pword">Password</label>
 							<input class="form-control" type="password" name="pword" id="pword">
+							<i class="bi bi-eye-fill ic fs-4" id="show-pass"></i>
 						</div>
 						<div class="mt-5 row">
 							<div class="col">
@@ -40,7 +42,16 @@
 		</div>
 		
 	</div>
+	<script type="text/javascript">
+		var pwd = document.getElementById("pword");
+        var showPwd = document.getElementById("show-pass");
 
+        showPwd.addEventListener("click",function(){
+            this.classList.toggle("bi-eye-slash-fill");
+            var type = pwd.getAttribute("type") === "password" ?  "text" : "password";
+            pwd.setAttribute("type",type);
+        })
+	</script>
 	<?php 
 		require '../dbconfig.php';
 		session_start();

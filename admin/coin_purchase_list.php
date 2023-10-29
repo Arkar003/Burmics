@@ -85,7 +85,7 @@
                                                         <div class="modal-content">
                                                             <div class="modal-body">
                                                                 <div class="prevSsImg">
-                                                                    <img src="../data/coin_purchase/<?php echo $cpl['payment_ss']; ?>" alt="payment ss">
+                                                                    <img src="../data/coin_purchase/<?php echo $cpl['payment_ss']; ?>" alt="payment ss" style="max-height: 700px; width:350px;">
                                                                 </div>
                                                             </div>
                                                         </div>

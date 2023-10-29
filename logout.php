@@ -3,5 +3,6 @@
 
 	session_unset();
 
-	echo "<script>window.location.assign('index.php');</script>";
+	echo "<script>alert('Logout successfully.');
+	window.location.assign('index.php');</script>";
 ?>

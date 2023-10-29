@@ -111,7 +111,7 @@
 				</div>
 				<div class="text-center">
 					<button class="btn btn-outline-secondary" type="reset">Cancel</button>
-					<button class="btn btn-primary" type="submit" name="submitForm">Order</button>
+					<button class="btn btn-primary" type="submit" name="submitForm">Confirm</button>
 				</div>
 			</div>
 		</div>

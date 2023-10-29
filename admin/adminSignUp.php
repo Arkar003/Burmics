@@ -33,29 +33,29 @@
 								<div class="register-box rounded p-2">
 									<div class="mb-2">
 										<label class="form-label" for="fname">Full name</label>
-										<input class="form-control" type="text" name="fname" id="fname">
+										<input class="form-control" type="text" name="fname" id="fname" required>
 									</div>
 									<div class="mb-2">
 										<label class="form-label" for="sEmail">Email</label>
-										<input class="form-control" type="email" name="sEmail" id="sEmail">
+										<input class="form-control" type="email" name="sEmail" id="sEmail" required>
 									</div>
 									<div class="mb-2 pw-box">
 										<label class="form-label" for="pword">Password</label>
-										<input class="form-control" type="password" name="pword" id="pword">
+										<input class="form-control" type="password" name="pword" id="pword" required>
 										<i class="bi bi-eye-fill ic fs-4" id="show-pw"></i>
 									</div>
 									<div class="mb-2">
 										<label class="form-label" for="phone">Phone Number</label>
-										<input class="form-control" type="text" name="phone" id="phone">
+										<input class="form-control" type="text" name="phone" id="phone" required>
 									</div>
 
 									<div class="mb-2">
 										<label class="form-label" for="nrc">NRC Number:</label>
-										<input class="form-control" type="text" name="nrc" id="nrc">
+										<input class="form-control" type="text" name="nrc" id="nrc" required>
 									</div>
 									<div class="mb-3">
 										<label class="form-label" for="address">Enter Address :</label>
-										<textarea class="form-control" name="address" id="address" rows="3"></textarea>
+										<textarea class="form-control" name="address" id="address" rows="3" required></textarea>
 									</div>
 									<div class="mb-2 row">
 										<div class="col">
@@ -106,33 +106,57 @@
 		if(isset($_REQUEST['register'])){
 			$name = $_REQUEST['fname'];
 			$email = $_REQUEST['sEmail'];
-			$pword = md5($_REQUEST['pword']);
 			$phone = $_REQUEST['phone'];
 			$nrc = $_REQUEST['nrc'];
 			$address = $_REQUEST['address'];
 			$s_date = date('Y-m-d');
-			$f_sdata = "SELECT email, phone_no, nrc FROM staff WHERE email = '$email' OR phone_no = '$phone' OR nrc = '$nrc'";
-			$fsdata_rtn = mysqli_query($dbconn, $f_sdata);
-			if($fsdata_rtn->num_rows == 0){
-				    $fetch_sid = "SELECT staff_id FROM staff ORDER BY staff_id DESC LIMIT 1";
-					$fsid_rtn = mysqli_query($dbconn, $fetch_sid);
-					if($fsid_rtn->num_rows == 0){
-						$s_id = 'SID00001';
-					}
-					else{
-						$staff_data = mysqli_fetch_assoc($fsid_rtn);
-						$fetched_sid = $staff_data['staff_id'];
-						$s_id = ++$fetched_sid;
-					}
-					$create_staff = "INSERT INTO staff VALUES ('$s_id', '$name', '$email', '$pword', '$phone', '$nrc', '$address', '$s_date')";
-					$cs_rtn = mysqli_query($dbconn, $create_staff);
-					if($cs_rtn)
-						echo "<script>alert('Create staff acc success.');</script>";
-					else
-						echo mysqli_error($dbconn);
-			} 
-			else{
-				echo "<script>alert('Something went wrong! email, nrc or phone number already existed!');</script>";
+
+			$pw = $_REQUEST['pword'];
+            $uppercase = preg_match('@[A-Z]@', $pw);
+            $lowercase = preg_match('@[a-z]@', $pw);
+            $number    = preg_match('@[0-9]@', $pw);
+            $specialChars = preg_match('@[^\w]@', $pw);
+
+			if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($pw) < 8)
+				$pcheck = "weak";
+			else
+				$pcheck = "strong";
+
+			if (filter_var($email, FILTER_VALIDATE_EMAIL))
+				$mailCheck = "yes";
+			else
+				$mailCheck = "no";
+
+            if($pcheck == "weak") {
+                echo "<script>alert('Your password is weak. A strong password should be at least 8 characters in length and must include at least one upper case letter, one number, and one special character.')</script>";
+            }elseif($mailCheck == "no"){
+				echo "<script>alert('Your input email is not valid. Please check again!');</script>";
+			}else{
+				$pword = md5($_REQUEST['pword']);
+
+				$f_sdata = "SELECT email, phone_no, nrc FROM staff WHERE email = '$email' OR phone_no = '$phone' OR nrc = '$nrc'";
+				$fsdata_rtn = mysqli_query($dbconn, $f_sdata);
+				if($fsdata_rtn->num_rows == 0){
+						$fetch_sid = "SELECT staff_id FROM staff ORDER BY staff_id DESC LIMIT 1";
+						$fsid_rtn = mysqli_query($dbconn, $fetch_sid);
+						if($fsid_rtn->num_rows == 0){
+							$s_id = 'SID00001';
+						}
+						else{
+							$staff_data = mysqli_fetch_assoc($fsid_rtn);
+							$fetched_sid = $staff_data['staff_id'];
+							$s_id = ++$fetched_sid;
+						}
+						$create_staff = "INSERT INTO staff VALUES ('$s_id', '$name', '$email', '$pword', '$phone', '$nrc', '$address', '$s_date')";
+						$cs_rtn = mysqli_query($dbconn, $create_staff);
+						if($cs_rtn)
+							echo "<script>alert('Create staff acc success.');</script>";
+						else
+							echo mysqli_error($dbconn);
+				} 
+				else{
+					echo "<script>alert('Something went wrong! email, nrc or phone number already existed!');</script>";
+				}
 			}
 		}
 	 ?>

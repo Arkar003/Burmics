@@ -40,7 +40,7 @@
                             while($packData = mysqli_fetch_assoc($gpack_rtn)){
                     ?>
                     <div class="form-check ps-0">
-                        <input class="btn-check" type="radio" name="package" id="<?php echo $packData['package_id']; ?>" value="<?php echo $packData['package_id']; ?>" autocomplete="off">
+                        <input class="btn-check" type="radio" name="package" id="<?php echo $packData['package_id']; ?>" value="<?php echo $packData['package_id']; ?>" autocomplete="off" required>
                         <label class="btn btn-outline-primary w-100 mb-3" for="<?php echo $packData['package_id']; ?>">
                             <div class="d-flex p-2">
                                 <div class="w-50 text-start">

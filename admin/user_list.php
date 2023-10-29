@@ -151,7 +151,7 @@
                                                                     </div>
                                                                     <div class="col-12">
                                                                         <label class="form-label" for="banDura">Banning Period (in days) :</label>
-                                                                        <input class="form-control" type="number" id="banDura" name="banDura">
+                                                                        <input class="form-control" type="number" id="banDura" name="banDura" required>
                                                                     </div>
                                                                     <div class="col-12 mb-3">
                                                                         <label for="banReason" class="form-label">Give a reason</label>
@@ -201,7 +201,7 @@
                                                     $add_to_List = "INSERT INTO bannedList VALUES ('$bID','$user_id','$dura','$reason','$banDate','$releaseDate','$sts')";
                                                     $atl_rtn = mysqli_query($dbconn, $add_to_List);
 
-                                                    if($sts = "Banned"){
+                                                    if($sts == "Banned"){
                                                         $check_warning = "SELECT * FROM bannedList WHERE user_id = '$user_id' AND status = 'Warning'";
                                                         $cw_rtn = mysqli_query($dbconn, $check_warning);
                                                         if($cw_rtn->num_rows != 0){

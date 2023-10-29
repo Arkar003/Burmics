@@ -166,16 +166,16 @@
 														<form method="post">
 															<div class="mb-3">
 																<label class="form-label" for="pacName">Package name</label>
-																<input class="form-control" type="text" name="pacName" id="pacName">
+																<input class="form-control" type="text" name="pacName" id="pacName" required>
 															</div>
 															<div class="d-flex mb-3">
 																<div class="d-inline-block w-50 pe-2">
 																	<label class="form-label" for="pDura">Duration in days</label>
-																	<input class="form-control" type="number" name="pDura" id="pDura">
+																	<input class="form-control" type="number" name="pDura" id="pDura" required>
 																</div>
 																<div class="d-inline-block w-50 ps-2">
 																	<label class="form-label" for="pPrice">Price</label>
-																	<input class="form-control" type="number" name="pPrice" id="pPrice">
+																	<input class="form-control" type="number" name="pPrice" id="pPrice" required>
 																</div>
 															</div>
 															<div class="mb-3">
@@ -218,16 +218,16 @@
 														<form method="post">
 															<div class="mb-3">
 																<label class="form-label" for="pNameEd">Package name</label>
-																<input class="form-control" type="text" name="pNameEd" id="pNameEd" value="<?php echo $pacInfo['package_name']; ?>">
+																<input class="form-control" type="text" name="pNameEd" id="pNameEd" value="<?php echo $pacInfo['package_name']; ?>" required>
 															</div>
 															<div class="d-flex mb-3">
 																<div class="d-inline-block w-50 pe-2">
 																	<label class="form-label" for="pDEd">Duration in days</label>
-																	<input class="form-control" type="number" name="pDEd" id="pDEd" value="<?php echo $pacInfo['duration_day']; ?>">
+																	<input class="form-control" type="number" name="pDEd" id="pDEd" value="<?php echo $pacInfo['duration_day']; ?>" required>
 																</div>
 																<div class="d-inline-block w-50 ps-2">
 																	<label class="form-label" for="pPrEd">Price</label>
-																	<input class="form-control" type="number" name="pPrEd" id="pPrEd" value="<?php echo $pacInfo['price']; ?>">
+																	<input class="form-control" type="number" name="pPrEd" id="pPrEd" value="<?php echo $pacInfo['price']; ?>" required>
 																</div>
 															</div>
 															<div class="mb-3">
@@ -291,15 +291,15 @@
 														<form method="post">
 															<div class="mb-3">
 																<label class="form-label" for="pmethod">Payment method</label>
-																<input class="form-control" type="text" name="pmethod" id="pmethod">
+																<input class="form-control" type="text" name="pmethod" id="pmethod" required>
 															</div>
 															<div class="mb-3">
 																<label class="form-label" for="holder">Account holder name</label>
-																<input class="form-control" type="text" name="holder" id="holder">
+																<input class="form-control" type="text" name="holder" id="holder" required>
 															</div>
 															<div class="mb-3">
 																<label class="form-label" for="accNumb">Account number</label>
-																<input class="form-control" type="text" name="accNumb" id="accNumb">
+																<input class="form-control" type="text" name="accNumb" id="accNumb" required>
 															</div>
 															<div class="mb-3">
 																<button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">Cancel</button>

@@ -2,6 +2,8 @@
     require 'dbconfig.php';
 	include 'controller.php';
     session_start();
+    
+    $uID = $_SESSION['uid'];
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,8 +23,8 @@
     <section class="bg-success-subtle pt-5 min-vh-100">
         <div class="container">
             <div class="row">
+                <div class="col-12 mb-5 border-bottom border-3 border-danger"><h3><?php echo getUserName($uID); ?>'s Library</h3></div>
                 <?php
-                    $uID = $_SESSION['uid'];
                     $get_lib = "SELECT * FROM library WHERE user_id = '$uID'";
                     $gl_rtn = mysqli_query($dbconn,$get_lib);
                     $library = mysqli_fetch_assoc($gl_rtn);
@@ -46,7 +48,7 @@
 							</a>
                         </div>
                         <div class="series-title mx-4 mb-2">
-                            <h4 class="text-light mb-0"><?php echo $sDetail['series_name']; ?></h4>
+                            <h4 class="text-dark mb-0"><?php echo $sDetail['series_name']; ?></h4>
                         </div>
                     </div>
                 </div>

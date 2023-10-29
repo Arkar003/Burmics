@@ -57,21 +57,21 @@
                     type: "line",
                     markerSize: 0,
                     showInLegend: true,
-                    name: "1 Day Pack",
+                    name: "7-Days Pack",
                     dataPoints: <?php echo json_encode($pack1Points, JSON_NUMERIC_CHECK); ?>
                 },
                 {
                     type: "line",
                     markerSize: 0,
                     showInLegend: true,
-                    name: "3 Days Pack",
+                    name: "14-Days Pack",
                     dataPoints: <?php echo json_encode($pack2Points, JSON_NUMERIC_CHECK); ?>
                 },
                 {
                     type: "line",
                     markerSize: 0,
                     showInLegend: true,
-                    name: "7 Days Pack",
+                    name: "1-month Pack",
                     dataPoints: <?php echo json_encode($pack3Points, JSON_NUMERIC_CHECK); ?>
                 }]
             });
@@ -118,9 +118,9 @@
 						<div class="col-12 bg-light rounded p-3">
                             <div class="mb-3" id="chartContainer" style="height: 450px; width: 100%;"></div>
                             <div class="d-flex justify-content-around">
-                                <div class="d-inline-block"><h3>Total 1 Day Pack - <?php echo getPackPurcCounts($year,0,"PAC00001"); ?></h3></div>
-                                <div class="d-inline-block"><h3>Total 3 Days Pack - <?php echo getPackPurcCounts($year,0,"PAC00002");?></h3></div>
-                                <div class="d-inline-block"><h3>Total 7 Days Pack - <?php echo getPackPurcCounts($year,0,"PAC00003");?></h3></div>
+                                <div class="d-inline-block"><h3>Total 7-Days Pack - <?php echo getPackPurcCounts($year,0,"PAC00001"); ?></h3></div>
+                                <div class="d-inline-block"><h3>Total 14-Days Pack - <?php echo getPackPurcCounts($year,0,"PAC00002");?></h3></div>
+                                <div class="d-inline-block"><h3>Total 1-Month Pack - <?php echo getPackPurcCounts($year,0,"PAC00003");?></h3></div>
                             </div>
 						</div>
 					</div>

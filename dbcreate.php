@@ -1,27 +1,18 @@
 <?php 
 	$dbconn = mysqli_connect("localhost","root","");
-
-	//creating database
-	$dbcreate = "CREATE DATABASE IF NOT EXISTS burmics";
+	
+	$dbcreate = "CREATE DATABASE IF NOT EXISTS burmics";//creating database
 	$dbcreate_rtn = mysqli_query($dbconn, $dbcreate);
-
-
-	//selecting database
 	mysqli_select_db($dbconn, 'burmics');
 
 	//creating tables
-
-	//wallet table
-	$wallet_tb = "CREATE TABLE IF NOT EXISTS wallet
-	(
+	$wallet_tb = "CREATE TABLE IF NOT EXISTS wallet(
 		wallet_id CHAR(8) NOT NULL PRIMARY KEY,
 		amount INT(7) NOT NULL DEFAULT 0
 	)";
 	$wallet_tb_rtn = mysqli_query($dbconn, $wallet_tb);
 
-	//package table
-	$package_tb = "CREATE TABLE IF NOT EXISTS package
-	(
+	$package_tb = "CREATE TABLE IF NOT EXISTS package(
 		package_id CHAR(8) NOT NULL PRIMARY KEY,
 		package_name VARCHAR(20),
 		duration_day INT(2) NOT NULL,
@@ -29,7 +20,6 @@
 	)";
 	$package_tb_rtn = mysqli_query($dbconn, $package_tb);
 
-	//payment method table
 	$payMethod_tb = "CREATE TABLE IF NOT EXISTS payment_method(
 		pm_id CHAR(4) NOT NULL PRIMARY KEY,
 		payment_method VARCHAR(20) NOT NULL,
@@ -42,11 +32,9 @@
 		er_type CHAR(4) NOT NULL PRIMARY KEY,
 		rate_per_coin INT(6)
 	)";
-	$er_tb_rtn = mysqli_query($dbconn, $er_tb); //creating exchange rate Table
+	$er_tb_rtn = mysqli_query($dbconn, $er_tb);
 
-	//staff table
-	$staff_tb = "CREATE TABLE IF NOT EXISTS staff
-	(
+	$staff_tb = "CREATE TABLE IF NOT EXISTS staff(
 		staff_id CHAR(8) NOT NULL PRIMARY KEY,
 		full_name VARCHAR(50) NOT NULL,
 		email VARCHAR(50) NOT NULL,
@@ -58,9 +46,7 @@
 	)";
 	$staff_tb_rtn = mysqli_query($dbconn, $staff_tb);
 
-	//user table
-	$user_tb = "CREATE TABLE IF NOT EXISTS user
-	(
+	$user_tb = "CREATE TABLE IF NOT EXISTS user(
 		user_id CHAR(8) NOT NULL PRIMARY KEY,
 		username VARCHAR(30) NOT NULL,
 		user_icon VARCHAR(30) DEFAULT 'defIcon.png',
@@ -75,9 +61,7 @@
 	)";
 	$user_tb_rtn = mysqli_query($dbconn, $user_tb);
 
-	//creator table
-	$creator_tb = "CREATE TABLE IF NOT EXISTS creator
-	(
+	$creator_tb = "CREATE TABLE IF NOT EXISTS creator(
 		creator_id CHAR(8) NOT NULL PRIMARY KEY,
 		user_id CHAR(8),
 		phone_no VARCHAR(13),
@@ -97,9 +81,7 @@
 	)";
 	$banTb_rtn = mysqli_query($dbconn, $banList_tb);
 
-	//series table
-	$series_tb = "CREATE TABLE IF NOT EXISTS series
-	(
+	$series_tb = "CREATE TABLE IF NOT EXISTS series(
 		series_id CHAR(8) NOT NULL PRIMARY KEY,
 		creator_id CHAR(8),
 		series_name VARCHAR(50) NOT NULL,
@@ -117,10 +99,7 @@
 	)";
 	$series_tb_rtn = mysqli_query($dbconn, $series_tb);
 
-
-	//chapter table
-	$chapter_tb = "CREATE TABLE IF NOT EXISTS chapter
-	(
+	$chapter_tb = "CREATE TABLE IF NOT EXISTS chapter(
 		chap_id CHAR(8) NOT NULL PRIMARY KEY,
 		series_id CHAR(8),
 		chap_no VARCHAR(11) NOT NULL,
@@ -133,8 +112,7 @@
 	)";
 	$chapter_tb_rtn = mysqli_query($dbconn, $chapter_tb);
 
-	$chap_view = "CREATE TABLE IF NOT EXISTS ch_view_count
-	(
+	$chap_view = "CREATE TABLE IF NOT EXISTS ch_view_count(
 		vc_id CHAR(8) NOT NULL PRIMARY KEY,
 		chap_id CHAR(8),
 		views INT(8) DEFAULT 0,
@@ -143,9 +121,7 @@
 	)";
 	$ch_view_rtn = mysqli_query($dbconn, $chap_view);
 
-	//series rating table
-	$rating_tb = "CREATE TABLE IF NOT EXISTS series_rating
-	(
+	$rating_tb = "CREATE TABLE IF NOT EXISTS series_rating(
 		rate_id CHAR(8) NOT NULL PRIMARY KEY,
 		user_id CHAR(8),
 		series_id CHAR(8),
@@ -164,7 +140,6 @@
 		FOREIGN KEY(user_id) REFERENCES user(user_id))";
 	$rtb_rtn = mysqli_query($dbconn,$rate_tb);
 
-	// library table
 	$library_tb = "CREATE TABLE IF NOT EXISTS library
 	(
 		lib_id CHAR(8) NOT NULL PRIMARY KEY,
@@ -174,10 +149,7 @@
 	)";
 	$library_tb_rtn = mysqli_query($dbconn, $library_tb);
 
-
-	//chap_read_track table
-	$crt_tb = "CREATE TABLE IF NOT EXISTS chap_read_track
-	(
+	$crt_tb = "CREATE TABLE IF NOT EXISTS chap_read_track(
 		crt_id CHAR(8) NOT NULL PRIMARY KEY,
 		user_id CHAR(8),
 		chap_id CHAR(8),
@@ -186,9 +158,8 @@
 		FOREIGN KEY(chap_id) REFERENCES chapter(chap_id)
 	)";
 	$crt_tb_rtn = mysqli_query($dbconn, $crt_tb);
-	//locked_chap table
-	$lc_tb = "CREATE TABLE IF NOT EXISTS locked_chapter
-	(
+
+	$lc_tb = "CREATE TABLE IF NOT EXISTS locked_chapter(
 		lock_id CHAR(8) NOT NULL PRIMARY KEY,
 		chap_id CHAR(8),
 		price INT(3) NOT NULL,
@@ -197,9 +168,8 @@
 		FOREIGN KEY(chap_id) REFERENCES chapter(chap_id)
 	)";
 	$lc_tb_rtn = mysqli_query($dbconn, $lc_tb);
-	//early access purchase table
-	$ea_tb = "CREATE TABLE IF NOT EXISTS ea_purchase_rec
-	(
+
+	$ea_tb = "CREATE TABLE IF NOT EXISTS ea_purchase_rec(
 		eap_id CHAR(8) NOT NULL PRIMARY KEY,
 		user_id CHAR(8),
 		lock_id CHAR(8),
@@ -208,9 +178,8 @@
 		FOREIGN KEY(lock_id) REFERENCES locked_chapter(lock_id)
 	)";
 	$ea_tb_rtn = mysqli_query($dbconn, $ea_tb);
-	//package purchase table
-	$pp_tb = "CREATE TABLE IF NOT EXISTS package_purchase_rec
-	(
+
+	$pp_tb = "CREATE TABLE IF NOT EXISTS package_purchase_rec(
 		ppr_id CHAR(8) NOT NULL PRIMARY KEY,
 		user_id CHAR(8),
 		package_id CHAR(8),
@@ -220,9 +189,8 @@
 		FOREIGN KEY(package_id) REFERENCES package(package_id)
 	)";
 	$pp_tb_rtn = mysqli_query($dbconn, $pp_tb);
-	//donation table
-	$donate_tb = "CREATE TABLE IF NOT EXISTS donation
-	(
+
+	$donate_tb = "CREATE TABLE IF NOT EXISTS donation(
 		donation_id CHAR(8) NOT NULL PRIMARY KEY,
 		user_id CHAR(8),
 		amount INT(7),
@@ -230,9 +198,8 @@
 		FOREIGN KEY(user_id) REFERENCES user(user_id)
 	)";
 	$donate_tb_rtn = mysqli_query($dbconn, $donate_tb);
-	//coin_purchase_rec table
-	$cp_tb = "CREATE TABLE IF NOT EXISTS coin_purchase_rec
-	(
+
+	$cp_tb = "CREATE TABLE IF NOT EXISTS coin_purchase_rec(
 		cpr_id CHAR(10) NOT NULL PRIMARY KEY,
 		user_id CHAR(8),
 		coin_amount INT(7) NOT NULL,
@@ -248,9 +215,8 @@
 		FOREIGN KEY(pm_id) REFERENCES payment_method(pm_id)
 	)";
 	$cp_tb_rtn = mysqli_query($dbconn, $cp_tb);
-	//withdrawal_rec
-	$withdraw_tb = "CREATE TABLE IF NOT EXISTS coin_withdraw_rec
-	(
+
+	$withdraw_tb = "CREATE TABLE IF NOT EXISTS coin_withdraw_rec(
 		w_id CHAR(8) NOT NULL PRIMARY KEY,
 		creator_id CHAR(8),
 		coin_amount INT(6),
@@ -267,6 +233,4 @@
 		FOREIGN KEY(pm_id) REFERENCES payment_method(pm_id)
 	)";
 	$withdraw_tb_rtn = mysqli_query($dbconn, $withdraw_tb);
-
-
  ?>

@@ -3,5 +3,6 @@
 
 	session_unset();
 
-	echo "<script>window.location.assign('adminLogin.php');</script>";
+	echo "<script>alert('Admin Logout successfully.');
+	window.location.assign('adminLogin.php');</script>";
 ?>

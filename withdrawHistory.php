@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BURMCIS - Coin Purhcase History</title>
+    <title>BURMCIS - Coin Withdraw History</title>
     <link rel="stylesheet" type="text/css" href="../bs5.3/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="../bs5.3/bootstrap-icons/font/bootstrap-icons.css">
@@ -40,10 +40,10 @@
     <section class="bg-success-subtle pt-3 min-vh-100">
 		<div class="container-fluid px-3">
             <div class="row">
-                <div class="col-12 mb-4"><h2 class="text-center text-success">Purchasement History</h2></div>
+                <div class="col-12 mb-4"><h2 class="text-center text-success">Withdrawal History</h2></div>
                 <div class="col-12">
                     <div class="bg-light p-3 rounded-2 h-100">
-                        <div class="mb-3 pb-2 border-bottom"><h3>Coin Purchasement</h3></div>
+                        <div class="mb-3 pb-2 border-bottom"><h3>Coin Withdraw</h3></div>
                         <table id="user_purc_history" class="table table-striped align-middle text-center">
                             <thead>
                                 <tr>

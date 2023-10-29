@@ -249,7 +249,8 @@
 				}
 				else
 					echo mysqli_error($dbconn);
-			}
+			}else
+				echo "<script>alert('Series with this name already existed. Try with another one.')</script>";
 		}
 
 	 ?>

@@ -65,7 +65,7 @@
 			}
 			else
 
-				echo "<script>alert('Login fail.');</script>";
+				echo "<script>alert('Login fail. Incorrect username or incorrect password. Please try again!');</script>";
 
 		}
 	 ?>

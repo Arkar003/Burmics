@@ -42,7 +42,7 @@
 			<div class="mb-3 row">
 				<div class="col-5">
 					<div class="input-group">
-						<input class="form-control" type="number" name="coin_amt" id="coin_amt" oninput="calMMK('<?php echo $rateInfo['rate_per_coin']; ?>')">
+						<input class="form-control" type="number" name="coin_amt" id="coin_amt" oninput="calMMK('<?php echo $rateInfo['rate_per_coin']; ?>')" min="1" required>
 						<span class="input-group-text" for="coin_amt">Coins</span>
 					</div>
 				</div>
@@ -93,7 +93,7 @@
 			<div class="mb-3 row">
 				<div>
 					<label class="form-label" for="payss">Upload screenshot of paycheck</label>
-					<input class="form-control" type="file" name="payss" id="payss" accept="image/*">
+					<input class="form-control" type="file" name="payss" id="payss" accept="image/*" required>
 				</div>
 			</div>
 			<div class="mb-3 row">

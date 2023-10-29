@@ -51,7 +51,7 @@
                                         <th>Release Date</th>
                                         <th>Duration</th>
                                         <th>Reason</th>
-                                        <th>Action</th>
+                                        <th style="width: 185px">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -105,7 +105,7 @@
                                                                     </div>
                                                                     <div class="col-12">
                                                                         <label class="form-label" for="editBanDura">Banning Period (in days) :</label>
-                                                                        <input class="form-control" type="number" id="editBanDura" name="editBanDura" value="<?php echo $bUsers['period']; ?>">
+                                                                        <input class="form-control" type="number" id="editBanDura" name="editBanDura" value="<?php echo $bUsers['period']; ?>" required>
                                                                     </div>
                                                                     <div class="col-12 mb-3">
                                                                         <label for="editReason" class="form-label">Reason</label>
