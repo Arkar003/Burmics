@@ -107,7 +107,6 @@
 						</a>
 					</li>
 					<li><hr class="dropdown-divider"></li>
-					<!-- <li><a class="dropdown-item" href="#">Setting</a></li> -->
 					<?php 
 						if($_SESSION['acctype'] == 'creator'){
 					?>

@@ -1,5 +1,4 @@
 <?php
-	// session_start();
 	include_once '../controller.php';
 ?>
 <div class="border-bottom p-3">

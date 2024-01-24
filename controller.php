@@ -4,40 +4,35 @@
         $fetch_cid = "SELECT creator_id FROM creator WHERE user_id = '$user_id'";
         $fet_rtn = mysqli_query($dbconn, $fetch_cid);
         $c_info = mysqli_fetch_assoc($fet_rtn);
-        $cid = $c_info['creator_id'];
-        return $cid;
+        return $c_info['creator_id'];
     }
     function getUserId($creator_id){
         require 'dbconfig.php';
         $fet_uid = "SELECT user_id FROM creator WHERE creator_id = '$creator_id'";
         $fui_rtn = mysqli_query($dbconn, $fet_uid);
         $u_info = mysqli_fetch_assoc($fui_rtn);
-        $uid = $u_info['user_id'];
-        return $uid;
+        return $u_info['user_id'];
     }
     function getUserName($user_id){
         require 'dbconfig.php';
         $fet_uname = "SELECT username FROM user WHERE user_id = '$user_id'";
         $fu_rtn = mysqli_query($dbconn, $fet_uname);
         $u_info = mysqli_fetch_assoc($fu_rtn);
-        $uName = $u_info['username'];
-        return $uName;
+        return $u_info['username'];
     }
     function getStaffName($staff_id){
         require 'dbconfig.php';
         $fet_sname = "SELECT full_name FROM staff WHERE staff_id = '$staff_id'";
         $fs_rtn = mysqli_query($dbconn, $fet_sname);
         $s_info = mysqli_fetch_assoc($fs_rtn);
-        $sName = $s_info['full_name'];
-        return $sName;
+        return $s_info['full_name'];
     }
     function getCoins($user_id){
         require 'dbconfig.php';
         $fet_wall = "SELECT W.amount FROM wallet W INNER JOIN user U ON W.wallet_id = U.wallet_id WHERE U.user_id = '$user_id'";
         $fw_rtn = mysqli_query($dbconn, $fet_wall);
         $wallInfo = mysqli_fetch_assoc($fw_rtn);
-        $coins = $wallInfo['amount'];
-        return $coins;
+        return $wallInfo['amount'];
     }
     function getLastChap($sid){
         require 'dbconfig.php';

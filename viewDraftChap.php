@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+	require 'dbconfig.php';
 	include_once 'controller.php';
 		
  ?>
@@ -9,11 +10,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>View Draft chapters</title>
-	<!-- <link rel="stylesheet" type="text/css" href="bs5.3/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="bs5.3/bootstrap-icons/font/bootstrap-icons.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> -->
 </head>
 <body>
 	<header>
@@ -21,8 +17,6 @@
 	</header>
 
 	<?php 
-		require 'dbconfig.php';
-
 		$uid = $_SESSION['uid'];
 		$cID = getCreatorId($uid);
 
@@ -63,30 +57,18 @@
 					<?php 
 						if($fdCh_rtn->num_rows == 0){
 					?>
-					<tr>
-						<td colspan="5" class="text-center">Nothing to show here!</td>
-					</tr>
+					<tr><td colspan="5" class="text-center">Nothing to show here!</td></tr>
 					<?php
 						}
 						else{
 							while($chData = mysqli_fetch_assoc($fdCh_rtn)){
 					?>
 					<tr>
-						<td>
-							<?php echo $chData['series_name']; ?>
-						</td>
-						<td>
-							<?php echo $chData['chap_no']; ?>
-						</td>
-						<td>
-							<?php echo $chData['chap_name']; ?>
-						</td>
-						<td>
-							<?php echo $chData['upload_date']; ?>
-						</td>
-						<td>
-							<button class="btn btn-primary" type="button" onclick="window.location.href='editChapter.php?sid=<?php echo $chData['series_id']; ?>&cid=<?php echo $chData['chap_id']; ?>'">Edit</button>
-						</td>
+						<td><?php echo $chData['series_name']; ?></td>
+						<td><?php echo $chData['chap_no']; ?></td>
+						<td><?php echo $chData['chap_name']; ?></td>
+						<td><?php echo $chData['upload_date']; ?></td>
+						<td><button class="btn btn-primary" type="button" onclick="window.location.href='editChapter.php?sid=<?php echo $chData['series_id']; ?>&cid=<?php echo $chData['chap_id']; ?>'">Edit</button></td>
 					</tr>
 					<?php			
 							}
@@ -96,36 +78,5 @@
 			</table>
 		</div>
 	</div>
-	<script>
-			function deleteChapter(chapterId){
-				var chapId = chapterId;
-
-				$.ajax({
-                    url: 'deleteFunction.php',
-                    type: 'POST',
-                    data: { id: chapId },
-                    success: function(response) {
-                        alert(response);
-                    }
-                });
-
-                location.assign('viewDraftChap.php');
-			}
-
-			function updateChapter(chapterId){
-				var chapId = chapterId;
-
-				$.ajax({
-                    url: 'updateFunction.php',
-                    type: 'POST',
-                    data: { id: chapId },
-                    success: function(response) {
-                        alert(response);
-                    }
-                });
-
-                location.assign('viewDraftChap.php');
-			}
-		</script>
 </body>
 </html>

@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Series Ratings</title>
+    <title>Ratings</title>
     <link rel="stylesheet" type="text/css" href="bs5.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- <script type="text/javascript" src="bs5.3/js/bootstrap.bundle.min.js"></script> -->
 </head>
 <body>
     <div class="rate-container bg-secondary-subtle py-3 rounded">
